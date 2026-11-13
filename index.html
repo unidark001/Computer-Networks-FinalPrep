@@ -55,6 +55,8 @@
             --progress-low: #dc3545;
             --progress-medium: #d99a00;
             --progress-high: #198754;
+            --scrollbar-track: #e8edf2;
+            --scrollbar-thumb: #aab5bf;
         }
 
         body[data-theme="dark"] {
@@ -91,6 +93,8 @@
             --progress-low: #f16b78;
             --progress-medium: #f0bf4c;
             --progress-high: #42bd82;
+            --scrollbar-track: #101d30;
+            --scrollbar-thumb: #38536e;
         }
 
         * { box-sizing: border-box; }
@@ -150,17 +154,68 @@
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
+        .quiz-main {
+            max-width: 1440px;
+        }
+
         .quiz-layout {
             display: grid;
-            grid-template-columns: 260px minmax(0, 1fr);
+            grid-template-columns: 270px minmax(0, 1fr);
             align-items: start;
             gap: 1.25rem;
+            transition: grid-template-columns 0.25s ease;
+        }
+
+        .quiz-layout.sidebar-collapsed {
+            grid-template-columns: 54px minmax(0, 1fr);
         }
 
         .module-sidebar {
             position: sticky;
             top: 5.5rem;
             min-width: 0;
+        }
+
+        .module-sidebar-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0 0.2rem;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .sidebar-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--panel);
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--primary-soft);
+            border-color: var(--primary);
+        }
+
+        .sidebar-toggle svg {
+            width: 1rem;
+            height: 1rem;
+            transition: transform 0.25s ease;
+        }
+
+        .module-sidebar.collapsed .sidebar-toggle svg {
+            transform: rotate(180deg);
         }
 
         .module-strip {
@@ -175,6 +230,36 @@
             border: 1px solid var(--border);
             box-shadow: 0 1px 3px rgba(33, 37, 41, 0.08);
             border-radius: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+
+        .module-strip::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .module-strip::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 999px;
+        }
+
+        .module-strip::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border: 2px solid var(--scrollbar-track);
+            border-radius: 999px;
+        }
+
+        .module-strip::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .module-sidebar.collapsed .module-sidebar-heading {
+            justify-content: center;
+        }
+
+        .module-sidebar.collapsed .module-sidebar-title,
+        .module-sidebar.collapsed .module-strip {
+            display: none;
         }
 
         .module-strip .module-tab {
@@ -352,14 +437,49 @@
 
         .question-shell {
             display: grid;
-            grid-template-columns: 220px minmax(0, 1fr);
-            gap: 1rem;
+            grid-template-columns: 190px minmax(0, 1fr);
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(33, 37, 41, 0.08);
             overflow: hidden;
             margin-bottom: 1.2rem;
+        }
+
+        .question-shell.question-enter-next {
+            animation: question-enter-next 0.28s ease-out both;
+        }
+
+        .question-shell.question-enter-previous {
+            animation: question-enter-previous 0.28s ease-out both;
+        }
+
+        .question-shell.question-enter-module {
+            animation: question-enter-module 0.32s ease-out both;
+        }
+
+        .question-shell.question-enter-answer {
+            animation: question-enter-answer 0.24s ease-out both;
+        }
+
+        @keyframes question-enter-next {
+            from { opacity: 0; transform: translateX(16px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes question-enter-previous {
+            from { opacity: 0; transform: translateX(-16px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes question-enter-module {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes question-enter-answer {
+            from { opacity: 0.65; }
+            to { opacity: 1; }
         }
 
         .question-status {
@@ -485,6 +605,10 @@
             color: var(--success-text);
         }
 
+        .option-item.correct.answer-reveal {
+            animation: answer-correct 0.42s ease-out both;
+        }
+
         .option-item.correct .option-letter {
             background: var(--success-border);
             border-color: var(--success-border);
@@ -495,6 +619,24 @@
             background: var(--danger-bg);
             border-color: var(--danger-border);
             color: var(--danger-text);
+        }
+
+        .option-item.wrong.answer-reveal {
+            animation: answer-wrong 0.42s ease-out both;
+        }
+
+        @keyframes answer-correct {
+            0% { opacity: 0.65; transform: scale(0.985); }
+            65% { opacity: 1; transform: scale(1.012); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes answer-wrong {
+            0% { opacity: 0.65; transform: translateX(0); }
+            25% { opacity: 1; transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
         }
 
         .option-item.wrong .option-letter {
@@ -541,6 +683,9 @@
             .quiz-layout {
                 grid-template-columns: minmax(0, 1fr);
             }
+            .quiz-layout.sidebar-collapsed {
+                grid-template-columns: minmax(0, 1fr);
+            }
             .module-sidebar {
                 position: static;
             }
@@ -553,6 +698,15 @@
             .question-status {
                 border-right: none;
                 border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -570,10 +724,18 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
-        <div class="quiz-layout">
+    <main class="quiz-main mx-auto w-full p-4 flex-grow my-6">
+        <div class="quiz-layout" id="quiz-layout">
             <aside class="module-sidebar" aria-label="Lecture modules">
-                <nav class="module-strip" aria-label="Choose a lecture">
+                <div class="module-sidebar-heading">
+                    <span class="module-sidebar-title">Modules</span>
+                    <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="module-strip" aria-expanded="true" aria-label="Collapse module list" title="Collapse module list">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="module-strip" id="module-strip" aria-label="Choose a lecture">
                     <button onclick="switchModule(1)" id="tab-1" class="module-tab active" type="button">Mod 1 (Intro)</button>
                     <button onclick="switchModule(2)" id="tab-2" class="module-tab" type="button">Mod 2 (Switching/CLI)</button>
                     <button onclick="switchModule(3)" id="tab-3" class="module-tab" type="button">Mod 3 (Protocols)</button>
@@ -3051,6 +3213,17 @@
             });
         }
 
+        function toggleModuleSidebar() {
+            const sidebar = document.querySelector('.module-sidebar');
+            const layout = document.getElementById('quiz-layout');
+            const toggle = document.getElementById('sidebar-toggle');
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            layout.classList.toggle('sidebar-collapsed', isCollapsed);
+            toggle.setAttribute('aria-expanded', String(!isCollapsed));
+            toggle.setAttribute('aria-label', isCollapsed ? 'Expand module list' : 'Collapse module list');
+            toggle.title = isCollapsed ? 'Expand module list' : 'Collapse module list';
+        }
+
         function startTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -3061,9 +3234,9 @@
             }, 1000);
         }
 
-        function switchModule(modNum) {
+        function switchModule(modNum, questionIndex = 0, animation = 'module') {
             currentModule = modNum;
-            currentQuestionIndex = 0;
+            currentQuestionIndex = questionIndex;
 
             document.querySelectorAll('.module-tab').forEach(btn => {
                 btn.classList.remove('active');
@@ -3074,19 +3247,20 @@
             }
 
             updateModuleProgress();
-            renderQuestion();
+            renderQuestion(animation);
         }
 
-        function renderQuestion() {
+        function renderQuestion(animation = 'none') {
             const container = document.getElementById('quiz-container');
             const questions = quizData[currentModule];
             const q = questions[currentQuestionIndex];
             const savedAnswer = userAnswers[currentModule][currentQuestionIndex];
             const isFlagged = flaggedQuestions[currentModule][currentQuestionIndex] || false;
             const alphabetLabels = ['a.', 'b.', 'c.', 'd.', 'e.'];
+            const animationClass = animation === 'none' ? '' : ` question-enter-${animation}`;
 
             let html = `
-                <div class="question-shell">
+                <div class="question-shell${animationClass}">
                     <aside class="question-status">
                         <div class="question-number">Question ${currentQuestionIndex + 1}</div>
                         <div class="status-block">
@@ -3114,6 +3288,9 @@
                         optionClass += ' wrong';
                     } else {
                         optionClass += ' disabled';
+                    }
+                    if (animation === 'answer' && (idx === q.correct || idx === savedAnswer)) {
+                        optionClass += ' answer-reveal';
                     }
                 }
 
@@ -3150,7 +3327,7 @@
 
         function selectOption(optIndex) {
             userAnswers[currentModule][currentQuestionIndex] = optIndex;
-            renderQuestion();
+            renderQuestion('answer');
         }
 
         function toggleFlag() {
@@ -3163,7 +3340,7 @@
             const questions = quizData[currentModule];
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
-                renderQuestion();
+                renderQuestion('next');
             } else {
                 const moduleKeys = Object.keys(quizData).map(Number);
                 const currentIdx = moduleKeys.indexOf(currentModule);
@@ -3178,15 +3355,13 @@
         function prevQuestion() {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
-                renderQuestion();
+                renderQuestion('previous');
             } else {
                 const moduleKeys = Object.keys(quizData).map(Number);
                 const currentIdx = moduleKeys.indexOf(currentModule);
                 if (currentIdx > 0) {
                     const prevMod = moduleKeys[currentIdx - 1];
-                    switchModule(prevMod);
-                    currentQuestionIndex = quizData[prevMod].length - 1;
-                    renderQuestion();
+                    switchModule(prevMod, quizData[prevMod].length - 1, 'previous');
                 }
             }
         }
@@ -3270,6 +3445,7 @@
 
         applyTheme(savedTheme || 'light');
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('sidebar-toggle').addEventListener('click', toggleModuleSidebar);
 
         initializeModuleSidebar();
         updateModuleProgress();
