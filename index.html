@@ -43,12 +43,17 @@
             --tab-bg: #e8edf6;
             --tab-active: linear-gradient(135deg, #0c7ec9 0%, #0f5ea8 100%);
             --tab-ink: #13314d;
+            --header-bg: rgba(255,255,255,0.85);
+            --header-ink: #0f172a;
+            --module-panel: #ffffff;
+            --module-panel-ink: #1f2937;
+            --timer-bg: #f8fafc;
         }
 
         body[data-theme="dark"] {
-            --bg: #0f172a;
+            --bg: #0b1422;
             --bg-elev: #111c2f;
-            --bg-soft: #0b1322;
+            --bg-soft: #101d30;
             --panel: #101d30;
             --panel-alt: #132338;
             --text: #edf3ff;
@@ -67,6 +72,11 @@
             --tab-bg: #1b2c42;
             --tab-active: linear-gradient(135deg, #3d9bf5 0%, #2d6edb 100%);
             --tab-ink: #e5f1ff;
+            --header-bg: rgba(11, 20, 34, 0.78);
+            --header-ink: #edf3ff;
+            --module-panel: #0f1d2d;
+            --module-panel-ink: #edf3ff;
+            --timer-bg: rgba(19, 35, 58, 0.8);
         }
 
         * { box-sizing: border-box; }
@@ -108,14 +118,11 @@
         }
 
         .sticky-header {
-            background: rgba(255,255,255,0.85);
+            background: var(--header-bg);
+            color: var(--header-ink);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
             box-shadow: 0 2px 10px rgba(15,23,42,0.03);
-        }
-
-        body[data-theme="dark"] .sticky-header {
-            background: rgba(15, 23, 42, 0.72);
         }
 
         .theme-toggle {
@@ -127,6 +134,23 @@
             font-weight: 700;
             font-size: 0.78rem;
             transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .module-strip {
+            background: var(--module-panel);
+            color: var(--module-panel-ink);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .site-title {
+            color: var(--header-ink);
+        }
+
+        #overall-timer {
+            background: var(--timer-bg);
+            color: var(--primary-strong);
+            border-color: var(--border);
         }
 
         .theme-toggle:hover {
@@ -339,11 +363,11 @@
 <body data-theme="light" class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
     <header class="sticky-header sticky top-0 z-50 border-b border-borderCol shadow-sm p-4">
         <div class="content-shell flex flex-col sm:flex-row justify-between items-center gap-4">
-            <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2 dark:text-white">
+            <h1 class="site-title text-base sm:text-lg font-bold tracking-tight flex items-center gap-2">
                 <span class="bg-sky-700 text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Modules 1–16 Practice Exam
             </h1>
             <div class="flex items-center gap-3">
-                <div id="overall-timer" class="text-sm bg-slate-100 border border-borderCol px-3 py-1 rounded font-mono text-sky-700 font-semibold">Time: 00:00</div>
+                <div id="overall-timer" class="text-sm border px-3 py-1 rounded font-mono font-semibold">Time: 00:00</div>
                 <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme">🌙 Dark</button>
             </div>
         </div>
@@ -351,7 +375,7 @@
 
     <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
         <!-- Module Selection Tabs -->
-        <div class="flex flex-wrap gap-2 mb-6 bg-white p-3 rounded-xl shadow-sm border border-borderCol max-h-48 overflow-y-auto">
+        <div class="module-strip flex flex-wrap gap-2 mb-6 p-3 rounded-xl max-h-48 overflow-y-auto">
             <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 1 (Intro)</button>
             <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 2 (Switching/CLI)</button>
             <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 3 (Protocols)</button>
@@ -2945,16 +2969,37 @@
             switchModule(moduleKeys[0]);
         }
 
-        function toggleTheme() {
+        function applyTheme(theme) {
             const body = document.body;
-            const isDark = body.dataset.theme === 'dark';
-            body.dataset.theme = isDark ? 'light' : 'dark';
+            const safeTheme = theme === 'dark' ? 'dark' : 'light';
+            body.dataset.theme = safeTheme;
             const themeBtn = document.getElementById('theme-toggle');
             if (themeBtn) {
-                themeBtn.textContent = isDark ? '🌙 Dark' : '☀️ Light';
+                themeBtn.textContent = safeTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+                themeBtn.setAttribute('aria-label', safeTheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+            }
+            try {
+                localStorage.setItem('cn-theme', safeTheme);
+            } catch (error) {
+                // Ignore storage errors in restricted browser contexts.
             }
         }
 
+        function toggleTheme() {
+            const body = document.body;
+            const nextTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(nextTheme);
+        }
+
+        const savedTheme = (() => {
+            try {
+                return localStorage.getItem('cn-theme');
+            } catch (error) {
+                return null;
+            }
+        })();
+
+        applyTheme(savedTheme || 'light');
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
         startTimer();
