@@ -3138,12 +3138,46 @@
         let currentQuestionIndex = 0;
         let userAnswers = {};
         let flaggedQuestions = {};
+        let questionOrders = {};
+        let optionOrders = {};
         let startTime = Date.now();
         let timerInterval;
 
         for (let mod in quizData) {
             userAnswers[mod] = {};
             flaggedQuestions[mod] = {};
+        }
+
+        function createShuffledIndices(length, previousOrder) {
+            const indices = Array.from({ length }, (_, index) => index);
+            for (let index = indices.length - 1; index > 0; index--) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [indices[index], indices[swapIndex]] = [indices[swapIndex], indices[index]];
+            }
+
+            if (indices.length > 1 && indices.every((value, index) => value === previousOrder[index])) {
+                [indices[0], indices[1]] = [indices[1], indices[0]];
+            }
+            return indices;
+        }
+
+        function initializeAttemptOrder() {
+            for (const [moduleNumber, questions] of Object.entries(quizData)) {
+                const previousModuleOptionOrders = optionOrders[moduleNumber] || {};
+                const previousQuestionOrder = questionOrders[moduleNumber]
+                    || Array.from({ length: questions.length }, (_, index) => index);
+                questionOrders[moduleNumber] = createShuffledIndices(questions.length, previousQuestionOrder);
+                optionOrders[moduleNumber] = {};
+
+                questions.forEach((question, questionIndex) => {
+                    const previousOptionOrder = previousModuleOptionOrders[questionIndex]
+                        || Array.from({ length: question.options.length }, (_, index) => index);
+                    optionOrders[moduleNumber][questionIndex] = createShuffledIndices(
+                        question.options.length,
+                        previousOptionOrder
+                    );
+                });
+            }
         }
 
         function initializeModuleSidebar() {
@@ -3253,9 +3287,10 @@
         function renderQuestion(animation = 'none') {
             const container = document.getElementById('quiz-container');
             const questions = quizData[currentModule];
-            const q = questions[currentQuestionIndex];
-            const savedAnswer = userAnswers[currentModule][currentQuestionIndex];
-            const isFlagged = flaggedQuestions[currentModule][currentQuestionIndex] || false;
+            const questionIndex = questionOrders[currentModule][currentQuestionIndex];
+            const q = quizData[currentModule][questionIndex];
+            const savedAnswer = userAnswers[currentModule][questionIndex];
+            const isFlagged = flaggedQuestions[currentModule][questionIndex] || false;
             const alphabetLabels = ['a.', 'b.', 'c.', 'd.', 'e.'];
             const animationClass = animation === 'none' ? '' : ` question-enter-${animation}`;
 
@@ -3278,26 +3313,27 @@
                         <div class="option-list">
             `;
 
-            q.options.forEach((opt, idx) => {
+            optionOrders[currentModule][questionIndex].forEach((optionIndex, displayIndex) => {
+                const opt = q.options[optionIndex];
                 let optionClass = 'option-item';
 
                 if (savedAnswer !== undefined) {
-                    if (idx === q.correct) {
+                    if (optionIndex === q.correct) {
                         optionClass += ' correct';
-                    } else if (idx === savedAnswer) {
+                    } else if (optionIndex === savedAnswer) {
                         optionClass += ' wrong';
                     } else {
                         optionClass += ' disabled';
                     }
-                    if (animation === 'answer' && (idx === q.correct || idx === savedAnswer)) {
+                    if (animation === 'answer' && (optionIndex === q.correct || optionIndex === savedAnswer)) {
                         optionClass += ' answer-reveal';
                     }
                 }
 
                 html += `
-                    <button type="button" onclick="selectOption(${idx})" ${savedAnswer !== undefined ? 'disabled' : ''} class="${optionClass}">
-                        <span class="option-letter">${savedAnswer !== undefined && idx === q.correct ? '✓' : (savedAnswer !== undefined && idx === savedAnswer && idx !== q.correct ? '✕' : alphabetLabels[idx].replace('.', ''))}</span>
-                        <span class="option-text"><span class="option-label">${alphabetLabels[idx]}</span> ${opt}</span>
+                    <button type="button" onclick="selectOption(${optionIndex})" ${savedAnswer !== undefined ? 'disabled' : ''} class="${optionClass}">
+                        <span class="option-letter">${savedAnswer !== undefined && optionIndex === q.correct ? '✓' : (savedAnswer !== undefined && optionIndex === savedAnswer && optionIndex !== q.correct ? '✕' : alphabetLabels[displayIndex].replace('.', ''))}</span>
+                        <span class="option-text"><span class="option-label">${alphabetLabels[displayIndex]}</span> ${opt}</span>
                     </button>
                 `;
             });
@@ -3323,13 +3359,15 @@
         }
 
         function selectOption(optIndex) {
-            userAnswers[currentModule][currentQuestionIndex] = optIndex;
+            const questionIndex = questionOrders[currentModule][currentQuestionIndex];
+            userAnswers[currentModule][questionIndex] = optIndex;
             renderQuestion('answer');
         }
 
         function toggleFlag() {
             const isChecked = document.getElementById('flag-checkbox').checked;
-            flaggedQuestions[currentModule][currentQuestionIndex] = isChecked;
+            const questionIndex = questionOrders[currentModule][currentQuestionIndex];
+            flaggedQuestions[currentModule][questionIndex] = isChecked;
             renderQuestion();
         }
 
@@ -3401,6 +3439,7 @@
                 userAnswers[mod] = {};
                 flaggedQuestions[mod] = {};
             }
+            initializeAttemptOrder();
             startTime = Date.now();
             startTimer();
             document.getElementById('prev-btn').style.display = 'inline-block';
@@ -3446,6 +3485,7 @@
 
         initializeModuleSidebar();
         updateModuleProgress();
+        initializeAttemptOrder();
         startTimer();
         const initialModuleKeys = Object.keys(quizData).map(Number);
         switchModule(initialModuleKeys[0]);
