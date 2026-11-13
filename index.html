@@ -715,7 +715,7 @@
     <header class="sticky-header sticky top-0 z-50 border-b border-borderCol shadow-sm p-4">
         <div class="content-shell flex flex-col sm:flex-row justify-between items-center gap-4">
             <h1 class="site-title text-base sm:text-lg font-bold tracking-tight flex items-center gap-2">
-                <span class="brand-badge text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Modules 1–16 Practice Exam
+                <span class="brand-badge text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Network Practice Exam
             </h1>
             <div class="flex items-center gap-3">
                 <div id="overall-timer" class="text-sm border px-3 py-1 rounded font-mono font-semibold">Time: 00:00</div>
@@ -726,7 +726,7 @@
 
     <main class="quiz-main mx-auto w-full p-4 flex-grow my-6">
         <div class="quiz-layout" id="quiz-layout">
-            <aside class="module-sidebar" aria-label="Lecture modules">
+            <aside class="module-sidebar" aria-label="Modules and exams">
                 <div class="module-sidebar-heading">
                     <span class="module-sidebar-title">Modules</span>
                     <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="module-strip" aria-expanded="true" aria-label="Collapse module list" title="Collapse module list">
@@ -735,7 +735,7 @@
                         </svg>
                     </button>
                 </div>
-                <nav class="module-strip" id="module-strip" aria-label="Choose a lecture">
+                <nav class="module-strip" id="module-strip" aria-label="Choose a module or exam">
                     <button onclick="switchModule(1)" id="tab-1" class="module-tab active" type="button">Mod 1 (Intro)</button>
                     <button onclick="switchModule(2)" id="tab-2" class="module-tab" type="button">Mod 2 (Switching/CLI)</button>
                     <button onclick="switchModule(3)" id="tab-3" class="module-tab" type="button">Mod 3 (Protocols)</button>
@@ -752,6 +752,7 @@
                     <button onclick="switchModule(14)" id="tab-14" class="module-tab" type="button">Mod 14 (Transport)</button>
                     <button onclick="switchModule(15)" id="tab-15" class="module-tab" type="button">Mod 15 (Application)</button>
                     <button onclick="switchModule(16)" id="tab-16" class="module-tab" type="button">Mod 16 (Security)</button>
+                    <button onclick="switchModule(17)" id="tab-17" class="module-tab" type="button">Mock Final</button>
                 </nav>
             </aside>
 
@@ -773,6 +774,7 @@
         <p class="text-xs">Cisco CCNA Introduction to Networks (ITN v7.0) NetAcad Simulation &copy; 2026</p>
     </footer>
 
+    <script src="mock-final.js"></script>
     <script>
         const quizData = {
             1: [
@@ -3161,7 +3163,8 @@
                     hint: "Fewer open ports mean fewer potential vulnerabilities for attackers.",
                     rationale: "Disabling unneeded services minimizes the attack surface and lowers compromise risk."
                 }
-            ]
+            ],
+            17: window.mockFinalQuestions
         };
 
         let currentModule = 1;
@@ -3449,7 +3452,7 @@
             const container = document.getElementById('quiz-container');
             container.innerHTML = `
                 <div class="completed-panel col-span-4 p-10 rounded-xl text-center space-y-6">
-                    <h2 class="text-3xl font-extrabold">Modules 1–16 Exam Completed! 🎉</h2>
+                    <h2 class="text-3xl font-extrabold">Practice Exam Completed! 🎉</h2>
                     <p class="text-lg">You answered <span class="score-value font-bold">${totalCorrect}</span> out of <span class="font-bold">${totalQuestions}</span> questions correctly.</p>
                     <div class="success-rate inline-block p-5 rounded-2xl font-bold text-xl">
                         Success Rate: ${percentage}%
