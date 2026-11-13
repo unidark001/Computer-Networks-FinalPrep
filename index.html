@@ -51,6 +51,10 @@
             --nav-button-bg: #f1f3f5;
             --nav-button-hover: #e2e6ea;
             --footer-bg: #ffffff;
+            --progress-track: #e9ecef;
+            --progress-low: #dc3545;
+            --progress-medium: #d99a00;
+            --progress-high: #198754;
         }
 
         body[data-theme="dark"] {
@@ -83,6 +87,10 @@
             --nav-button-bg: #1b2c42;
             --nav-button-hover: #263d5a;
             --footer-bg: #0f1d2d;
+            --progress-track: #24384b;
+            --progress-low: #f16b78;
+            --progress-medium: #f0bf4c;
+            --progress-high: #42bd82;
         }
 
         * { box-sizing: border-box; }
@@ -142,7 +150,26 @@
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
+        .quiz-layout {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            align-items: start;
+            gap: 1.25rem;
+        }
+
+        .module-sidebar {
+            position: sticky;
+            top: 5.5rem;
+            min-width: 0;
+        }
+
         .module-strip {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+            padding: 0.65rem;
             background: var(--module-panel);
             color: var(--module-panel-ink);
             border: 1px solid var(--border);
@@ -151,14 +178,91 @@
         }
 
         .module-strip .module-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.55rem;
+            width: 100%;
             background: var(--tab-bg);
             color: var(--tab-ink);
             border-radius: 6px;
+            padding: 0.7rem 0.75rem;
+            text-align: left;
         }
 
         .module-strip .module-tab.active {
             background: var(--tab-active);
             color: #ffffff;
+        }
+
+        .module-tab-title {
+            line-height: 1.35;
+        }
+
+        .module-progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .module-strip .module-tab.active .module-progress-meta {
+            color: currentColor;
+            opacity: 0.88;
+        }
+
+        .module-progress-track {
+            display: block;
+            height: 5px;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--progress-track);
+        }
+
+        .module-progress-fill {
+            display: block;
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--muted);
+            transition: width 0.45s ease, background-color 0.2s ease;
+        }
+
+        .module-tab[data-score-state="low"] .module-progress-fill,
+        .module-tab[data-score-state="low"] .module-progress-meta {
+            background-color: var(--progress-low);
+        }
+
+        .module-tab[data-score-state="medium"] .module-progress-fill,
+        .module-tab[data-score-state="medium"] .module-progress-meta {
+            background-color: var(--progress-medium);
+        }
+
+        .module-tab[data-score-state="high"] .module-progress-fill,
+        .module-tab[data-score-state="high"] .module-progress-meta {
+            background-color: var(--progress-high);
+        }
+
+        .module-tab[data-score-state="low"] .module-progress-meta,
+        .module-tab[data-score-state="medium"] .module-progress-meta,
+        .module-tab[data-score-state="high"] .module-progress-meta {
+            background: transparent;
+        }
+
+        .module-tab[data-score-state="low"] .module-progress-status { color: var(--progress-low); }
+        .module-tab[data-score-state="medium"] .module-progress-status { color: var(--progress-medium); }
+        .module-tab[data-score-state="high"] .module-progress-status { color: var(--progress-high); }
+
+        .module-tab.active .module-progress-status {
+            color: currentColor;
+        }
+
+        .quiz-content {
+            min-width: 0;
         }
 
         .site-title {
@@ -434,6 +538,15 @@
         }
 
         @media (max-width: 768px) {
+            .quiz-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .module-sidebar {
+                position: static;
+            }
+            .module-strip {
+                max-height: 280px;
+            }
             .question-shell {
                 grid-template-columns: 1fr;
             }
@@ -458,36 +571,39 @@
     </header>
 
     <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
-        <!-- Module Selection Tabs -->
-        <div class="module-strip flex flex-wrap gap-2 mb-6 p-3 max-h-48 overflow-y-auto">
-            <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 1 (Intro)</button>
-            <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 2 (Switching/CLI)</button>
-            <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 3 (Protocols)</button>
-            <button onclick="switchModule(4)" id="tab-4" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 4 (Physical)</button>
-            <button onclick="switchModule(5)" id="tab-5" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 5 (Number Systems)</button>
-            <button onclick="switchModule(6)" id="tab-6" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 6 (Data Link)</button>
-            <button onclick="switchModule(7)" id="tab-7" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 7 (Ethernet)</button>
-            <button onclick="switchModule(8)" id="tab-8" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 8 (Network Layer)</button>
-            <button onclick="switchModule(9)" id="tab-9" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 9 (IPv6)</button>
-            <button onclick="switchModule(10)" id="tab-10" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 10 (IP Addressing)</button>
-            <button onclick="switchModule(11)" id="tab-11" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 11 (Subnetting IPv4)</button>
-            <button onclick="switchModule(12)" id="tab-12" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 12 (IPv6)</button>
-            <button onclick="switchModule(13)" id="tab-13" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 13 (ICMP)</button>
-            <button onclick="switchModule(14)" id="tab-14" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 14 (Transport)</button>
-            <button onclick="switchModule(15)" id="tab-15" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 15 (Application)</button>
-            <button onclick="switchModule(16)" id="tab-16" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 16 (Security)</button>
-        </div>
+        <div class="quiz-layout">
+            <aside class="module-sidebar" aria-label="Lecture modules">
+                <nav class="module-strip" aria-label="Choose a lecture">
+                    <button onclick="switchModule(1)" id="tab-1" class="module-tab active" type="button">Mod 1 (Intro)</button>
+                    <button onclick="switchModule(2)" id="tab-2" class="module-tab" type="button">Mod 2 (Switching/CLI)</button>
+                    <button onclick="switchModule(3)" id="tab-3" class="module-tab" type="button">Mod 3 (Protocols)</button>
+                    <button onclick="switchModule(4)" id="tab-4" class="module-tab" type="button">Mod 4 (Physical)</button>
+                    <button onclick="switchModule(5)" id="tab-5" class="module-tab" type="button">Mod 5 (Number Systems)</button>
+                    <button onclick="switchModule(6)" id="tab-6" class="module-tab" type="button">Mod 6 (Data Link)</button>
+                    <button onclick="switchModule(7)" id="tab-7" class="module-tab" type="button">Mod 7 (Ethernet)</button>
+                    <button onclick="switchModule(8)" id="tab-8" class="module-tab" type="button">Mod 8 (Network Layer)</button>
+                    <button onclick="switchModule(9)" id="tab-9" class="module-tab" type="button">Mod 9 (IPv6)</button>
+                    <button onclick="switchModule(10)" id="tab-10" class="module-tab" type="button">Mod 10 (IP Addressing)</button>
+                    <button onclick="switchModule(11)" id="tab-11" class="module-tab" type="button">Mod 11 (Subnetting IPv4)</button>
+                    <button onclick="switchModule(12)" id="tab-12" class="module-tab" type="button">Mod 12 (IPv6)</button>
+                    <button onclick="switchModule(13)" id="tab-13" class="module-tab" type="button">Mod 13 (ICMP)</button>
+                    <button onclick="switchModule(14)" id="tab-14" class="module-tab" type="button">Mod 14 (Transport)</button>
+                    <button onclick="switchModule(15)" id="tab-15" class="module-tab" type="button">Mod 15 (Application)</button>
+                    <button onclick="switchModule(16)" id="tab-16" class="module-tab" type="button">Mod 16 (Security)</button>
+                </nav>
+            </aside>
 
-        <!-- NetAcad Style Question Layout Container -->
-        <div id="quiz-container" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-            <!-- Rendered dynamically -->
-        </div>
+            <div class="quiz-content">
+                <div id="quiz-container" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
+                    <!-- Rendered dynamically -->
+                </div>
 
-        <!-- Navigation and Actions -->
-        <div class="navigation-panel flex justify-between items-center mt-6 p-4">
-            <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
-            <div id="progress-indicator" class="text-sm font-semibold text-slate-600">Question 1 of 10</div>
-            <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 font-medium shadow-sm transition-all">Next</button>
+                <div class="navigation-panel flex justify-between items-center mt-6 p-4">
+                    <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+                    <div id="progress-indicator" class="text-sm font-semibold text-slate-600">Question 1 of 10</div>
+                    <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 font-medium shadow-sm transition-all">Next</button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -2868,6 +2984,73 @@
             flaggedQuestions[mod] = {};
         }
 
+        function initializeModuleSidebar() {
+            document.querySelectorAll('.module-tab').forEach(button => {
+                const title = button.textContent.trim();
+                const titleElement = document.createElement('span');
+                titleElement.className = 'module-tab-title';
+                titleElement.textContent = title;
+
+                const meta = document.createElement('span');
+                meta.className = 'module-progress-meta';
+                const status = document.createElement('span');
+                status.className = 'module-progress-status';
+                status.textContent = 'Incomplete';
+                meta.appendChild(status);
+
+                const track = document.createElement('span');
+                track.className = 'module-progress-track';
+                track.setAttribute('role', 'progressbar');
+                track.setAttribute('aria-label', `${title} score`);
+                track.setAttribute('aria-valuemin', '0');
+                track.setAttribute('aria-valuemax', '100');
+                track.setAttribute('aria-valuenow', '0');
+
+                const fill = document.createElement('span');
+                fill.className = 'module-progress-fill';
+                track.appendChild(fill);
+
+                button.replaceChildren(titleElement, meta, track);
+                button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
+            });
+        }
+
+        function getModuleResult(moduleNumber) {
+            const questions = quizData[moduleNumber];
+            const answers = userAnswers[moduleNumber];
+            const answeredCount = Object.keys(answers).length;
+            if (answeredCount < questions.length) {
+                return { complete: false, percentage: 0 };
+            }
+
+            const correctCount = questions.reduce((count, question, index) => {
+                return count + (answers[index] === question.correct ? 1 : 0);
+            }, 0);
+            return { complete: true, percentage: (correctCount / questions.length) * 100 };
+        }
+
+        function updateModuleProgress() {
+            document.querySelectorAll('.module-tab').forEach(button => {
+                const moduleNumber = Number(button.id.replace('tab-', ''));
+                const result = getModuleResult(moduleNumber);
+                const status = button.querySelector('.module-progress-status');
+                const track = button.querySelector('.module-progress-track');
+                const fill = button.querySelector('.module-progress-fill');
+                const percentageText = result.percentage % 1 === 0
+                    ? `${result.percentage}%`
+                    : `${result.percentage.toFixed(1)}%`;
+
+                button.dataset.scoreState = result.complete
+                    ? result.percentage >= 80 ? 'high' : result.percentage >= 50 ? 'medium' : 'low'
+                    : 'incomplete';
+                status.textContent = result.complete ? percentageText : 'Incomplete';
+                fill.style.width = result.complete ? `${result.percentage}%` : '0%';
+                track.setAttribute('aria-valuenow', String(result.complete ? result.percentage : 0));
+                track.setAttribute('aria-valuetext', result.complete ? percentageText : 'Incomplete');
+                button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
+            });
+        }
+
         function startTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
@@ -2890,6 +3073,7 @@
                 activeTab.classList.add('active');
             }
 
+            updateModuleProgress();
             renderQuestion();
         }
 
@@ -2961,6 +3145,7 @@
             document.getElementById('progress-indicator').innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
             const moduleKeys = Object.keys(quizData).map(Number);
             document.getElementById('prev-btn').disabled = currentQuestionIndex === 0 && currentModule === moduleKeys[0];
+            updateModuleProgress();
         }
 
         function selectOption(optIndex) {
@@ -3086,6 +3271,8 @@
         applyTheme(savedTheme || 'light');
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
+        initializeModuleSidebar();
+        updateModuleProgress();
         startTimer();
         const initialModuleKeys = Object.keys(quizData).map(Number);
         switchModule(initialModuleKeys[0]);
