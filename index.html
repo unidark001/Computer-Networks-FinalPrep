@@ -48,6 +48,9 @@
             --module-panel: #ffffff;
             --module-panel-ink: #1f2937;
             --timer-bg: #f8fafc;
+            --nav-button-bg: #e2e8f0;
+            --nav-button-hover: #cbd5e1;
+            --footer-bg: #ffffff;
         }
 
         body[data-theme="dark"] {
@@ -77,6 +80,9 @@
             --module-panel: #0f1d2d;
             --module-panel-ink: #edf3ff;
             --timer-bg: rgba(19, 35, 58, 0.8);
+            --nav-button-bg: #1b2c42;
+            --nav-button-hover: #263d5a;
+            --footer-bg: #0f1d2d;
         }
 
         * { box-sizing: border-box; }
@@ -143,8 +149,69 @@
             box-shadow: var(--shadow);
         }
 
+        .module-strip .module-tab {
+            background: var(--tab-bg);
+            color: var(--tab-ink);
+        }
+
+        .module-strip .module-tab.active {
+            background: var(--tab-active);
+            color: #ffffff;
+        }
+
         .site-title {
             color: var(--header-ink);
+        }
+
+        .navigation-panel {
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        #prev-btn {
+            background: var(--nav-button-bg);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        #prev-btn:hover:not(:disabled) {
+            background: var(--nav-button-hover);
+        }
+
+        #progress-indicator {
+            color: var(--text);
+        }
+
+        .site-footer {
+            background: var(--footer-bg);
+            color: var(--muted);
+            border-color: var(--border);
+        }
+
+        .completed-panel {
+            background: var(--panel);
+            color: var(--text);
+            border-color: var(--border);
+        }
+
+        .completed-panel h2 {
+            color: var(--text);
+        }
+
+        .completed-panel p {
+            color: var(--muted);
+        }
+
+        .completed-panel .score-value {
+            color: var(--primary-strong);
+        }
+
+        .completed-panel .success-rate {
+            background: var(--primary-soft);
+            border: 1px solid var(--border);
+            color: var(--primary-strong);
         }
 
         #overall-timer {
@@ -376,22 +443,22 @@
     <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
         <!-- Module Selection Tabs -->
         <div class="module-strip flex flex-wrap gap-2 mb-6 p-3 rounded-xl max-h-48 overflow-y-auto">
-            <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 1 (Intro)</button>
-            <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 2 (Switching/CLI)</button>
-            <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 3 (Protocols)</button>
-            <button onclick="switchModule(4)" id="tab-4" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 4 (Physical)</button>
-            <button onclick="switchModule(5)" id="tab-5" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 5 (Number Systems)</button>
-            <button onclick="switchModule(6)" id="tab-6" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 6 (Data Link)</button>
-            <button onclick="switchModule(7)" id="tab-7" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 7 (Ethernet)</button>
-            <button onclick="switchModule(8)" id="tab-8" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 8 (Network Layer)</button>
-            <button onclick="switchModule(9)" id="tab-9" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 9 (IPv6)</button>
-            <button onclick="switchModule(10)" id="tab-10" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 10 (IP Addressing)</button>
-            <button onclick="switchModule(11)" id="tab-11" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 11 (Subnetting IPv4)</button>
-            <button onclick="switchModule(12)" id="tab-12" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 12 (IPv6)</button>
-            <button onclick="switchModule(13)" id="tab-13" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 13 (ICMP)</button>
-            <button onclick="switchModule(14)" id="tab-14" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 14 (Transport)</button>
-            <button onclick="switchModule(15)" id="tab-15" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 15 (Application)</button>
-            <button onclick="switchModule(16)" id="tab-16" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 16 (Security)</button>
+            <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 1 (Intro)</button>
+            <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 2 (Switching/CLI)</button>
+            <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 3 (Protocols)</button>
+            <button onclick="switchModule(4)" id="tab-4" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 4 (Physical)</button>
+            <button onclick="switchModule(5)" id="tab-5" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 5 (Number Systems)</button>
+            <button onclick="switchModule(6)" id="tab-6" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 6 (Data Link)</button>
+            <button onclick="switchModule(7)" id="tab-7" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 7 (Ethernet)</button>
+            <button onclick="switchModule(8)" id="tab-8" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 8 (Network Layer)</button>
+            <button onclick="switchModule(9)" id="tab-9" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 9 (IPv6)</button>
+            <button onclick="switchModule(10)" id="tab-10" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 10 (IP Addressing)</button>
+            <button onclick="switchModule(11)" id="tab-11" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 11 (Subnetting IPv4)</button>
+            <button onclick="switchModule(12)" id="tab-12" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 12 (IPv6)</button>
+            <button onclick="switchModule(13)" id="tab-13" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 13 (ICMP)</button>
+            <button onclick="switchModule(14)" id="tab-14" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 14 (Transport)</button>
+            <button onclick="switchModule(15)" id="tab-15" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 15 (Application)</button>
+            <button onclick="switchModule(16)" id="tab-16" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 16 (Security)</button>
         </div>
 
         <!-- NetAcad Style Question Layout Container -->
@@ -400,14 +467,14 @@
         </div>
 
         <!-- Navigation and Actions -->
-        <div class="flex justify-between items-center mt-6 bg-white p-4 rounded-xl border border-borderCol shadow-sm">
+        <div class="navigation-panel flex justify-between items-center mt-6 p-4 rounded-xl">
             <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 rounded-xl font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
             <div id="progress-indicator" class="text-sm font-semibold text-slate-600">Question 1 of 10</div>
             <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm transition-all">Next</button>
         </div>
     </main>
 
-    <footer class="bg-white border-t border-borderCol text-slate-500 text-center py-4 mt-8">
+    <footer class="site-footer border-t text-center py-4 mt-8">
         <p class="text-xs">Cisco CCNA Introduction to Networks (ITN v7.0) NetAcad Simulation &copy; 2026</p>
     </footer>
 
@@ -2939,10 +3006,10 @@
             const percentage = Math.round((totalCorrect / totalQuestions) * 100);
             const container = document.getElementById('quiz-container');
             container.innerHTML = `
-                <div class="col-span-4 bg-white p-10 rounded-xl border border-borderCol shadow-sm text-center space-y-6">
-                    <h2 class="text-3xl font-extrabold text-slate-900">Modules 1–16 Exam Completed! 🎉</h2>
-                    <p class="text-lg text-slate-600">You answered <span class="font-bold text-sky-700">${totalCorrect}</span> out of <span class="font-bold">${totalQuestions}</span> questions correctly.</p>
-                    <div class="inline-block bg-sky-50 border border-sky-200 p-5 rounded-2xl text-sky-800 font-bold text-xl">
+                <div class="completed-panel col-span-4 p-10 rounded-xl text-center space-y-6">
+                    <h2 class="text-3xl font-extrabold">Modules 1–16 Exam Completed! 🎉</h2>
+                    <p class="text-lg">You answered <span class="score-value font-bold">${totalCorrect}</span> out of <span class="font-bold">${totalQuestions}</span> questions correctly.</p>
+                    <div class="success-rate inline-block p-5 rounded-2xl font-bold text-xl">
                         Success Rate: ${percentage}%
                     </div>
                     <div>
