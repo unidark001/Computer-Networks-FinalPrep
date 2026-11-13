@@ -851,10 +851,10 @@
                     id: 8,
                     question: "What is 'Goodput' in network performance metrics?",
                     options: [
-                        "Total raw physical bandwidth of a medium",
+                        "The total physical capacity of a link before accounting for protocol overhead",
                         "Actual usable data transferred over a given period of time after subtracting protocol overhead",
-                        "Maximum potential speed between two routers",
-                        "Error rate percentage on copper lines"
+                        "The maximum theoretical data rate a medium can carry under ideal conditions",
+                        "The share of transmitted frames that arrive corrupted and must be discarded"
                     ],
                     correct: 1,
                     hint: "Throughput minus encapsulation and overhead.",
@@ -872,10 +872,10 @@
                     id: 10,
                     question: "What is the primary purpose of a Wide Area Network (WAN)?",
                     options: [
-                        "Connecting computers within a single home or office room",
+                        "Connecting end devices across a small local area such as one room or office",
                         "Interconnecting LANs across vast geographical areas, cities, or countries",
-                        "Providing wireless printer connectivity",
-                        "Creating local switch clusters"
+                        "Providing wireless access between nearby hosts and local network peripherals",
+                        "Building a switched network that links devices within one building or floor"
                     ],
                     correct: 1,
                     hint: "Spans large distances beyond local buildings.",
@@ -902,8 +902,8 @@
                     options: [
                         "`enable`",
                         "`configure terminal`",
-                        "`interface vlan 1`",
-                        "`write memory`"
+                        "`show running-config`",
+                        "`enable secret cisco`"
                     ],
                     correct: 1,
                     hint: "Abbreviated often as `conf t`.",
@@ -914,9 +914,9 @@
                     question: "What is the primary function of the `service password-encryption` command on a Cisco device?",
                     options: [
                         "Encrypts all plaintext passwords stored in configuration files with Type 7 encryption",
-                        "Enables SSH version 2 for remote login",
-                        "Sets up RSA encryption keys",
-                        "Encrypts data payloads flowing through interfaces"
+                        "Enables SSH version 2 and protects remote management sessions with encryption",
+                        "Generates the RSA key pair required for secure remote access to the device",
+                        "Encrypts user data packets as they pass through the device's network interfaces"
                     ],
                     correct: 0,
                     hint: "Protects passwords visible in `show running-config`.",
@@ -927,9 +927,9 @@
                     question: "What is the difference between running-config and startup-config files on a Cisco device?",
                     options: [
                         "running-config is stored in RAM and takes effect immediately; startup-config is stored in NVRAM",
-                        "running-config is in NVRAM; startup-config is in Flash memory",
-                        "startup-config is temporary, while running-config is permanent",
-                        "There is no difference between them"
+                        "running-config is kept in NVRAM for the next boot; startup-config is edited in RAM",
+                        "startup-config holds temporary changes in RAM; running-config preserves settings in NVRAM",
+                        "Both files are kept in RAM, but only startup-config is applied after each command"
                     ],
                     correct: 0,
                     hint: "RAM vs NVRAM memory persistence upon reboot.",
@@ -940,9 +940,9 @@
                     question: "Which command saves the active running configuration to the startup configuration file?",
                     options: [
                         "`copy running-config startup-config`",
-                        "`save config`",
-                        "`write running`",
-                        "`backup config`"
+                        "`copy startup-config running-config`",
+                        "`copy running-config flash:backup.cfg`",
+                        "`show running-config startup-config`"
                     ],
                     correct: 0,
                     hint: "Copies RAM config to NVRAM.",
@@ -953,9 +953,9 @@
                     question: "What is the purpose of configuring a Message of the Day (MOTD) banner on a Cisco device?",
                     options: [
                         "To display legal notification and warn unauthorized users against access",
-                        "To configure dynamic routing protocols",
-                        "To assign management IP addresses",
-                        "To test interface bandwidth"
+                        "To show the current routing protocol and neighboring routers before login",
+                        "To provide a management address that administrators can use to reach the device",
+                        "To report interface throughput and error statistics on the login screen"
                     ],
                     correct: 0,
                     hint: "Legal deterrence message upon connection.",
@@ -965,10 +965,10 @@
                     id: 7,
                     question: "What does the `no shutdown` command accomplish on a router interface or switch SVI?",
                     options: [
-                        "Permanently disables the interface",
+                        "Administratively disables an interface until an administrator enables it again",
                         "Administratively enables the interface so it can start passing traffic",
-                        "Resets interface counters",
-                        "Enables port security"
+                        "Clears the interface's packet counters and resets its recorded error statistics",
+                        "Applies port-security controls that restrict which devices can connect"
                     ],
                     correct: 1,
                     hint: "Interfaces are administratively down by default.",
@@ -1060,9 +1060,9 @@
                     question: "What is the primary role of the Data Link Layer (Layer 2) in relation to the Network Layer?",
                     options: [
                         "Encapsulating Layer 3 packets into frames and managing MAC media access across local links",
-                        "Routing packets across global WANs",
-                        "Establishing reliable end-to-end sessions",
-                        "Translating signals into physical light waves"
+                        "Selecting routes between remote networks by examining logical IP addresses",
+                        "Establishing reliable application sessions and retransmitting missing data end to end",
+                        "Converting digital bits into electrical, optical, or radio signals on the medium"
                     ],
                     correct: 0,
                     hint: "Prepares packets for transmission across physical media.",
@@ -1089,9 +1089,9 @@
                     question: "What is the benefit of layering in networking models like OSI and TCP/IP?",
                     options: [
                         "Fosters competition and independent protocol development without breaking other layers",
-                        "Increases cable length limitations",
-                        "Eliminates the need for routers",
-                        "Encrypts all transmitted data automatically"
+                        "Allows each cable type to carry signals farther without repeaters or attenuation",
+                        "Lets devices deliver traffic across networks without using routing functions",
+                        "Applies encryption to every protocol even when applications do not request it"
                     ],
                     correct: 0,
                     hint: "Modularity allows updates to one layer without affecting others.",
@@ -1102,9 +1102,9 @@
                     question: "What is de-encapsulation?",
                     options: [
                         "Removing protocol headers and trailers as data moves up the receiver's stack",
-                        "Adding headers at each sending layer",
-                        "Encrypting data streams",
-                        "Splitting files into packets"
+                        "Adding protocol headers and trailers as data moves down the sender's stack",
+                        "Converting readable application data into ciphertext before network transmission",
+                        "Dividing an application message into smaller units before sending across a link"
                     ],
                     correct: 0,
                     hint: "The reverse process of encapsulation at the destination.",
@@ -1138,9 +1138,9 @@
                     question: "What is the primary advantage of Single-Mode Fiber (SMF) over Multimode Fiber (MMF)?",
                     options: [
                         "Support for much longer cable distances and higher bandwidth",
-                        "Cheaper transceiver costs",
-                        "Easier field termination",
-                        "Larger core diameter"
+                        "Lower purchase cost for compatible optical transceivers at both cable ends",
+                        "Simpler field installation because its larger core accepts more light sources",
+                        "Greater tolerance for bending without affecting the transmitted light signal"
                     ],
                     correct: 0,
                     hint: "Used for long-distance telecommunication links.",
@@ -1164,9 +1164,9 @@
                     question: "What is Auto-MDIX on modern Cisco switches?",
                     options: [
                         "Automatically detects the required cable pinout (straight-through or crossover) and configures ports accordingly",
-                        "Automatically negotiates link speed up to 10Gbps",
-                        "Provides PoE power over fiber",
-                        "Encrypts data at Layer 1"
+                        "Automatically selects the highest link speed supported by both connected devices",
+                        "Automatically supplies electrical power to an attached device over its fiber connection",
+                        "Automatically encrypts Ethernet frames before they reach the physical medium"
                     ],
                     correct: 0,
                     hint: "Eliminates the need to worry about crossover vs straight-through cables.",
@@ -1177,9 +1177,9 @@
                     question: "What is the primary function of a Network Interface Card (NIC)?",
                     options: [
                         "To provide the physical and electrical connection between a computer device and the network media",
-                        "To route packets across different subnets",
-                        "To translate domain names to IP addresses",
-                        "To assign dynamic IP leases"
+                        "To forward packets between separate IP networks using a routing table",
+                        "To look up a host's IP address by querying a hierarchical name service",
+                        "To request and configure a temporary network address from a DHCP server"
                     ],
                     correct: 0,
                     hint: "Hardware adapter installed inside or on host devices.",
@@ -1196,7 +1196,12 @@
                 {
                     id: 8,
                     question: "What is bandwidth typically measured in?",
-                    options: ["Bits per second (bps)", "Decibels (dB)", "Watts (W)", "Hertz (Hz)"],
+                    options: [
+                        "Bits per second (bps), such as Mbps or Gbps",
+                        "Signal power level in decibels (dB) across a network link",
+                        "Electrical power consumption in watts (W) for each device",
+                        "Signal frequency in hertz (Hz) per transmission cycle"
+                    ],
                     correct: 0,
                     hint: "Data capacity per second.",
                     rationale: "Bandwidth is the capacity of a medium to carry data, measured in bps, Kbps, Mbps, or Gbps."
@@ -1206,9 +1211,9 @@
                     question: "What is latency?",
                     options: [
                         "The amount of time data takes to travel from source to destination across a network",
-                        "The total data storage capacity of a hard drive",
-                        "The maximum cable distance supported",
-                        "The number of dropped packets"
+                        "The total amount of information that can be stored on a computer's local disk",
+                        "The greatest physical cable length that a network standard supports reliably",
+                        "The count of packets that fail to reach their destination during transmission"
                     ],
                     correct: 0,
                     hint: "Delay in transmission.",
@@ -1321,9 +1326,9 @@
                     question: "What are the two sublayers of the IEEE 802 LAN/MAN Data Link Layer?",
                     options: [
                         "Logical Link Control (LLC) and Media Access Control (MAC)",
-                        "Physical and Logical",
-                        "TCP and UDP",
-                        "IPv4 and IPv6"
+                        "Physical signaling and network addressing sublayers",
+                        "Transmission Control Protocol and User Datagram Protocol sublayers",
+                        "Internet Protocol version 4 and version 6 sublayers"
                     ],
                     correct: 0,
                     hint: "LLC talks to upper layers; MAC talks to physical hardware.",
@@ -1347,9 +1352,9 @@
                     question: "What information is contained in a Data Link Layer frame trailer?",
                     options: [
                         "Error detection (Frame Check Sequence / CRC)",
-                        "Source and destination IP addresses",
-                        "Transport port numbers",
-                        "TTL hop limits"
+                        "Source and destination IPv4 addresses for delivery between networks",
+                        "Source and destination TCP or UDP port numbers for application delivery",
+                        "Remaining hop count used by routers to limit each packet's lifetime"
                     ],
                     correct: 0,
                     hint: "Used by receivers to check for transmission corruption.",
@@ -1384,9 +1389,9 @@
                     question: "What is the role of the Logical Link Control (LLC) sublayer?",
                     options: [
                         "Communicates between networking software and device hardware drivers",
-                        "Generates electrical voltages on cables",
-                        "Computes IP routing tables",
-                        "Manages wireless channel frequencies"
+                        "Converts binary data into electrical signals for transmission over copper cable",
+                        "Calculates network routes and selects the next hop for each IP packet",
+                        "Coordinates radio channels and frequency use among nearby wireless devices"
                     ],
                     correct: 0,
                     hint: "Software-oriented sublayer of Layer 2.",
@@ -1396,10 +1401,10 @@
                     id: 8,
                     question: "What happens in half-duplex communication?",
                     options: [
-                        "Both devices can transmit and receive simultaneously",
+                        "Both devices can transmit and receive at once over a shared collision-free link",
                         "Only one device can transmit at a time; otherwise, collisions occur",
-                        "Communication is strictly one-way only",
-                        "Data transmission requires fiber optics"
+                        "Communication is unidirectional, so a device can send but cannot receive on that link",
+                        "Data can travel only over fiber, where copper links cannot carry network traffic"
                     ],
                     correct: 1,
                     hint: "Like a walkie-talkie where you take turns.",
@@ -1410,9 +1415,9 @@
                     question: "What is full-duplex communication?",
                     options: [
                         "Both devices can simultaneously send and receive data without collisions",
-                        "Devices take turns transmitting",
-                        "Only hubs support full-duplex",
-                        "Data speed is cut in half"
+                        "The connected devices alternate transmission so only one sends at a time",
+                        "A shared hub allows every connected device to transmit and receive concurrently",
+                        "Each endpoint receives data at half speed while both directions share a link"
                     ],
                     correct: 0,
                     hint: "Like a telephone call where both parties speak at once.",
@@ -1423,9 +1428,9 @@
                     question: "Why are physical topologies distinct from logical topologies in Data Link framing?",
                     options: [
                         "Physical shows cables/ports; logical shows how data moves between nodes via framing and addressing",
-                        "They are identical in every network",
-                        "Logical topologies require no cabling",
-                        "Physical topologies only apply to wireless"
+                        "Both describe the same device layout, so they differ only in how diagrams are drawn",
+                        "Logical layouts describe packet paths and therefore do not depend on network connections",
+                        "Physical layouts apply only to radio networks and exclude wired equipment"
                     ],
                     correct: 0,
                     hint: "Hardware vs data flow.",
@@ -1450,10 +1455,10 @@
                     id: 2,
                     question: "What does an Ethernet switch do when it receives a frame with an unknown unicast destination MAC address?",
                     options: [
-                        "Drops the frame immediately",
+                        "Drops the frame immediately because its destination address is missing from the table",
                         "Floods the frame out all ports except the incoming port",
-                        "Sends an ICMP error back to sender",
-                        "Sends the frame to the default gateway router"
+                        "Sends an ICMP destination-unreachable error to notify the original sender",
+                        "Forwards the frame to the default gateway so the router can resolve its destination"
                     ],
                     correct: 1,
                     hint: "Unknown destination results in flooding across active ports.",
@@ -1477,9 +1482,9 @@
                     question: "How does a switch learn MAC addresses to populate its MAC address table (CAM table)?",
                     options: [
                         "By examining the source MAC address and incoming port of every incoming frame",
-                        "By broadcasting ARP requests continuously",
-                        "By reading the router's routing table",
-                        "From static configuration files"
+                        "By examining the destination MAC address and outgoing port of every forwarded frame",
+                        "By repeatedly broadcasting ARP queries for every host on each connected network",
+                        "By importing IP route entries from the default gateway's routing table"
                     ],
                     correct: 0,
                     hint: "Switches look at incoming source addresses.",
@@ -1488,7 +1493,12 @@
                 {
                     id: 5,
                     question: "What is the default aging timer for dynamic entries in a Cisco switch MAC address table?",
-                    options: ["60 seconds", "300 seconds (5 minutes)", "3600 seconds (1 hour)", "Never expires"],
+                    options: [
+                        "60 seconds (one minute of inactivity)",
+                        "300 seconds (5 minutes of inactivity)",
+                        "3600 seconds (one hour of inactivity)",
+                        "No aging timer; entries remain until an administrator removes them"
+                    ],
                     correct: 1,
                     hint: "Five minutes of inactivity removes the entry.",
                     rationale: "Dynamic MAC table entries time out and are removed after 300 seconds (5 minutes) of inactivity."
@@ -1524,9 +1534,9 @@
                     question: "What happens when an Ethernet frame arrives at a switch port and is smaller than the minimum legal size (64 bytes)?",
                     options: [
                         "It is treated as a runt frame / collision fragment and dropped",
-                        "It is padded with zeros automatically by the receiver",
-                        "It is forwarded as a jumbo frame",
-                        "It triggers an ARP request"
+                        "It is automatically padded with zero bytes by the receiving switch port",
+                        "It is classified as a jumbo frame and forwarded across the Ethernet link",
+                        "It causes the switch to issue an ARP request for the sending host's address"
                     ],
                     correct: 0,
                     hint: "Frames smaller than 64 bytes are considered malformed.",
@@ -1537,9 +1547,9 @@
                     question: "What are jumbo frames in Ethernet networks?",
                     options: [
                         "Frames with data payloads exceeding the standard 1500 bytes (up to 9000 bytes)",
-                        "Broadcast frames sent to all VLANs",
-                        "Encrypted frames used in VPN tunnels",
-                        "Frames with invalid MAC headers"
+                        "Frames that replicate a broadcast message across every VLAN on a switch",
+                        "Frames whose payload is encrypted inside a virtual private network tunnel",
+                        "Frames that exceed the permitted size because their MAC header is malformed"
                     ],
                     correct: 0,
                     hint: "Supports larger payloads for high-speed server clusters.",
@@ -1551,8 +1561,8 @@
                     options: [
                         "The first 24 bits assigned by IEEE to the manufacturer",
                         "The last 24 bits assigned uniquely by the vendor to the device",
-                        "The IP address subnet prefix",
-                        "The VLAN ID tag"
+                        "The network prefix portion of an IPv4 address assigned to the local subnet",
+                        "The VLAN identifier added to an Ethernet frame to mark its broadcast domain"
                     ],
                     correct: 0,
                     hint: "Identifies the hardware vendor.",
@@ -1565,9 +1575,9 @@
                     question: "What is the primary role of the Network Layer (Layer 3) in the OSI model?",
                     options: [
                         "Transporting data packets from source to destination across multiple interconnected networks",
-                        "Generating physical electrical signals",
-                        "Providing reliable TCP stream connections",
-                        "Translating domain names to IP addresses"
+                        "Converting each binary bit into an electrical, optical, or wireless signal",
+                        "Providing reliable, ordered byte streams between applications on different hosts",
+                        "Resolving human-readable host names to their corresponding network addresses"
                     ],
                     correct: 0,
                     hint: "Handles internetwork routing and logical addressing.",
@@ -1578,9 +1588,9 @@
                     question: "Which three characteristics describe the Internet Protocol (IP)?",
                     options: [
                         "Connectionless, Best-effort (unreliable), and Media independent",
-                        "Connection-oriented, Reliable, and Byte-stream",
-                        "Stateful, Encrypted, and Hardware-dependent",
-                        "Acknowledged, Flow-controlled, and Sequenced"
+                        "Connection-oriented, delivery-guaranteed, and dependent on a single link technology",
+                        "Stateful, encrypted by default, and tied to a specific network interface vendor",
+                        "Acknowledged, flow-controlled, and sequenced for reliable packet delivery"
                     ],
                     correct: 0,
                     hint: "IP does not guarantee delivery or establish prior handshakes.",
@@ -1605,7 +1615,12 @@
                 {
                     id: 5,
                     question: "Which field in the IPv4 packet header prevents packets from circulating indefinitely in routing loops?",
-                    options: ["Time to Live (TTL)", "Protocol", "Total Length", "Header Checksum"],
+                    options: [
+                        "Time to Live (TTL), decremented by routers to limit how many hops a packet can travel",
+                        "Protocol number, identifying which upper-layer protocol receives the packet payload",
+                        "Total Length, specifying the size of the complete IPv4 packet in bytes",
+                        "Header Checksum, used to detect corruption in the IPv4 header"
+                    ],
                     correct: 0,
                     hint: "Decremented by 1 at each router hop.",
                     rationale: "The TTL field decrements by 1 at each router; when it reaches 0, the packet is discarded."
@@ -1615,9 +1630,9 @@
                     question: "What are three major limitations of IPv4 that motivated the development of IPv6?",
                     options: [
                         "IPv4 address depletion, lack of end-to-end connectivity due to NAT, and increased complexity",
-                        "Slow transmission speeds and cable distance limits",
-                        "Incompatibility with Ethernet switches",
-                        "Excessive header encryption overhead"
+                        "Insufficient physical link speeds and strict limits on Ethernet cable length",
+                        "Incompatibility with packet forwarding on modern Layer 2 Ethernet switches",
+                        "Excessive mandatory encryption that enlarges every IPv4 packet header"
                     ],
                     correct: 0,
                     hint: "Running out of addresses was the primary trigger.",
@@ -1649,9 +1664,9 @@
                     question: "What is administrative distance (AD) in routing?",
                     options: [
                         "The trustworthiness or preference rating of a routing information source (lower AD is more preferred)",
-                        "The physical cable length between routers",
-                        "The number of router hops to a destination",
-                        "The transmission bandwidth speed"
+                        "The physical distance of the cable run between a router and its next-hop neighbor",
+                        "The number of Layer 3 devices a packet must cross before reaching its destination",
+                        "The maximum transmission rate available on the selected outgoing interface"
                     ],
                     correct: 0,
                     hint: "Lower number means higher preference (e.g., connected=0, static=1, OSPF=110).",
@@ -1672,9 +1687,9 @@
                     question: "What is the primary purpose of the Address Resolution Protocol (ARP) in IPv4 networks?",
                     options: [
                         "To resolve a known IPv4 address to its corresponding MAC address on a local network",
-                        "To resolve domain names to IP addresses",
-                        "To assign dynamic IP addresses to hosts",
-                        "To test end-to-end packet reachability"
+                        "To translate a human-readable domain name into its corresponding IPv4 address using DNS",
+                        "To lease IPv4 addresses and configuration details to hosts from a DHCP server",
+                        "To test whether a remote IPv4 destination responds to network reachability probes"
                     ],
                     correct: 0,
                     hint: "Layer 3 to Layer 2 mapping.",
@@ -1684,10 +1699,10 @@
                     id: 2,
                     question: "What protocol does IPv6 use for address resolution and router discovery instead of ARP?",
                     options: [
-                        "ICMPv6 Neighbor Discovery (ND) Protocol",
-                        "DHCPv6 stateful protocol",
-                        "IGMP multicast management",
-                        "DNS name resolution"
+                        "ICMPv6 Neighbor Discovery (ND), which resolves neighbors and discovers routers",
+                        "DHCPv6 stateful configuration, which assigns addresses and options from a server",
+                        "IGMP multicast management, which tracks IPv4 group membership on local networks",
+                        "DNS name resolution, which maps host names to addresses but does not find local neighbors"
                     ],
                     correct: 0,
                     hint: "Replaces ARP broadcasts with ICMPv6 multicast messages.",
@@ -1698,9 +1713,9 @@
                     question: "What is the function of an ARP request message?",
                     options: [
                         "To ask all nodes on the local network who owns a specific IPv4 address",
-                        "To request an IP lease from a DHCP server",
-                        "To test connection speed between routers",
-                        "To query DNS server records"
+                        "To ask a DHCP server for an available address and network configuration lease",
+                        "To measure link throughput and round-trip delay between two connected routers",
+                        "To request the address records associated with a domain from a DNS server"
                     ],
                     correct: 0,
                     hint: "Broadcast message asking 'Who has this IP address?'",
@@ -1727,9 +1742,9 @@
                     question: "How do host devices determine whether a destination IP address is on the local network or a remote network?",
                     options: [
                         "By performing a logical AND operation between its IP address and subnet mask, then comparing with destination",
-                        "By sending an ARP request to the destination IP",
-                        "By checking the DNS cache",
-                        "By querying the default gateway MAC address"
+                        "By sending an ARP broadcast for the destination and checking which host returns a reply",
+                        "By checking whether the destination address appears in its local DNS resolver cache",
+                        "By asking the default gateway whether the destination shares the local subnet"
                     ],
                     correct: 0,
                     hint: "Compares network portions using the subnet mask.",
@@ -1740,9 +1755,9 @@
                     question: "What is the function of a default gateway in a local area network (LAN)?",
                     options: [
                         "To route traffic destined for remote networks outside the local LAN",
-                        "To switch frames between local computers",
-                        "To assign automatic IP addresses",
-                        "To resolve domain names"
+                        "To forward Ethernet frames directly between computers on the same local LAN",
+                        "To lease host addresses, subnet masks, and DNS settings to local network devices",
+                        "To translate host names into IP addresses using a domain name service"
                     ],
                     correct: 0,
                     hint: "The router interface connecting the LAN to outside networks.",
@@ -1753,9 +1768,9 @@
                     question: "What happens when a packet is sent to a device on the same local subnet?",
                     options: [
                         "The sending host uses ARP to find the destination MAC address and encapsulates the packet directly into an Ethernet frame",
-                        "The packet is always sent to the default gateway router first",
-                        "The packet is dropped by the switch",
-                        "DNS resolves the local MAC address"
+                        "The sending host forwards the packet to its default gateway for routing back to the same LAN",
+                        "The receiving switch discards the packet because local traffic cannot cross switch ports",
+                        "The sending host asks DNS to translate the destination IP address into its hardware address"
                     ],
                     correct: 0,
                     hint: "Local communication does not require the router.",
@@ -1766,9 +1781,9 @@
                     question: "What is gratuitous ARP?",
                     options: [
                         "An unsolicited ARP reply sent by a device to announce its own IP-to-MAC mapping and check for duplicate IPs",
-                        "An ARP request sent to the default gateway",
-                        "An encrypted ARP message",
-                        "An ARP message used in IPv6"
+                        "A broadcast ARP request that asks the default gateway to resolve a remote host address",
+                        "An ARP frame protected with encryption before it is sent across a local Ethernet segment",
+                        "An IPv6 neighbor discovery message that replaces ARP address resolution"
                     ],
                     correct: 0,
                     hint: "Used for duplicate IP detection.",
@@ -1779,9 +1794,9 @@
                     question: "Why are routers necessary when dealing with broadcast domains?",
                     options: [
                         "Routers do not forward broadcast traffic, allowing them to segment large broadcast domains",
-                        "Routers amplify broadcast signals across WANs",
-                        "Routers replace switches in large networks",
-                        "Routers convert MAC addresses to broadcast IPs"
+                        "Routers forward local broadcast frames between interfaces to extend a single domain",
+                        "Routers replace access switches by connecting every host directly to a routed port",
+                        "Routers convert a broadcast MAC address into the corresponding IPv4 subnet address"
                     ],
                     correct: 0,
                     hint: "Broadcast boundary enforcement.",
@@ -1807,9 +1822,9 @@
                     question: "What is the purpose of the Automatic Private IP Addressing (APIPA) range (`169.254.0.0/16`)?",
                     options: [
                         "It allows a host to self-configure a local IP address when a DHCP server cannot be reached",
-                        "It provides public internet routing for small offices",
-                        "It is reserved for multicast video streaming",
-                        "It acts as a loopback testing address"
+                        "It provides a publicly routable address for hosts that connect through small office routers",
+                        "It reserves addresses for sending multicast video streams across an enterprise network",
+                        "It identifies the local loopback interface used to test a host's protocol stack"
                     ],
                     correct: 0,
                     hint: "Self-assigned fallback when DHCP fails.",
@@ -1826,7 +1841,12 @@
                 {
                     id: 4,
                     question: "Which IPv4 address type is used to send a packet to all hosts on a specific local network?",
-                    options: ["Directed broadcast", "Limited broadcast", "Multicast", "Unicast"],
+                    options: [
+                        "Directed broadcast address, targeting every host on a particular subnet",
+                        "Limited broadcast address, reaching hosts only on the local network segment",
+                        "Multicast address, delivering traffic to hosts that joined a selected group",
+                        "Unicast address, identifying one specific destination host on the network"
+                    ],
                     correct: 0,
                     hint: "Broadcast addressed specifically to a subnet.",
                     rationale: "Directed broadcasts target all hosts on a specific remote or local subnet."
@@ -1852,9 +1872,9 @@
                     question: "What is Network Address Translation (NAT) primarily used for?",
                     options: [
                         "Translating private internal IPv4 addresses to public routable IPv4 addresses for internet access",
-                        "Translating IPv4 addresses directly to IPv6 addresses without routers",
-                        "Encrypting packet payloads",
-                        "Assigning dynamic DNS hostnames"
+                        "Converting private IPv4 addresses directly into IPv6 addresses without an intermediary",
+                        "Protecting application data by encrypting packet payloads as they cross the network",
+                        "Registering dynamic host names in DNS whenever a device receives a new lease"
                     ],
                     correct: 0,
                     hint: "Conserves public IPv4 addresses using private IPs.",
@@ -1891,9 +1911,9 @@
                     question: "What is the primary purpose of subnetting an IPv4 network?",
                     options: [
                         "To divide a large network into smaller broadcast domains and improve address efficiency",
-                        "To encrypt traffic between routers",
-                        "To remove the need for DHCP",
-                        "To convert IPv4 packets into IPv6 packets"
+                        "To encrypt packets as they travel between routers on separate network segments",
+                        "To eliminate address assignment services by giving each host a permanent address",
+                        "To translate IPv4 packets into IPv6 format as they cross between subnets"
                     ],
                     correct: 0,
                     hint: "Think in terms of smaller, more manageable network segments.",
@@ -1960,9 +1980,9 @@
                     question: "What is the purpose of a default gateway on a subnetted LAN?",
                     options: [
                         "To provide a route out of the local subnet to remote networks",
-                        "To assign dynamic IP addresses",
-                        "To reduce the size of the subnet mask",
-                        "To create a broadcast storm"
+                        "To distribute dynamic IP addresses and subnet masks to local devices",
+                        "To change the prefix length so that the local subnet contains fewer addresses",
+                        "To forward every local broadcast repeatedly until all subnet hosts receive it"
                     ],
                     correct: 0,
                     hint: "The gateway is the router interface for off-subnet traffic.",
@@ -1972,10 +1992,10 @@
                     id: 10,
                     question: "Which statement about variable-length subnet masking (VLSM) is true?",
                     options: [
-                        "It requires every subnet to have the same prefix length",
+                        "It assigns one shared prefix length to every subnet, regardless of host requirements",
                         "It allows different subnets to use different mask lengths within the same network",
-                        "It works only with IPv6",
-                        "It disables routing tables"
+                        "It supports variable address sizes only on IPv6 networks, not on IPv4 networks",
+                        "It disables route lookup so packets can be forwarded without a routing table"
                     ],
                     correct: 1,
                     hint: "This approach allows efficient allocation of address space.",
@@ -2024,10 +2044,10 @@
                     id: 5,
                     question: "Which rule regarding double colon (`::`) compression is correct for IPv6 addresses?",
                     options: [
-                        "It can be used as many times as needed in a single address",
-                        "It can replace only a single group of zeros",
+                        "It can be repeated throughout an address whenever multiple hextets contain zeros",
+                        "It can replace one zero hextet but cannot compress a longer run of zeros",
                         "It can be used only once within an address to represent a contiguous string of zero hextets",
-                        "It replaces only trailing zeros at the end of hextets"
+                        "It can remove trailing zero digits from the end of any individual hextet"
                     ],
                     correct: 2,
                     hint: "Using `::` multiple times would make the address ambiguous and impossible to expand.",
@@ -2045,10 +2065,10 @@
                     id: 7,
                     question: "What is the purpose of Unique Local Addresses (ULA) within the `fc00::/7` – `fdff::/7` range?",
                     options: [
-                        "For global internet routing via ISPs",
+                        "For public internet communication, with prefixes delegated and routed by service providers",
                         "For local communication within a site or organization, without global internet routing",
-                        "To automatically distribute default gateways via DHCPv6",
-                        "For multicast routing to all routers"
+                        "To configure default gateways and DNS servers automatically through DHCPv6",
+                        "For sending one packet to every IPv6 router in the local network at once"
                     ],
                     correct: 1,
                     hint: "They are conceptually similar to RFC 1918 private IPv4 addresses.",
@@ -2079,10 +2099,10 @@
                     id: 10,
                     question: "What are the key characteristics of Stateless Address Autoconfiguration (SLAAC)?",
                     options: [
-                        "Devices strictly obtain IP addresses and gateways from a stateful DHCPv6 server",
+                        "Devices receive a complete address and gateway assignment from a stateful DHCPv6 server",
                         "Devices use ICMPv6 Router Advertisement (RA) messages to learn the prefix and independently generate an interface ID",
-                        "Addresses are strictly configured manually by network administrators",
-                        "Routers translate IPv4 addresses to IPv6 on the fly"
+                        "Administrators manually configure every address and prefix on each individual host",
+                        "Routers translate IPv4 source addresses into IPv6 addresses as packets cross the network"
                     ],
                     correct: 1,
                     hint: "A DHCP server is not required to issue the actual IP address in this mode.",
@@ -2105,10 +2125,10 @@
                     id: 12,
                     question: "What function does Duplicate Address Detection (DAD) perform in IPv6?",
                     options: [
-                        "Checks connection speed with update servers",
+                        "Measures round-trip connection speed between the host and IPv6 update servers",
                         "Verifies that a newly formed IPv6 address is unique on the local link before it is used",
-                        "Removes duplicate packets from router interface queues",
-                        "Synchronizes time between host and gateway"
+                        "Removes repeated IPv6 packets from a router's interface queues before forwarding",
+                        "Synchronizes the local clock on an IPv6 host with the default gateway's clock"
                     ],
                     correct: 1,
                     hint: "This is the IPv6 equivalent of sending a gratuitous ARP for one's own IP.",
@@ -2143,9 +2163,9 @@
                     question: "What is the primary benefit of using a Solicited-Node Multicast address?",
                     options: [
                         "It allows Ethernet NICs to filter frames in hardware without waking the IPv6 stack if the device is not the target",
-                        "It allows packets to travel across the internet without hop limits",
-                        "It encrypts traffic at the data link layer",
-                        "It automatically assigns default gateways"
+                        "It lets packets cross the public internet without decrementing their IPv6 hop limit",
+                        "It encrypts Ethernet payloads at the data link layer without requiring IPsec",
+                        "It advertises a default gateway automatically to all IPv6 hosts on a link"
                     ],
                     correct: 0,
                     hint: "This reduces CPU overhead on hosts that are not the intended recipients.",
@@ -2189,10 +2209,10 @@
                     id: 20,
                     question: "Which statement describes Anycast addressing in IPv6?",
                     options: [
-                        "A packet is delivered to every device in the network simultaneously",
+                        "A packet is delivered to every interface that has joined the same multicast group",
                         "A single Anycast address is assigned to multiple interfaces; packets are delivered to the closest one based on routing metrics",
-                        "Anycast is used exclusively for broadcast requests",
-                        "Anycast completely replaces link-local addresses"
+                        "An Anycast address sends one packet to all IPv6 interfaces in every connected network",
+                        "Anycast replaces link-local addressing and is required for all communication on a local segment"
                     ],
                     correct: 1,
                     hint: "Routers forward the packet to the nearest node assigned this address.",
@@ -2204,10 +2224,10 @@
                     id: 1,
                     question: "What is the primary purpose of the Internet Control Message Protocol (ICMP)?",
                     options: [
-                        "Encrypting transport-layer data payloads",
+                        "Protecting application payloads by encrypting transport-layer data in transit",
                         "Providing feedback about IP packet processing issues and network diagnostics",
-                        "Dynamically assigning IP addresses to hosts",
-                        "Resolving domain names to IP addresses"
+                        "Assigning addresses, subnet masks, and gateway settings to hosts automatically",
+                        "Resolving human-readable host names to their corresponding IP addresses"
                     ],
                     correct: 1,
                     hint: "This protocol is leveraged by utilities like `ping` and `traceroute`.",
@@ -2230,10 +2250,10 @@
                     id: 3,
                     question: "In IPv4, what happens when the Time to Live (TTL) field in a packet header decrements to 0?",
                     options: [
-                        "The packet is duplicated and sent via an alternate route",
+                        "The packet is duplicated and forwarded through an alternate route to its destination",
                         "The router drops the packet and sends an ICMP 'Time Exceeded' message to the source",
-                        "The packet is automatically handed over to TCP",
-                        "The receiving device doubles its window size"
+                        "The packet is passed to the TCP layer, which resets the TTL before forwarding",
+                        "The destination host doubles its TCP receive window and requests retransmission"
                     ],
                     correct: 1,
                     hint: "This is a key loop-prevention mechanism in routing.",
@@ -2251,10 +2271,10 @@
                     id: 5,
                     question: "What four core protocols comprise the Neighbor Discovery Protocol (NDP) in ICMPv6?",
                     options: [
-                        "TCP, UDP, FTP, TFTP",
+                        "Transmission Control Protocol, User Datagram Protocol, FTP, and TFTP",
                         "Router Solicitation, Router Advertisement, Neighbor Solicitation, Neighbor Advertisement",
-                        "DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK",
-                        "GET, POST, PUT, DELETE"
+                        "DHCP discovery, offer, request, and acknowledgment messages for IPv6 hosts",
+                        "HTTP GET, POST, PUT, and DELETE methods used by web applications"
                     ],
                     correct: 1,
                     hint: "NDP replaces ARP and broadcast gateway discovery from IPv4.",
@@ -2264,10 +2284,10 @@
                     id: 6,
                     question: "Why does an IPv6 host send a Neighbor Solicitation (NS) message?",
                     options: [
-                        "To request an IP address from a DHCP server",
+                        "To request an IPv6 address and lease information from a DHCPv6 server",
                         "To resolve a MAC address from a known IPv6 address or perform DAD",
-                        "To terminate a TCP session",
-                        "To measure channel bandwidth"
+                        "To terminate an active TCP session with a neighbor on the local link",
+                        "To measure available channel bandwidth between two IPv6 network devices"
                     ],
                     correct: 1,
                     hint: "This is the functional equivalent of an ARP request in IPv4.",
@@ -2277,10 +2297,10 @@
                     id: 7,
                     question: "What message does a node send in response to a Neighbor Solicitation (NS)?",
                     options: [
-                        "Neighbor Advertisement (NA)",
-                        "Echo Reply",
-                        "Router Advertisement",
-                        "Time Exceeded"
+                        "Neighbor Advertisement (NA), reporting its link-layer address to the requester",
+                        "ICMP Echo Reply, confirming that the node can respond to a connectivity probe",
+                        "Router Advertisement (RA), providing prefix and gateway information to local hosts",
+                        "ICMP Time Exceeded, reporting that a packet's hop limit reached zero"
                     ],
                     correct: 0,
                     hint: "An announcement (`Advertisement`) of its presence and MAC address.",
@@ -2298,10 +2318,10 @@
                     id: 9,
                     question: "What is the result of successfully executing `ping 127.0.0.1` on a Windows PC?",
                     options: [
-                        "Verifies connection to the public internet",
+                        "Verifies connectivity to an external public server through the internet gateway",
                         "Tests the TCP/IP stack implementation and loopback interface functionality",
-                        "Verifies the default gateway's availability",
-                        "Clears the local DNS cache"
+                        "Checks whether the local default gateway is reachable over the Ethernet link",
+                        "Removes cached host-name mappings from the local DNS resolver"
                     ],
                     correct: 1,
                     hint: "The IP `127.0.0.1` is reserved for local self-testing.",
@@ -2319,10 +2339,10 @@
                     id: 11,
                     question: "What does an exclamation mark (`!`) signify in Cisco IOS ping output?",
                     options: [
-                        "Packet timeout / dropped",
+                        "The probe timed out or the destination did not return a reply",
                         "Successful receipt of an ICMP Echo Reply within the timeout window",
-                        "Routing loop detected",
-                        "Packet blocked by firewall"
+                        "A routing loop was detected before the probe reached its destination",
+                        "An access-control rule blocked the probe at an intermediate firewall"
                     ],
                     correct: 1,
                     hint: "Each exclamation mark represents a successful echo reply.",
@@ -2332,10 +2352,10 @@
                     id: 12,
                     question: "What does a period (`.`) indicate in Cisco IOS ping output?",
                     options: [
-                        "Successful packet delivery",
+                        "The echo request reached its destination and a reply returned successfully",
                         "Request timed out (reply not received within the timeout window)",
-                        "Interface is down",
-                        "Checksum error"
+                        "The local outgoing interface is administratively disabled or physically disconnected",
+                        "The router detected a checksum error and discarded the echo reply packet"
                     ],
                     correct: 1,
                     hint: "The exact opposite of an exclamation mark (`!`).",
@@ -2354,9 +2374,9 @@
                     question: "How does `traceroute` determine the IP addresses of intermediate routers?",
                     options: [
                         "Incrementing TTL values (starting at 1) and capturing ICMP Time Exceeded messages",
-                        "Broadcasting ARP requests to every node",
-                        "Reading the local routing table",
-                        "Mirroring traffic"
+                        "Broadcasting ARP requests and recording each local device that answers",
+                        "Reading the local routing table to list every router along the path",
+                        "Mirroring packets at each switch and inspecting their source addresses"
                     ],
                     correct: 0,
                     hint: "Each successive packet has a TTL incremented by 1.",
@@ -2366,10 +2386,10 @@
                     id: 15,
                     question: "What does an asterisk (`*`) represent in `traceroute` output?",
                     options: [
-                        "The router responded with minimal latency",
+                        "The router replied immediately and reported a very low round-trip time",
                         "Request timed out / router is configured not to reply to ICMP probes",
-                        "Target host reached",
-                        "Encrypted tunnel established"
+                        "The probe reached its destination host and confirmed the final path hop",
+                        "A secure encrypted tunnel was negotiated with the intermediate router"
                     ],
                     correct: 1,
                     hint: "Administrators often block ICMP for security reasons.",
@@ -2391,7 +2411,12 @@
                 {
                     id: 17,
                     question: "Which ICMPv4 'Destination Unreachable' code indicates that the target port is closed?",
-                    options: ["Code 0", "Code 1", "Code 3 (Port unreachable)", "Code 2"],
+                    options: [
+                        "Code 0 (Network unreachable)",
+                        "Code 1 (Host unreachable)",
+                        "Code 3 (Port unreachable)",
+                        "Code 2 (Protocol unreachable)"
+                    ],
                     correct: 2,
                     hint: "Ports are used at the transport layer for applications.",
                     rationale: "Code 3 indicates that the port destination is unreachable (no listener on that port)."
@@ -2407,7 +2432,12 @@
                 {
                     id: 19,
                     question: "Which utility helps isolate network bottlenecks and faulty routers along a path?",
-                    options: ["`ping`", "`traceroute`", "`arp`", "`ipconfig`"],
+                    options: [
+                        "`ping` (tests whether a destination responds)",
+                        "`traceroute` (shows each routed hop and its response time)",
+                        "`arp` (displays IPv4-to-MAC address mappings on the local host)",
+                        "`ipconfig` (shows local network interface settings and addresses)"
+                    ],
                     correct: 1,
                     hint: "This utility displays every hop along the packet path.",
                     rationale: "Traceroute shows hop-by-hop latency and router responses, helping pinpoint faults."
@@ -2416,10 +2446,10 @@
                     id: 20,
                     question: "What is a major difference in ICMP handling between IPv4 and IPv6?",
                     options: [
-                        "ICMP is replaced by TCP in IPv6",
+                        "ICMP functions are replaced by TCP control messages in IPv6 networks",
                         "ICMPv6 incorporates NDP, replacing ARP and local multicast group management",
-                        "ICMPv4 is faster because it lacks headers",
-                        "ICMPv6 does not support echo tests"
+                        "ICMPv4 uses shorter packets because its messages contain no protocol headers",
+                        "ICMPv6 omits echo request and reply messages used for connectivity tests"
                     ],
                     correct: 1,
                     hint: "Recall the role of Neighbor Discovery Protocol.",
@@ -2431,10 +2461,10 @@
                     id: 1,
                     question: "What is the primary responsibility of the transport layer?",
                     options: [
-                        "Physical transmission of bits across media",
+                        "Encoding and transmitting individual bits across physical network media",
                         "Logical communication between application processes running on different hosts",
-                        "Routing packets across subnets",
-                        "Encrypting data for user display"
+                        "Selecting the next-hop route for packets sent between separate IP subnets",
+                        "Encrypting and formatting content before it is displayed to an end user"
                     ],
                     correct: 1,
                     hint: "It organizes end-to-end communication specifically for applications.",
@@ -2465,10 +2495,10 @@
                     id: 4,
                     question: "Which statement is true regarding UDP?",
                     options: [
-                        "Guarantees delivery of every byte in sequence",
-                        "Establishes a preliminary three-way handshake",
+                        "Guarantees delivery of all application bytes in the original sequence",
+                        "Establishes a three-way connection handshake before sending user data",
                         "It is connectionless, offering best-effort delivery with minimal overhead",
-                        "Automatically replaces TCP for web browsing"
+                        "Automatically negotiates a reliable replacement for TCP during web browsing"
                     ],
                     correct: 2,
                     hint: "UDP has a very simple 8-byte header.",
@@ -2507,10 +2537,10 @@
                     id: 8,
                     question: "Which control flags are active during steps 1 and 2 of the TCP three-way handshake?",
                     options: [
-                        "FIN and ACK",
+                        "FIN (finish) on step 1, followed by ACK (acknowledgment) on step 2",
                         "SYN on step 1, SYN-ACK on step 2",
-                        "RST and URG",
-                        "PSH and FIN"
+                        "RST (reset) on step 1, followed by URG (urgent data) on step 2",
+                        "PSH (push) on step 1, followed by FIN (finish) on step 2"
                     ],
                     correct: 1,
                     hint: "SYN stands for Synchronize.",
@@ -2520,10 +2550,10 @@
                     id: 9,
                     question: "What steps characterize the graceful termination of a TCP connection?",
                     options: [
-                        "Echo Request / Reply exchanges",
+                        "Exchanging ICMP Echo Request and Echo Reply messages between the endpoints",
                         "Exchanging segments with FIN and ACK flags in both directions",
-                        "Instantaneous connection reset via RST",
-                        "Sending empty UDP datagrams"
+                        "Resetting the connection immediately with an RST segment and no orderly shutdown",
+                        "Sending empty UDP datagrams from each endpoint to signal that the session has ended"
                     ],
                     correct: 1,
                     hint: "Each of the two communication directions is closed independently.",
@@ -2533,10 +2563,10 @@
                     id: 10,
                     question: "What is a port in the context of the transport layer?",
                     options: [
-                        "A physical switch port for cable connection",
+                        "A physical connector on a switch used to attach an Ethernet cable",
                         "A logical identifier (0–65535) used to multiplex simultaneous sessions and applications",
-                        "A default gateway IP address",
-                        "A NIC MAC address"
+                        "The IP address assigned to the router that forwards traffic outside a subnet",
+                        "The hardware address that identifies a network interface on a local link"
                     ],
                     correct: 1,
                     hint: "Helps the operating system route packets to the correct application.",
@@ -2571,9 +2601,9 @@
                     question: "What is a network socket?",
                     options: [
                         "A combination of an IP address and port number (e.g., `192.168.1.5:80`)",
-                        "A hardware slot for an SFP transceiver",
-                        "A NIC driver",
-                        "A VPN tunnel"
+                        "A physical expansion slot used to install a fiber-optic network transceiver",
+                        "A software driver that allows an operating system to communicate with a NIC",
+                        "An encrypted connection that carries private network traffic across the internet"
                     ],
                     correct: 0,
                     hint: "Uniquely identifies a specific process in network communications.",
@@ -2583,10 +2613,10 @@
                     id: 15,
                     question: "What is the purpose of Flow Control in TCP?",
                     options: [
-                        "Compression for wireless channels",
+                        "Reducing packet sizes to conserve airtime on congested wireless channels",
                         "Preventing receiver buffer overflow by regulating transmission volume",
-                        "Traffic encryption",
-                        "Automatic ISP selection"
+                        "Protecting application data from interception by encrypting the TCP payload",
+                        "Selecting an internet service provider automatically when a link becomes unavailable"
                     ],
                     correct: 1,
                     hint: "Utilizes the Window size field in the TCP header.",
@@ -2596,10 +2626,10 @@
                     id: 16,
                     question: "What is Maximum Segment Size (MSS)?",
                     options: [
-                        "Maximum Ethernet frame size",
+                        "The largest Ethernet frame that can be transmitted across a local link",
                         "Maximum amount of user payload data a host can receive in a single TCP segment",
-                        "Total IP packet size including all headers",
-                        "Maximum packet lifetime"
+                        "The maximum complete IP packet size including its network and transport headers",
+                        "The longest time a packet may remain in the network before its lifetime expires"
                     ],
                     correct: 1,
                     hint: "Typically calculated as MTU minus IP and TCP headers.",
@@ -2609,10 +2639,10 @@
                     id: 17,
                     question: "What function does the `netstat` utility perform?",
                     options: [
-                        "Tests internet speed",
+                        "Measures available internet throughput and reports the connection speed",
                         "Displays active network connections, listening ports, and routing tables",
-                        "Resets firewall rules",
-                        "Changes MAC addresses"
+                        "Removes firewall filtering rules and restores the default security policy",
+                        "Changes the hardware address assigned to a network interface"
                     ],
                     correct: 1,
                     hint: "Useful for spotting unknown or active established connections.",
@@ -2630,10 +2660,10 @@
                     id: 19,
                     question: "What occurs if a TCP segment is lost during transmission?",
                     options: [
-                        "The session terminates permanently",
+                        "The TCP session closes immediately without attempting to recover lost data",
                         "The receiver does not acknowledge the segment, and the sender retransmits the missing data",
-                        "The receiver auto-generates missing bytes",
-                        "Traffic is routed via UDP"
+                        "The receiver creates replacement bytes and inserts them into the application stream",
+                        "The operating system switches the remaining connection traffic from TCP to UDP"
                     ],
                     correct: 1,
                     hint: "Timeouts and acknowledgments guarantee reliability.",
@@ -2643,10 +2673,10 @@
                     id: 20,
                     question: "What role do Sequence Numbers play in TCP headers?",
                     options: [
-                        "Indicate physical switch ports",
+                        "Identify the physical switch ports used by the source and destination hosts",
                         "Ensure correct reassembly of segments in order and detect data loss",
-                        "Set QoS priorities",
-                        "Encrypt payload data"
+                        "Assign priority markings to segments so routers can apply quality-of-service policies",
+                        "Encrypt application payloads before they are placed into TCP segments"
                     ],
                     correct: 1,
                     hint: "Since packets can arrive out of order, they must be sequenced.",
@@ -2658,10 +2688,10 @@
                     id: 1,
                     question: "Which upper OSI layers are combined into the Application layer in the TCP/IP model?",
                     options: [
-                        "Physical, Data Link, Network",
+                        "The Physical, Data Link, and Network layers are combined into one layer",
                         "Application, Presentation, Session",
-                        "Transport and Network",
-                        "Application only"
+                        "The Transport and Network layers are combined into the TCP/IP Application layer",
+                        "The Application layer remains separate, with no OSI layers combined into it"
                     ],
                     correct: 1,
                     hint: "The TCP/IP model covers three upper OSI layers under one umbrella.",
@@ -2672,9 +2702,9 @@
                     question: "What are the primary functions of the Presentation layer in the OSI model?",
                     options: [
                         "Data formatting, compression/decompression, encryption/decryption",
-                        "Establishing physical cable connections",
-                        "Routing packets across networks",
-                        "Managing dialog sessions"
+                        "Establishing, testing, and maintaining physical cable and wireless connections",
+                        "Forwarding packets between networks by selecting routes from an IP table",
+                        "Opening, synchronizing, and closing application dialogs between endpoints"
                     ],
                     correct: 0,
                     hint: "Ensures data sent by one system is readable by another.",
@@ -2685,9 +2715,9 @@
                     question: "What are the primary functions of the Session layer in the OSI model?",
                     options: [
                         "Creating, maintaining, and terminating application dialogs and synchronization",
-                        "Checking Ethernet frame checksums",
-                        "Assigning IP addresses",
-                        "Filtering firewall traffic"
+                        "Verifying frame integrity by calculating checksums on Ethernet transmissions",
+                        "Assigning network addresses, subnet masks, and gateways to client devices",
+                        "Inspecting incoming packets and enforcing firewall access policies"
                     ],
                     correct: 0,
                     hint: "Manages dialog control and who transmits when.",
@@ -2697,10 +2727,10 @@
                     id: 4,
                     question: "What characterizes the Client-Server model at the application layer?",
                     options: [
-                        "All network devices are equal peers",
+                        "All network devices share resources equally without a dedicated service host",
                         "A client device requests resources, while a server processes requests and returns responses",
-                        "Data is transmitted exclusively via wireless APs",
-                        "Routers act as mail servers"
+                        "Applications exchange data only through wireless access points, not wired links",
+                        "Routers host and deliver email messages instead of forwarding network traffic"
                     ],
                     correct: 1,
                     hint: "Web browsers act as clients; websites reside on servers.",
@@ -2710,10 +2740,10 @@
                     id: 5,
                     question: "What is a characteristic of Peer-to-Peer (P2P) networking?",
                     options: [
-                        "A centralized authentication server is mandatory",
+                        "A centralized authentication service is required before peers can share resources",
                         "Each device (peer) can act as both a client and a server simultaneously",
-                        "Transmission is wired only",
-                        "Application protocols are absent"
+                        "Every peer must use a wired connection because wireless links are not supported",
+                        "Peers exchange files without using application-layer protocols or services"
                     ],
                     correct: 1,
                     hint: "BitTorrent applications operate on this principle.",
@@ -2763,10 +2793,10 @@
                     id: 11,
                     question: "What are the key advantages of IMAP over POP3 for email retrieval?",
                     options: [
-                        "IMAP operates without TCP",
+                        "IMAP retrieves messages without using a reliable transport connection such as TCP",
                         "IMAP stores mail on the server and synchronizes read status across multiple devices",
-                        "IMAP is strictly for sending mail",
-                        "IMAP requires no authentication"
+                        "IMAP is designed only to send outgoing messages from a client to a mail server",
+                        "IMAP allows unrestricted mailbox access without requiring user authentication"
                     ],
                     correct: 1,
                     hint: "Allows reading mail on both a phone and laptop with synchronized folders.",
@@ -2776,10 +2806,10 @@
                     id: 12,
                     question: "What is the primary function of the Domain Name System (DNS)?",
                     options: [
-                        "Automatically allocating IP addresses",
+                        "Automatically assigning network addresses and subnet settings to client devices",
                         "Translating human-readable domain names into numeric IP addresses and vice versa",
-                        "Encrypting web traffic",
-                        "Tracing packet routes"
+                        "Encrypting browser connections so web traffic remains private in transit",
+                        "Recording each router hop a packet crosses on its way to a destination"
                     ],
                     correct: 1,
                     hint: "The internet's phone book for IP addresses.",
@@ -2805,10 +2835,10 @@
                     id: 15,
                     question: "What role does an MX (Mail Exchange) record play in DNS?",
                     options: [
-                        "Identifies authoritative name servers",
+                        "Identifies which DNS servers are authoritative for a domain's records",
                         "Designates mail servers responsible for handling email for a domain",
-                        "Stores gateway MAC addresses",
-                        "Manages VPN tunnels"
+                        "Stores the hardware address of the gateway used by a domain's mail hosts",
+                        "Specifies the encrypted tunnel endpoints used to connect remote mail offices"
                     ],
                     correct: 1,
                     hint: "MX stands for Mail Exchanger.",
@@ -2827,9 +2857,9 @@
                     question: "How does the Dynamic Host Configuration Protocol (DHCP) function for IPv4?",
                     options: [
                         "Dynamically assigns IP addresses, masks, gateways, and DNS settings from a pool for a lease duration",
-                        "Statically hardcodes permanent IPs in ROM",
-                        "Redirects unencrypted HTTP traffic",
-                        "Synchronizes accurate network time"
+                        "Permanently writes manually selected IP addresses into each device's read-only memory",
+                        "Redirects plain HTTP requests through a proxy before they reach a web server",
+                        "Synchronizes clocks across network devices using a shared time source"
                     ],
                     correct: 0,
                     hint: "Saves administrators from manual IP configuration on every client.",
@@ -2839,10 +2869,10 @@
                     id: 18,
                     question: "What is the correct message sequence in the DHCP Discover workflow?",
                     options: [
-                        "SYN, SYN-ACK, ACK, FIN",
+                        "TCP connection setup: SYN, SYN-ACK, ACK, followed by FIN to close the session",
                         "DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK",
-                        "GET, POST, PUT, 200 OK",
-                        "SOLICIT, REQUEST, ADVERTISE, REPLY"
+                        "HTTP request exchange: GET, POST, PUT, followed by a successful 200 OK response",
+                        "DHCPv6 stateful exchange: SOLICIT, ADVERTISE, REQUEST, and REPLY messages"
                     ],
                     correct: 1,
                     hint: "Begins with a broadcast server discovery (`Discover`).",
@@ -2853,9 +2883,9 @@
                     question: "What two connections does the File Transfer Protocol (FTP) use?",
                     options: [
                         "Control connection (port 21) and a separate data connection (port 20)",
-                        "A single UDP connection on port 69",
-                        "An encrypted SSH tunnel on port 22",
-                        "A multicast stream"
+                        "A single UDP exchange on port 69 for both commands and transferred file contents",
+                        "One encrypted SSH connection on port 22 for commands and file data alike",
+                        "A multicast stream that distributes control information and file contents to clients"
                     ],
                     correct: 0,
                     hint: "FTP separates control commands and actual file streams onto different ports.",
@@ -2866,9 +2896,9 @@
                     question: "What are the primary functions of the Server Message Block (SMB) protocol?",
                     options: [
                         "Client-server file sharing, printer sharing, and resource access over sessions",
-                        "Dynamic inter-domain routing",
-                        "Antivirus signature updates",
-                        "Local hostname resolution"
+                        "Exchanging routing information dynamically between autonomous systems on the internet",
+                        "Distributing antivirus definitions from a central server to endpoint security tools",
+                        "Resolving short local host names into IP addresses without using DNS"
                     ],
                     correct: 0,
                     hint: "Widely used in Windows networks for file sharing and network drives.",
@@ -2881,9 +2911,9 @@
                     question: "What are the four primary threat categories after an attacker breaches a network?",
                     options: [
                         "Information theft, Data manipulation, Identity theft, Disruption of service",
-                        "Cable overheating, Power outages, Fan failures",
-                        "Increased ping, TTL drops, Checksum errors",
-                        "Switch burnout, Hard drive crashes, BIOS freezes"
+                        "Unauthorized account access, packet delay, link congestion, and routing instability",
+                        "Power supply failure, cooling faults, cable damage, and equipment overheating",
+                        "Corrupted firmware, failing disks, switch loops, and boot configuration errors"
                     ],
                     correct: 0,
                     hint: "Logical and informational consequences of intrusion.",
@@ -2894,9 +2924,9 @@
                     question: "What are the three core vulnerability categories in network infrastructure?",
                     options: [
                         "Technological, Configuration, Security Policy",
-                        "Hardware, Software, Biological",
-                        "Internal, External, Transit",
-                        "Wired, Wireless, Satellite"
+                        "Hardware faults, software defects, and biological threats to equipment",
+                        "Internal users, external attackers, and transit network connections",
+                        "Wired links, wireless links, and satellite transmission technologies"
                     ],
                     correct: 0,
                     hint: "Related to protocol/software weaknesses, misconfigurations, and policy gaps.",
@@ -2906,10 +2936,10 @@
                     id: 3,
                     question: "A server room air conditioning failure leading to equipment overheating is what type of physical threat?",
                     options: [
-                        "Hardware threats",
+                        "Hardware threats, including device failure or physical component damage",
                         "Environmental threats (temperature and humidity)",
-                        "Electrical threats",
-                        "Maintenance threats"
+                        "Electrical threats, including power loss, surges, or unstable voltage",
+                        "Maintenance threats, including missed updates or incomplete equipment servicing"
                     ],
                     correct: 1,
                     hint: "Related to climatic conditions in the environment.",
@@ -2920,9 +2950,9 @@
                     question: "What is the key difference between a computer worm and a virus?",
                     options: [
                         "A worm is standalone malware that does not require a host file or human action to spread",
-                        "Viruses spread exclusively via FTP",
-                        "Worms cannot harm operating systems",
-                        "Viruses cannot replicate"
+                        "A virus is standalone malware that spreads across networks without attaching to a host file",
+                        "A worm can only damage files when it is delivered through an FTP connection",
+                        "A virus cannot make copies of itself after it has infected a host system"
                     ],
                     correct: 0,
                     hint: "A virus needs an infected host file; a worm travels across the network independently.",
@@ -2933,9 +2963,9 @@
                     question: "What is a Trojan Horse malware?",
                     options: [
                         "Software that appears legitimate or useful but contains hidden malicious functions",
-                        "Software that encrypts disks without demanding ransom",
-                        "A firewall blocking spam",
-                        "A hardware wiretap"
+                        "Ransomware that encrypts a victim's files but does not request payment for recovery",
+                        "A firewall feature that detects unsolicited messages and blocks unwanted email",
+                        "A physical network device that secretly records signals on a wired connection"
                     ],
                     correct: 0,
                     hint: "Named after the mythical wooden horse.",
@@ -2946,9 +2976,9 @@
                     question: "Which category does a reconnaissance (scanning/mapping) attack belong to?",
                     options: [
                         "Information gathering and mapping of systems or services prior to a primary attack",
-                        "Instantaneous data destruction",
-                        "Privilege escalation",
-                        "Creating switching loops"
+                        "Immediate destruction of stored data to prevent an organization from recovering it",
+                        "Gaining higher permissions after already obtaining access to a compromised system",
+                        "Disrupting Layer 2 forwarding by creating a loop between network switches"
                     ],
                     correct: 0,
                     hint: "Attackers study network maps, active IPs, and ports using tools like ping and port scanners.",
@@ -2959,9 +2989,9 @@
                     question: "Which attacks fall under Access attacks?",
                     options: [
                         "Brute-force password guessing, trust exploitation, port redirection, and Man-in-the-Middle (MitM)",
-                        "Ping flood traffic generation",
-                        "Physical power cable sabotage",
-                        "Firmware upgrades"
+                        "Sending high-volume echo requests to exhaust bandwidth and overwhelm a target service",
+                        "Disconnecting server power cables to interrupt normal operation of network services",
+                        "Installing approved software updates to improve device security and reliability"
                     ],
                     correct: 0,
                     hint: "Goal is unauthorized access to confidential data or elevated privileges.",
@@ -2971,10 +3001,10 @@
                     id: 8,
                     question: "What is the essence of a Denial of Service (DoS) or Distributed Denial of Service (DDoS) attack?",
                     options: [
-                        "Password theft via phishing",
+                        "Stealing user credentials by directing victims to a deceptive login website",
                         "Exhausting system resources or bandwidth to render services unavailable to legitimate users",
-                        "Reading encrypted VPN traffic",
-                        "SQL injection"
+                        "Capturing encrypted VPN traffic in order to read protected user communications",
+                        "Placing crafted database commands into input fields to alter a web application's queries"
                     ],
                     correct: 1,
                     hint: "Aimed at denying service to legitimate users.",
@@ -2985,9 +3015,9 @@
                     question: "What is a botnet?",
                     options: [
                         "A network of compromised computers (zombies) controlled centrally for DDoS attacks",
-                        "A corporate developer network",
-                        "Cisco monitoring utilities",
-                        "Cloud backup system"
+                        "A private group of developer workstations that share source code repositories",
+                        "A collection of network monitoring tools used to manage Cisco infrastructure",
+                        "A cloud storage service that automatically backs up data from user devices"
                     ],
                     correct: 0,
                     hint: "Multiple infected machines executing hacker commands simultaneously.",
@@ -2997,10 +3027,10 @@
                     id: 10,
                     question: "What is the 'Defense-in-Depth' approach in security?",
                     options: [
-                        "Using a single powerful firewall at the perimeter",
+                        "Relying on one high-capacity firewall to block every threat at the network perimeter",
                         "Deploying a combination of diverse security controls, policies, and services across multiple network layers",
-                        "Completely disconnecting from the internet",
-                        "Using wireless encryption exclusively"
+                        "Disconnecting all systems from external networks to eliminate internet-based attacks",
+                        "Using wireless encryption as the only control for protecting enterprise information"
                     ],
                     correct: 1,
                     hint: "Security built like an onion with multiple protective layers.",
@@ -3024,9 +3054,9 @@
                     question: "Why is a Demilitarized Zone (DMZ) used in firewall configuration?",
                     options: [
                         "To house public-facing servers (e.g., web servers) while isolating them from the trusted internal network",
-                        "To completely disable traffic filtering",
-                        "To connect backup generators",
-                        "To store master password backups"
+                        "To host public-facing services while allowing unrestricted access to the trusted internal LAN",
+                        "To bypass firewall rules so all traffic can move freely between internal network segments",
+                        "To connect backup power equipment to servers that are exposed to the public internet"
                     ],
                     correct: 0,
                     hint: "A buffer zone between the public internet and the corporate network.",
@@ -3062,10 +3092,10 @@
                     id: 15,
                     question: "What are standard best practices for creating strong passwords and passphrases?",
                     options: [
-                        "Using pet names or birthdates for ease of recall",
+                        "Using familiar names, personal dates, or predictable details that are easy to remember",
                         "Length of 8–10+ characters with mixed case, numbers, and symbols, or multi-word passphrases",
-                        "Leaving password fields blank",
-                        "Using numeric sequences like `12345678`"
+                        "Leaving password fields empty so users do not have to reuse or disclose credentials",
+                        "Choosing common keyboard patterns and sequential digits that are quick to type"
                     ],
                     correct: 1,
                     hint: "Passwords must withstand dictionary and brute-force attacks.",
@@ -3075,10 +3105,10 @@
                     id: 16,
                     question: "Which command protects Cisco devices against brute-force attacks by locking out login attempts?",
                     options: [
-                        "`login block-for # attempts # within #`",
-                        "`security passwords min-length 8`",
-                        "`exec-timeout 5 0`",
-                        "`no ip domain-lookup`"
+                        "`login block-for # attempts # within #` (locks out logins after repeated failures)",
+                        "`security passwords min-length 8` (sets a minimum length for device passwords)",
+                        "`exec-timeout 5 0` (ends an idle session after five minutes without input)",
+                        "`no ip domain-lookup` (disables DNS lookup for unrecognized CLI commands)"
                     ],
                     correct: 0,
                     hint: "Temporarily blocks logins after a set threshold of failed attempts.",
@@ -3088,10 +3118,10 @@
                     id: 17,
                     question: "Why is SSH strongly recommended over Telnet for remote administration?",
                     options: [
-                        "Telnet operates only on wireless networks",
+                        "Telnet supports remote sessions only over wireless links and not over wired networks",
                         "SSH encrypts all transmitted traffic, whereas Telnet sends everything in plaintext",
-                        "SSH requires no passwords",
-                        "Telnet is supported only on legacy routers"
+                        "SSH opens administrator sessions without credentials or any form of user authentication",
+                        "Telnet is available only on older routers and cannot run on modern network equipment"
                     ],
                     correct: 1,
                     hint: "Telnet is vulnerable to packet sniffers.",
@@ -3102,9 +3132,9 @@
                     question: "What steps are required to configure SSH on a Cisco router?",
                     options: [
                         "Set hostname, configure domain-name, generate RSA keys (`crypto key generate rsa`), create local users, and enable SSH on vty lines",
-                        "Enter `ssh enable` in privileged mode",
-                        "Connect a USB console cable",
-                        "Shut down interfaces and reboot"
+                        "Enter a single `ssh enable` command in privileged EXEC mode to activate secure remote access",
+                        "Attach a USB console cable and use its driver to encrypt all remote terminal traffic",
+                        "Disable network interfaces and reboot so the router automatically creates SSH credentials"
                     ],
                     correct: 0,
                     hint: "Generating RSA keys is mandatory for SSH encryption.",
@@ -3122,10 +3152,10 @@
                     id: 20,
                     question: "What security rule should be applied to unused services and ports on network devices?",
                     options: [
-                        "Leave them enabled for future updates",
+                        "Keep unused services active so future software updates can access the device remotely",
                         "Disable all unused services and interfaces to reduce attack surface and resource usage",
-                        "Configure guest access without passwords",
-                        "Use them for speed testing"
+                        "Allow guest accounts to access unused interfaces without requiring a password",
+                        "Leave unused ports open so users can run bandwidth tests whenever they need"
                     ],
                     correct: 1,
                     hint: "Fewer open ports mean fewer potential vulnerabilities for attackers.",
