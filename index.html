@@ -22,17 +22,17 @@
     </script>
     <style>
         :root {
-            --bg: #edf2f7;
+            --bg: #f5f5f5;
             --bg-elev: #ffffff;
-            --bg-soft: #f5f7fb;
+            --bg-soft: #f8f9fa;
             --panel: #ffffff;
             --panel-alt: #f8fafc;
-            --text: #1f2937;
-            --muted: #64748b;
-            --border: #dbe3ee;
-            --primary: #0d6ead;
-            --primary-strong: #0b5d99;
-            --primary-soft: #eaf4ff;
+            --text: #212529;
+            --muted: #5f6b75;
+            --border: #d6dce1;
+            --primary: #0f6cbf;
+            --primary-strong: #0b5cad;
+            --primary-soft: #e7f1f8;
             --success-bg: #ebf9f1;
             --success-border: #6ec59b;
             --success-text: #106b45;
@@ -40,31 +40,31 @@
             --danger-border: #ef9ca4;
             --danger-text: #a33442;
             --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-            --tab-bg: #e8edf6;
-            --tab-active: linear-gradient(135deg, #0c7ec9 0%, #0f5ea8 100%);
-            --tab-ink: #13314d;
-            --header-bg: rgba(255,255,255,0.85);
-            --header-ink: #0f172a;
+            --tab-bg: #f8f9fa;
+            --tab-active: #0f6cbf;
+            --tab-ink: #343a40;
+            --header-bg: #ffffff;
+            --header-ink: #212529;
             --module-panel: #ffffff;
-            --module-panel-ink: #1f2937;
+            --module-panel-ink: #212529;
             --timer-bg: #f8fafc;
-            --nav-button-bg: #e2e8f0;
-            --nav-button-hover: #cbd5e1;
+            --nav-button-bg: #f1f3f5;
+            --nav-button-hover: #e2e6ea;
             --footer-bg: #ffffff;
         }
 
         body[data-theme="dark"] {
-            --bg: #0b1422;
-            --bg-elev: #111c2f;
-            --bg-soft: #101d30;
-            --panel: #101d30;
-            --panel-alt: #132338;
-            --text: #edf3ff;
-            --muted: #9aa9bd;
-            --border: #23344d;
-            --primary: #66b1ff;
-            --primary-strong: #8bc1ff;
-            --primary-soft: #142d49;
+            --bg: #171d23;
+            --bg-elev: #222b33;
+            --bg-soft: #202a33;
+            --panel: #222b33;
+            --panel-alt: #1d2730;
+            --text: #e9ecef;
+            --muted: #aab4bd;
+            --border: #394650;
+            --primary: #5ca9e6;
+            --primary-strong: #80bdf0;
+            --primary-soft: #263d50;
             --success-bg: #102e22;
             --success-border: #2d9a6a;
             --success-text: #9ce7bf;
@@ -72,17 +72,17 @@
             --danger-border: #d65d77;
             --danger-text: #ffc7d1;
             --shadow: 0 12px 28px rgba(2, 6, 23, 0.45);
-            --tab-bg: #1b2c42;
-            --tab-active: linear-gradient(135deg, #3d9bf5 0%, #2d6edb 100%);
-            --tab-ink: #e5f1ff;
-            --header-bg: rgba(11, 20, 34, 0.78);
-            --header-ink: #edf3ff;
-            --module-panel: #0f1d2d;
-            --module-panel-ink: #edf3ff;
-            --timer-bg: rgba(19, 35, 58, 0.8);
-            --nav-button-bg: #1b2c42;
-            --nav-button-hover: #263d5a;
-            --footer-bg: #0f1d2d;
+            --tab-bg: #27333d;
+            --tab-active: #0f6cbf;
+            --tab-ink: #e9ecef;
+            --header-bg: #222b33;
+            --header-ink: #f8f9fa;
+            --module-panel: #222b33;
+            --module-panel-ink: #e9ecef;
+            --timer-bg: #1d2730;
+            --nav-button-bg: #27333d;
+            --nav-button-hover: #34434f;
+            --footer-bg: #222b33;
         }
 
         * { box-sizing: border-box; }
@@ -98,20 +98,20 @@
             background: var(--tab-bg);
             color: var(--tab-ink);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.65rem 1rem;
+            border-radius: 6px;
+            padding: 0.55rem 0.85rem;
             font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.01em;
+            font-weight: 600;
+            letter-spacing: 0;
             transition: all 0.2s ease;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+            box-shadow: none;
         }
 
         .module-tab.active {
             background: var(--tab-active);
             color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 8px 18px rgba(13, 110, 173, 0.25);
+            box-shadow: 0 2px 4px rgba(15, 108, 191, 0.2);
         }
 
         .module-tab:hover {
@@ -146,12 +146,14 @@
             background: var(--module-panel);
             color: var(--module-panel-ink);
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
+            box-shadow: 0 1px 3px rgba(33, 37, 41, 0.08);
+            border-radius: 8px;
         }
 
         .module-strip .module-tab {
             background: var(--tab-bg);
             color: var(--tab-ink);
+            border-radius: 6px;
         }
 
         .module-strip .module-tab.active {
@@ -167,7 +169,13 @@
             background: var(--panel);
             color: var(--text);
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
+            box-shadow: 0 1px 3px rgba(33, 37, 41, 0.08);
+            border-radius: 8px;
+        }
+
+        #prev-btn,
+        #next-btn {
+            border-radius: 6px;
         }
 
         #prev-btn {
@@ -220,6 +228,15 @@
             border-color: var(--border);
         }
 
+        .brand-badge,
+        #next-btn {
+            background: var(--primary);
+        }
+
+        #next-btn:hover {
+            background: var(--primary-strong);
+        }
+
         .theme-toggle:hover {
             transform: translateY(-1px);
             border-color: var(--primary);
@@ -235,8 +252,8 @@
             gap: 1rem;
             background: var(--panel);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(33, 37, 41, 0.08);
             overflow: hidden;
             margin-bottom: 1.2rem;
         }
@@ -253,7 +270,7 @@
             justify-content: center;
             min-width: 100%;
             padding: 0.4rem 0.6rem;
-            border-radius: 8px;
+            border-radius: 6px;
             background: var(--primary-soft);
             color: var(--primary-strong);
             font-weight: 800;
@@ -329,13 +346,13 @@
             width: 100%;
             gap: 0.75rem;
             padding: 0.75rem 0.8rem;
-            border-radius: 10px;
+            border-radius: 6px;
             border: 1px solid var(--border);
-            background: var(--bg-soft);
+            background: var(--panel);
             color: var(--text);
             text-align: left;
             transition: all 0.2s ease;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+            box-shadow: none;
         }
 
         .option-item:hover {
@@ -431,7 +448,7 @@
     <header class="sticky-header sticky top-0 z-50 border-b border-borderCol shadow-sm p-4">
         <div class="content-shell flex flex-col sm:flex-row justify-between items-center gap-4">
             <h1 class="site-title text-base sm:text-lg font-bold tracking-tight flex items-center gap-2">
-                <span class="bg-sky-700 text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Modules 1–16 Practice Exam
+                <span class="brand-badge text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Modules 1–16 Practice Exam
             </h1>
             <div class="flex items-center gap-3">
                 <div id="overall-timer" class="text-sm border px-3 py-1 rounded font-mono font-semibold">Time: 00:00</div>
@@ -442,7 +459,7 @@
 
     <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
         <!-- Module Selection Tabs -->
-        <div class="module-strip flex flex-wrap gap-2 mb-6 p-3 rounded-xl max-h-48 overflow-y-auto">
+        <div class="module-strip flex flex-wrap gap-2 mb-6 p-3 max-h-48 overflow-y-auto">
             <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 1 (Intro)</button>
             <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 2 (Switching/CLI)</button>
             <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol">Mod 3 (Protocols)</button>
@@ -467,10 +484,10 @@
         </div>
 
         <!-- Navigation and Actions -->
-        <div class="navigation-panel flex justify-between items-center mt-6 p-4 rounded-xl">
-            <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 rounded-xl font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+        <div class="navigation-panel flex justify-between items-center mt-6 p-4">
+            <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
             <div id="progress-indicator" class="text-sm font-semibold text-slate-600">Question 1 of 10</div>
-            <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm transition-all">Next</button>
+            <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 font-medium shadow-sm transition-all">Next</button>
         </div>
     </main>
 
