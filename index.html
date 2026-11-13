@@ -1,0 +1,2965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITN (v7.0) Comprehensive Practice Quiz - NetAcad Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        netacadBg: '#f8fafc',
+                        cardBg: '#ffffff',
+                        borderCol: '#cbd5e1',
+                        sideBoxBg: '#f1f5f9',
+                        accentBlue: '#007bb8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #edf2f7;
+            --bg-elev: #ffffff;
+            --bg-soft: #f5f7fb;
+            --panel: #ffffff;
+            --panel-alt: #f8fafc;
+            --text: #1f2937;
+            --muted: #64748b;
+            --border: #dbe3ee;
+            --primary: #0d6ead;
+            --primary-strong: #0b5d99;
+            --primary-soft: #eaf4ff;
+            --success-bg: #ebf9f1;
+            --success-border: #6ec59b;
+            --success-text: #106b45;
+            --danger-bg: #fff1f2;
+            --danger-border: #ef9ca4;
+            --danger-text: #a33442;
+            --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            --tab-bg: #e8edf6;
+            --tab-active: linear-gradient(135deg, #0c7ec9 0%, #0f5ea8 100%);
+            --tab-ink: #13314d;
+        }
+
+        body[data-theme="dark"] {
+            --bg: #0f172a;
+            --bg-elev: #111c2f;
+            --bg-soft: #0b1322;
+            --panel: #101d30;
+            --panel-alt: #132338;
+            --text: #edf3ff;
+            --muted: #9aa9bd;
+            --border: #23344d;
+            --primary: #66b1ff;
+            --primary-strong: #8bc1ff;
+            --primary-soft: #142d49;
+            --success-bg: #102e22;
+            --success-border: #2d9a6a;
+            --success-text: #9ce7bf;
+            --danger-bg: #301b2a;
+            --danger-border: #d65d77;
+            --danger-text: #ffc7d1;
+            --shadow: 0 12px 28px rgba(2, 6, 23, 0.45);
+            --tab-bg: #1b2c42;
+            --tab-active: linear-gradient(135deg, #3d9bf5 0%, #2d6edb 100%);
+            --tab-ink: #e5f1ff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .module-tab {
+            background: var(--tab-bg);
+            color: var(--tab-ink);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+        }
+
+        .module-tab.active {
+            background: var(--tab-active);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 8px 18px rgba(13, 110, 173, 0.25);
+        }
+
+        .module-tab:hover {
+            transform: translateY(-1px);
+        }
+
+        .content-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sticky-header {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(15,23,42,0.03);
+        }
+
+        body[data-theme="dark"] .sticky-header {
+            background: rgba(15, 23, 42, 0.72);
+        }
+
+        .theme-toggle {
+            border: 1px solid var(--border);
+            background: var(--bg-soft);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 0.5rem 0.9rem;
+            font-weight: 700;
+            font-size: 0.78rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-1px);
+            border-color: var(--primary);
+        }
+
+        #quiz-container {
+            display: block;
+        }
+
+        .question-shell {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 1rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+        }
+
+        .question-status {
+            background: var(--panel-alt);
+            border-right: 1px solid var(--border);
+            padding: 1rem 1rem 0.9rem;
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100%;
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            background: var(--primary-soft);
+            color: var(--primary-strong);
+            font-weight: 800;
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+        }
+
+        .status-block {
+            margin-top: 0.9rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .status-inline {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 0.55rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: inline-block;
+        }
+
+        .flag-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.7rem;
+            font-size: 0.75rem;
+            color: var(--text);
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0.6rem;
+        }
+
+        .flag-toggle input {
+            accent-color: var(--primary);
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .question-main {
+            padding: 1.2rem 1.25rem 1.1rem;
+        }
+
+        .question-text {
+            margin: 0 0 1rem 0;
+            font-size: 1.04rem;
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .option-list {
+            display: grid;
+            gap: 0.7rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            gap: 0.75rem;
+            padding: 0.75rem 0.8rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-soft);
+            color: var(--text);
+            text-align: left;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        .option-letter {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(148, 163, 184, 0.1);
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .option-item.correct {
+            background: var(--success-bg);
+            border-color: var(--success-border);
+            color: var(--success-text);
+        }
+
+        .option-item.correct .option-letter {
+            background: var(--success-border);
+            border-color: var(--success-border);
+            color: #ffffff;
+        }
+
+        .option-item.wrong {
+            background: var(--danger-bg);
+            border-color: var(--danger-border);
+            color: var(--danger-text);
+        }
+
+        .option-item.wrong .option-letter {
+            background: var(--danger-border);
+            border-color: var(--danger-border);
+            color: #ffffff;
+        }
+
+        .option-item.disabled {
+            opacity: 0.78;
+            cursor: default;
+        }
+
+        .option-item .option-label {
+            font-weight: 700;
+            color: var(--muted);
+            margin-right: 0.2rem;
+        }
+
+        .answer-explanation {
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .answer-explanation strong {
+            color: var(--primary-strong);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .answer-explanation p {
+            margin: 0;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .question-shell {
+                grid-template-columns: 1fr;
+            }
+            .question-status {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body data-theme="light" class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+    <header class="sticky-header sticky top-0 z-50 border-b border-borderCol shadow-sm p-4">
+        <div class="content-shell flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2 dark:text-white">
+                <span class="bg-sky-700 text-white text-xs px-2.5 py-1 rounded font-mono">ITN v7.0</span> CCNA Modules 1–16 Practice Exam
+            </h1>
+            <div class="flex items-center gap-3">
+                <div id="overall-timer" class="text-sm bg-slate-100 border border-borderCol px-3 py-1 rounded font-mono text-sky-700 font-semibold">Time: 00:00</div>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme">🌙 Dark</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto w-full p-4 flex-grow my-6">
+        <!-- Module Selection Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 bg-white p-3 rounded-xl shadow-sm border border-borderCol max-h-48 overflow-y-auto">
+            <button onclick="switchModule(1)" id="tab-1" class="module-tab active px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 1 (Intro)</button>
+            <button onclick="switchModule(2)" id="tab-2" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 2 (Switching/CLI)</button>
+            <button onclick="switchModule(3)" id="tab-3" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 3 (Protocols)</button>
+            <button onclick="switchModule(4)" id="tab-4" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 4 (Physical)</button>
+            <button onclick="switchModule(5)" id="tab-5" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 5 (Number Systems)</button>
+            <button onclick="switchModule(6)" id="tab-6" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 6 (Data Link)</button>
+            <button onclick="switchModule(7)" id="tab-7" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 7 (Ethernet)</button>
+            <button onclick="switchModule(8)" id="tab-8" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 8 (Network Layer)</button>
+            <button onclick="switchModule(9)" id="tab-9" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 9 (IPv6)</button>
+            <button onclick="switchModule(10)" id="tab-10" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 10 (IP Addressing)</button>
+            <button onclick="switchModule(11)" id="tab-11" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 11 (Subnetting IPv4)</button>
+            <button onclick="switchModule(12)" id="tab-12" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 12 (IPv6)</button>
+            <button onclick="switchModule(13)" id="tab-13" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 13 (ICMP)</button>
+            <button onclick="switchModule(14)" id="tab-14" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 14 (Transport)</button>
+            <button onclick="switchModule(15)" id="tab-15" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 15 (Application)</button>
+            <button onclick="switchModule(16)" id="tab-16" class="module-tab px-3 py-1.5 rounded-lg font-medium text-xs transition-colors border border-borderCol bg-slate-100 text-slate-700">Mod 16 (Security)</button>
+        </div>
+
+        <!-- NetAcad Style Question Layout Container -->
+        <div id="quiz-container" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
+            <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Navigation and Actions -->
+        <div class="flex justify-between items-center mt-6 bg-white p-4 rounded-xl border border-borderCol shadow-sm">
+            <button onclick="prevQuestion()" id="prev-btn" class="bg-slate-200 hover:bg-slate-300 border border-borderCol text-slate-700 px-5 py-2.5 rounded-xl font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+            <div id="progress-indicator" class="text-sm font-semibold text-slate-600">Question 1 of 10</div>
+            <button onclick="nextQuestion()" id="next-btn" class="bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm transition-all">Next</button>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-borderCol text-slate-500 text-center py-4 mt-8">
+        <p class="text-xs">Cisco CCNA Introduction to Networks (ITN v7.0) NetAcad Simulation &copy; 2026</p>
+    </footer>
+
+    <script>
+        const quizData = {
+            1: [
+                {
+                    id: 1,
+                    question: "Which type of computer device provides information, such as web pages or email, to other end devices on a network?",
+                    options: ["Hub", "Server", "Switch", "Client"],
+                    correct: 1,
+                    hint: "This device services requests made by client software.",
+                    rationale: "Servers are hosts that have software installed that enables them to provide information and services to other devices on the network."
+                },
+                {
+                    id: 2,
+                    question: "What is a major disadvantage of a peer-to-peer (P2P) network model compared to a client-server network model?",
+                    options: [
+                        "Lack of centralized administration and security control",
+                        "Extremely high implementation and hardware costs",
+                        "Inability to share files directly",
+                        "Requiring dedicated enterprise routers for operation"
+                    ],
+                    correct: 0,
+                    hint: "In P2P, every device acts as both client and server without a central directory.",
+                    rationale: "P2P networks lack central administration, making user accounts, security, and resource management difficult to scale."
+                },
+                {
+                    id: 3,
+                    question: "Which network characteristic ensures that a network can expand quickly to support new users and applications without degrading performance?",
+                    options: ["Quality of Service", "Fault Tolerance", "Scalability", "Security"],
+                    correct: 2,
+                    hint: "Think about expanding network capacity seamlessly.",
+                    rationale: "Scalability refers to a network's ability to grow and handle increased traffic or added nodes without loss of performance."
+                },
+                {
+                    id: 4,
+                    question: "What are the three primary goals of information and network security?",
+                    options: [
+                        "Confidentiality, integrity, and availability",
+                        "Speed, bandwidth, and low latency",
+                        "Redundancy, resilience, and recovery",
+                        "Authentication, authorization, and accounting"
+                    ],
+                    correct: 0,
+                    hint: "Often referred to as the CIA triad.",
+                    rationale: "The CIA triad consists of Confidentiality (privacy), Integrity (accuracy), and Availability (access when needed)."
+                },
+                {
+                    id: 5,
+                    question: "What type of topology illustrates physical cable installations, device locations, and patch panel connections in rooms?",
+                    options: ["Logical topology", "Physical topology", "Hierarchical topology", "Star topology"],
+                    correct: 1,
+                    hint: "Refers to where equipment is physically positioned.",
+                    rationale: "Physical topologies show the physical layout, rooms, racks, and cable runs of network hardware."
+                },
+                {
+                    id: 6,
+                    question: "What does a logical topology diagram illustrate?",
+                    options: [
+                        "Actual cable lengths and ceiling tile grids",
+                        "Devices, interface ports, and IP addressing schemes",
+                        "Building floor plans and rack elevations",
+                        "Power outlet allocations for switches"
+                    ],
+                    correct: 1,
+                    hint: "Focuses on how data flows and IP configuration.",
+                    rationale: "Logical topologies illustrate devices, ports, and IP addressing schemas regardless of physical layout."
+                },
+                {
+                    id: 7,
+                    question: "Which network architecture type provides centralized storage, backups, and shared applications across an entire enterprise?",
+                    options: ["Peer-to-Peer", "Client-Server", "Ad-hoc wireless", "Bluetooth PAN"],
+                    correct: 1,
+                    hint: "Relies on dedicated powerful machines hosting services.",
+                    rationale: "Client-server networks utilize dedicated servers to provide centralized data access, backups, and security."
+                },
+                {
+                    id: 8,
+                    question: "What is 'Goodput' in network performance metrics?",
+                    options: [
+                        "Total raw physical bandwidth of a medium",
+                        "Actual usable data transferred over a given period of time after subtracting protocol overhead",
+                        "Maximum potential speed between two routers",
+                        "Error rate percentage on copper lines"
+                    ],
+                    correct: 1,
+                    hint: "Throughput minus encapsulation and overhead.",
+                    rationale: "Goodput measures usable data transfer rate, excluding overhead bits such as headers and control traffic."
+                },
+                {
+                    id: 9,
+                    question: "What technology allows devices to connect to a LAN using standard electrical power wiring and electrical outlets?",
+                    options: ["Powerline networking", "DSL broadband", "Coaxial cable modem", "Fiber to the home"],
+                    correct: 0,
+                    hint: "Uses household AC electrical sockets.",
+                    rationale: "Powerline networking utilizes existing electrical circuits to transmit data where Ethernet wiring is impractical."
+                },
+                {
+                    id: 10,
+                    question: "What is the primary purpose of a Wide Area Network (WAN)?",
+                    options: [
+                        "Connecting computers within a single home or office room",
+                        "Interconnecting LANs across vast geographical areas, cities, or countries",
+                        "Providing wireless printer connectivity",
+                        "Creating local switch clusters"
+                    ],
+                    correct: 1,
+                    hint: "Spans large distances beyond local buildings.",
+                    rationale: "WANs connect multiple LANs separated by broad geographic distances, typically managed by service providers."
+                }
+            ],
+            2: [
+                {
+                    id: 1,
+                    question: "Which Cisco IOS mode allows access to all router or switch commands and features, identified by a prompt ending with `#`?",
+                    options: [
+                        "User EXEC mode",
+                        "Privileged EXEC mode",
+                        "Global configuration mode",
+                        "Setup mode"
+                    ],
+                    correct: 1,
+                    hint: "Higher security level than User EXEC mode (`>`).",
+                    rationale: "Privileged EXEC mode (`#`) permits execution of all router/switch commands, configuration reviews, and saves."
+                },
+                {
+                    id: 2,
+                    question: "Which command enters global configuration mode from privileged EXEC mode?",
+                    options: [
+                        "`enable`",
+                        "`configure terminal`",
+                        "`interface vlan 1`",
+                        "`write memory`"
+                    ],
+                    correct: 1,
+                    hint: "Abbreviated often as `conf t`.",
+                    rationale: "The `configure terminal` command grants access to global configuration mode where device-wide settings are applied."
+                },
+                {
+                    id: 3,
+                    question: "What is the primary function of the `service password-encryption` command on a Cisco device?",
+                    options: [
+                        "Encrypts all plaintext passwords stored in configuration files with Type 7 encryption",
+                        "Enables SSH version 2 for remote login",
+                        "Sets up RSA encryption keys",
+                        "Encrypts data payloads flowing through interfaces"
+                    ],
+                    correct: 0,
+                    hint: "Protects passwords visible in `show running-config`.",
+                    rationale: "This command applies weak Type 7 obfuscation to plaintext passwords stored in configuration files."
+                },
+                {
+                    id: 4,
+                    question: "What is the difference between running-config and startup-config files on a Cisco device?",
+                    options: [
+                        "running-config is stored in RAM and takes effect immediately; startup-config is stored in NVRAM",
+                        "running-config is in NVRAM; startup-config is in Flash memory",
+                        "startup-config is temporary, while running-config is permanent",
+                        "There is no difference between them"
+                    ],
+                    correct: 0,
+                    hint: "RAM vs NVRAM memory persistence upon reboot.",
+                    rationale: "running-config resides in RAM (volatile), while startup-config resides in NVRAM (non-volatile) for reboots."
+                },
+                {
+                    id: 5,
+                    question: "Which command saves the active running configuration to the startup configuration file?",
+                    options: [
+                        "`copy running-config startup-config`",
+                        "`save config`",
+                        "`write running`",
+                        "`backup config`"
+                    ],
+                    correct: 0,
+                    hint: "Copies RAM config to NVRAM.",
+                    rationale: "`copy running-config startup-config` preserves current configuration changes across device reboots."
+                },
+                {
+                    id: 6,
+                    question: "What is the purpose of configuring a Message of the Day (MOTD) banner on a Cisco device?",
+                    options: [
+                        "To display legal notification and warn unauthorized users against access",
+                        "To configure dynamic routing protocols",
+                        "To assign management IP addresses",
+                        "To test interface bandwidth"
+                    ],
+                    correct: 0,
+                    hint: "Legal deterrence message upon connection.",
+                    rationale: "MOTD banners provide legal notification to deter unauthorized access attempts."
+                },
+                {
+                    id: 7,
+                    question: "What does the `no shutdown` command accomplish on a router interface or switch SVI?",
+                    options: [
+                        "Permanently disables the interface",
+                        "Administratively enables the interface so it can start passing traffic",
+                        "Resets interface counters",
+                        "Enables port security"
+                    ],
+                    correct: 1,
+                    hint: "Interfaces are administratively down by default.",
+                    rationale: "The `no shutdown` command brings an interface out of administratively down status into active operation."
+                },
+                {
+                    id: 8,
+                    question: "What is the purpose of configuring a Switch Virtual Interface (SVI) with an IP address on a Cisco switch?",
+                    options: [
+                        "To enable remote management of the switch via SSH or Telnet",
+                        "To route packets between different subnets automatically without a router",
+                        "To increase port transmission speed",
+                        "To replace the MAC address table"
+                    ],
+                    correct: 0,
+                    hint: "Allows virtual management access to Layer 2 switches.",
+                    rationale: "An SVI (like VLAN 1 interface) allows administrators to manage the switch remotely over the network."
+                },
+                {
+                    id: 9,
+                    question: "Which keyboard shortcut can be used from any configuration mode to immediately return to privileged EXEC mode?",
+                    options: ["`Ctrl+Z`", "`Ctrl+C`", "`Ctrl+Shift+6`", "`Ctrl+D`"],
+                    correct: 0,
+                    hint: "Exits deep subconfiguration modes instantly.",
+                    rationale: "`Ctrl+Z` exits any configuration submode and places the user back in privileged EXEC mode."
+                },
+                {
+                    id: 10,
+                    question: "What command displays the current active configuration stored in RAM on a Cisco router?",
+                    options: [
+                        "`show running-config`",
+                        "`show startup-config`",
+                        "`show version`",
+                        "`show ip interface brief`"
+                    ],
+                    correct: 0,
+                    hint: "Shows what is currently running right now.",
+                    rationale: "`show running-config` displays the active configuration currently in the router's RAM."
+                }
+            ],
+            3: [
+                {
+                    id: 1,
+                    question: "What protocol suite is the primary suite used for internet communications today and is maintained by the IETF?",
+                    options: ["TCP/IP", "OSI Reference Model", "IPX/SPX", "AppleTalk"],
+                    correct: 0,
+                    hint: "Named after two core protocols: Transmission Control Protocol and Internet Protocol.",
+                    rationale: "The TCP/IP protocol suite is the foundational suite powering the global internet."
+                },
+                {
+                    id: 2,
+                    question: "What are the four layers of the TCP/IP reference model?",
+                    options: [
+                        "Application, Transport, Internet, and Network Access",
+                        "Physical, Data Link, Network, Transport",
+                        "Session, Presentation, Application, Transport",
+                        "Network Access, Internet, Session, Application"
+                    ],
+                    correct: 0,
+                    hint: "Compare to the 7-layer OSI model.",
+                    rationale: "The TCP/IP model comprises Application, Transport, Internet, and Network Access layers."
+                },
+                {
+                    id: 3,
+                    question: "What is the process called where protocols add their control headers and trailers to data as it moves down the stack?",
+                    options: ["Encapsulation", "Segmentation", "De-encapsulation", "Multiplexing"],
+                    correct: 0,
+                    hint: "Wrapping data with protocol headers at each layer.",
+                    rationale: "Encapsulation wraps data with appropriate headers and trailers as it travels down the OSI or TCP/IP stack."
+                },
+                {
+                    id: 4,
+                    question: "What is the term for the Protocol Data Unit (PDU) at Layer 3 (Network Layer) of the OSI model?",
+                    options: ["Segment", "Packet", "Frame", "Bits"],
+                    correct: 1,
+                    hint: "Layer 4 = Segment, Layer 3 = ?",
+                    rationale: "At Layer 3 (Network layer), the PDU is referred to as a packet (or datagram)."
+                },
+                {
+                    id: 5,
+                    question: "Which organization is responsible for coordinating global IP address allocation and domain root management?",
+                    options: ["ICANN", "IEEE", "IETF", "ISO"],
+                    correct: 0,
+                    hint: "Internet Corporation for Assigned Names and Numbers.",
+                    rationale: "ICANN coordinates IP address allocation, DNS root management, and protocol identifiers globally."
+                },
+                {
+                    id: 6,
+                    question: "What is the primary role of the Data Link Layer (Layer 2) in relation to the Network Layer?",
+                    options: [
+                        "Encapsulating Layer 3 packets into frames and managing MAC media access across local links",
+                        "Routing packets across global WANs",
+                        "Establishing reliable end-to-end sessions",
+                        "Translating signals into physical light waves"
+                    ],
+                    correct: 0,
+                    hint: "Prepares packets for transmission across physical media.",
+                    rationale: "The Data Link layer takes Network layer packets, encapsulates them into frames, and controls physical media access."
+                },
+                {
+                    id: 7,
+                    question: "What is the PDU at Layer 4 (Transport Layer) when using TCP?",
+                    options: ["Packet", "Frame", "Segment", "Stream"],
+                    correct: 2,
+                    hint: "TCP divides data streams into these units.",
+                    rationale: "The transport layer PDU for TCP is a segment (and for UDP, a datagram)."
+                },
+                {
+                    id: 8,
+                    question: "Which IEEE committee standard governs Ethernet technology?",
+                    options: ["IEEE 802.3", "IEEE 802.11", "IEEE 802.15", "IEEE 802.1Q"],
+                    correct: 0,
+                    hint: "Standard for wired LAN Ethernet.",
+                    rationale: "IEEE 802.3 defines wired Ethernet standards and CSMA/CD principles."
+                },
+                {
+                    id: 9,
+                    question: "What is the benefit of layering in networking models like OSI and TCP/IP?",
+                    options: [
+                        "Fosters competition and independent protocol development without breaking other layers",
+                        "Increases cable length limitations",
+                        "Eliminates the need for routers",
+                        "Encrypts all transmitted data automatically"
+                    ],
+                    correct: 0,
+                    hint: "Modularity allows updates to one layer without affecting others.",
+                    rationale: "Layering enables modular design, troubleshooting ease, and independent innovation in protocols."
+                },
+                {
+                    id: 10,
+                    question: "What is de-encapsulation?",
+                    options: [
+                        "Removing protocol headers and trailers as data moves up the receiver's stack",
+                        "Adding headers at each sending layer",
+                        "Encrypting data streams",
+                        "Splitting files into packets"
+                    ],
+                    correct: 0,
+                    hint: "The reverse process of encapsulation at the destination.",
+                    rationale: "De-encapsulation occurs as a receiving device strips headers off frames, packets, and segments as data travels upward."
+                }
+            ],
+            4: [
+                {
+                    id: 1,
+                    question: "Which OSI layer is responsible for translating bits into physical signals and transmitting them across network media?",
+                    options: ["Physical layer", "Data Link layer", "Network layer", "Transport layer"],
+                    correct: 0,
+                    hint: "Layer 1 deals with electrical voltages, light pulses, or radio waves.",
+                    rationale: "The Physical layer (Layer 1) converts digital bits into electrical, optical, or wireless signals for transmission."
+                },
+                {
+                    id: 2,
+                    question: "What technique do UTP cables use to cancel out electromagnetic interference (EMI) and radio frequency interference (RFI)?",
+                    options: [
+                        "Twisting opposing circuit pair wires together",
+                        "Surrounding wires with thick lead shielding",
+                        "Using fiber-optic cores",
+                        "Grounding every individual strand"
+                    ],
+                    correct: 0,
+                    hint: "Notice the 'T' in Unshielded Twisted Pair.",
+                    rationale: "Twisting wire pairs together causes external magnetic fields to cancel each other out, reducing EMI/RFI."
+                },
+                {
+                    id: 3,
+                    question: "What is the primary advantage of Single-Mode Fiber (SMF) over Multimode Fiber (MMF)?",
+                    options: [
+                        "Support for much longer cable distances and higher bandwidth",
+                        "Cheaper transceiver costs",
+                        "Easier field termination",
+                        "Larger core diameter"
+                    ],
+                    correct: 0,
+                    hint: "Used for long-distance telecommunication links.",
+                    rationale: "SMF uses a very narrow core and laser light, enabling transmissions over tens of kilometers."
+                },
+                {
+                    id: 4,
+                    question: "Which Ethernet cable type was traditionally required to connect two similar devices (like switch-to-switch or PC-to-PC)?",
+                    options: [
+                        "Straight-through cable",
+                        "Crossover cable",
+                        "Rollover console cable",
+                        "Coaxial cable"
+                    ],
+                    correct: 1,
+                    hint: "Transmitting and receiving pins crossed over.",
+                    rationale: "Legacy wiring required crossover cables to connect like devices; modern switches feature Auto-MDIX."
+                },
+                {
+                    id: 5,
+                    question: "What is Auto-MDIX on modern Cisco switches?",
+                    options: [
+                        "Automatically detects the required cable pinout (straight-through or crossover) and configures ports accordingly",
+                        "Automatically negotiates link speed up to 10Gbps",
+                        "Provides PoE power over fiber",
+                        "Encrypts data at Layer 1"
+                    ],
+                    correct: 0,
+                    hint: "Eliminates the need to worry about crossover vs straight-through cables.",
+                    rationale: "Auto-MDIX automatically senses the cable type and internal pin configuration."
+                },
+                {
+                    id: 6,
+                    question: "What is the primary function of a Network Interface Card (NIC)?",
+                    options: [
+                        "To provide the physical and electrical connection between a computer device and the network media",
+                        "To route packets across different subnets",
+                        "To translate domain names to IP addresses",
+                        "To assign dynamic IP leases"
+                    ],
+                    correct: 0,
+                    hint: "Hardware adapter installed inside or on host devices.",
+                    rationale: "The NIC connects a host to the network medium, handling framing and physical signal generation."
+                },
+                {
+                    id: 7,
+                    question: "Which media type is immune to electrical noise and EMI?",
+                    options: ["Unshielded Twisted Pair (UTP)", "Fiber-optic cabling", "Coaxial cabling", "Wireless radio waves"],
+                    correct: 1,
+                    hint: "Uses light pulses instead of electricity.",
+                    rationale: "Fiber-optic cables transmit light rather than electrical current, making them completely immune to EMI."
+                },
+                {
+                    id: 8,
+                    question: "What is bandwidth typically measured in?",
+                    options: ["Bits per second (bps)", "Decibels (dB)", "Watts (W)", "Hertz (Hz)"],
+                    correct: 0,
+                    hint: "Data capacity per second.",
+                    rationale: "Bandwidth is the capacity of a medium to carry data, measured in bps, Kbps, Mbps, or Gbps."
+                },
+                {
+                    id: 9,
+                    question: "What is latency?",
+                    options: [
+                        "The amount of time data takes to travel from source to destination across a network",
+                        "The total data storage capacity of a hard drive",
+                        "The maximum cable distance supported",
+                        "The number of dropped packets"
+                    ],
+                    correct: 0,
+                    hint: "Delay in transmission.",
+                    rationale: "Latency measures the delay experienced by packets moving from source to destination."
+                },
+                {
+                    id: 10,
+                    question: "Which wireless standard governs wireless local area networks (WLANs), commonly known as Wi-Fi?",
+                    options: ["IEEE 802.3", "IEEE 802.11", "IEEE 802.15", "IEEE 802.16"],
+                    correct: 1,
+                    hint: "Standard for wireless LANs.",
+                    rationale: "IEEE 802.11 specifies the wireless LAN (Wi-Fi) communication standards."
+                }
+            ],
+            5: [
+                {
+                    id: 1,
+                    question: "What is the decimal equivalent of the binary number `11000000`?",
+                    options: ["128", "192", "224", "240"],
+                    correct: 1,
+                    hint: "$128 + 64 = ?$ (Binary powers: $128, 64, 32, 16, 8, 4, 2, 1$)",
+                    rationale: "Binary `11000000` evaluates to $128 + 64 = 192$."
+                },
+                {
+                    id: 2,
+                    question: "What is the hexadecimal representation of the decimal value 168?",
+                    options: ["`A8`", "`B4`", "`C2`", "`E0`"],
+                    correct: 0,
+                    hint: "$168 = 16 \\times 10 + 8$ ($10$ in hex is `A`).",
+                    rationale: "Decimal 168 is represented in hexadecimal as `A8` ($10 \\times 16 + 8 = 168$)."
+                },
+                {
+                    id: 3,
+                    question: "How many bits are in an IPv4 address and how are they structured?",
+                    options: [
+                        "32 bits divided into four 8-bit octets",
+                        "64 bits divided into eight 8-bit hextets",
+                        "128 bits divided into four 32-bit blocks",
+                        "48 bits divided into six 8-bit pairs"
+                    ],
+                    correct: 0,
+                    hint: "Standard IPv4 dotted-decimal format.",
+                    rationale: "An IPv4 address consists of 32 bits grouped into 4 octets separated by periods."
+                },
+                {
+                    id: 4,
+                    question: "What is the binary representation of the decimal number 15?",
+                    options: ["`00001111`", "`11110000`", "`10101010`", "`11111111`"],
+                    correct: 0,
+                    hint: "$8 + 4 + 2 + 1 = 15$.",
+                    rationale: "Decimal 15 in binary is `00001111` (or `1111` in lower nibble)."
+                },
+                {
+                    id: 5,
+                    question: "What is the decimal value of the hexadecimal digit `F`?",
+                    options: ["10", "12", "15", "16"],
+                    correct: 2,
+                    hint: "Hex ranges from 0 to 9 and A (10) through F.",
+                    rationale: "Hexadecimal `F` represents the decimal value 15."
+                },
+                {
+                    id: 6,
+                    question: "What is the maximum decimal value that can be represented in a single 8-bit IPv4 octet?",
+                    options: ["127", "255", "256", "512"],
+                    correct: 1,
+                    hint: "$2^8 - 1 = ?$.",
+                    rationale: "An 8-bit octet ranges from 0 to 255 ($2^8 = 256$ total combinations)."
+                },
+                {
+                    id: 7,
+                    question: "What is the decimal equivalent of binary `00010100`?",
+                    options: ["16", "20", "24", "32"],
+                    correct: 1,
+                    hint: "$16 + 4 = 20$.",
+                    rationale: "Binary `00010100` equals $16 + 4 = 20$."
+                },
+                {
+                    id: 8,
+                    question: "Convert the decimal number 192 into hexadecimal.",
+                    options: ["`C0`", "`A0`", "`F0`", "`B8`"],
+                    correct: 0,
+                    hint: "$12 + 0$ ($12$ in hex is `C`).",
+                    rationale: "Decimal 192 divided by 16 is 12 with 0 remainder; 12 is `C`, so `C0`."
+                },
+                {
+                    id: 9,
+                    question: "How many IP addresses are available in a standard `/24` network mask ($255.255.255.0$)?",
+                    options: ["128", "256", "512", "1024"],
+                    correct: 1,
+                    hint: "32 minus 24 equals 8 host bits ($2^8$).",
+                    rationale: "With 8 host bits ($32 - 24$), there are $2^8 = 256$ total IP addresses in a `/24` subnet."
+                },
+                {
+                    id: 10,
+                    question: "What is the dotted-decimal representation of the subnet mask prefix `/26`?",
+                    options: [
+                        "`255.255.255.0`",
+                        "`255.255.255.128`",
+                        "`255.255.255.192`",
+                        "`255.255.255.240`"
+                    ],
+                    correct: 2,
+                    hint: "26 bits means 24 bits + 2 bits in the fourth octet ($128 + 64 = 192$).",
+                    rationale: "A `/26` mask has 26 network bits, making the fourth octet `11000000` (`192`)."
+                }
+            ],
+            6: [
+                {
+                    id: 1,
+                    question: "What are the two sublayers of the IEEE 802 LAN/MAN Data Link Layer?",
+                    options: [
+                        "Logical Link Control (LLC) and Media Access Control (MAC)",
+                        "Physical and Logical",
+                        "TCP and UDP",
+                        "IPv4 and IPv6"
+                    ],
+                    correct: 0,
+                    hint: "LLC talks to upper layers; MAC talks to physical hardware.",
+                    rationale: "The Data Link layer is divided into LLC (Upper sublayer) and MAC (Lower sublayer)."
+                },
+                {
+                    id: 2,
+                    question: "What is the primary function of the Media Access Control (MAC) sublayer?",
+                    options: [
+                        "Encapsulating network layer packets",
+                        "Controlling hardware media access and framing",
+                        "Establishing transport sessions",
+                        "Routing packets across WANs"
+                    ],
+                    correct: 1,
+                    hint: "Interacts directly with the physical network media.",
+                    rationale: "The MAC sublayer handles frame delimiting, physical addressing, and media access control."
+                },
+                {
+                    id: 3,
+                    question: "What information is contained in a Data Link Layer frame trailer?",
+                    options: [
+                        "Error detection (Frame Check Sequence / CRC)",
+                        "Source and destination IP addresses",
+                        "Transport port numbers",
+                        "TTL hop limits"
+                    ],
+                    correct: 0,
+                    hint: "Used by receivers to check for transmission corruption.",
+                    rationale: "The frame trailer contains the Frame Check Sequence (FCS) for error detection via CRC."
+                },
+                {
+                    id: 4,
+                    question: "What media access control method was used in legacy half-duplex bus Ethernet to detect collisions?",
+                    options: ["CSMA/CD", "CSMA/CA", "Token Passing", "Polling"],
+                    correct: 0,
+                    hint: "Carrier Sense Multiple Access with Collision Detection.",
+                    rationale: "CSMA/CD detects collisions on half-duplex shared wires, enforces a jam signal, and backs off."
+                },
+                {
+                    id: 5,
+                    question: "Which media access control method is primarily used in wireless (WLAN) networks to avoid collisions?",
+                    options: ["CSMA/CD", "CSMA/CA", "Token Ring", "FDDI"],
+                    correct: 1,
+                    hint: "Carrier Sense Multiple Access with Collision Avoidance.",
+                    rationale: "Wireless networks use CSMA/CA because radios cannot detect collisions while transmitting."
+                },
+                {
+                    id: 6,
+                    question: "What is the PDU created at the Data Link Layer?",
+                    options: ["Segment", "Packet", "Frame", "Bit"],
+                    correct: 2,
+                    hint: "Wrapped with a header and trailer at Layer 2.",
+                    rationale: "The Data Link layer encapsulates packets into frames."
+                },
+                {
+                    id: 7,
+                    question: "What is the role of the Logical Link Control (LLC) sublayer?",
+                    options: [
+                        "Communicates between networking software and device hardware drivers",
+                        "Generates electrical voltages on cables",
+                        "Computes IP routing tables",
+                        "Manages wireless channel frequencies"
+                    ],
+                    correct: 0,
+                    hint: "Software-oriented sublayer of Layer 2.",
+                    rationale: "LLC places network protocol information into the frame, allowing multiple protocols to share the physical medium."
+                },
+                {
+                    id: 8,
+                    question: "What happens in half-duplex communication?",
+                    options: [
+                        "Both devices can transmit and receive simultaneously",
+                        "Only one device can transmit at a time; otherwise, collisions occur",
+                        "Communication is strictly one-way only",
+                        "Data transmission requires fiber optics"
+                    ],
+                    correct: 1,
+                    hint: "Like a walkie-talkie where you take turns.",
+                    rationale: "Half-duplex allows transmission in both directions, but only one direction at a time."
+                },
+                {
+                    id: 9,
+                    question: "What is full-duplex communication?",
+                    options: [
+                        "Both devices can simultaneously send and receive data without collisions",
+                        "Devices take turns transmitting",
+                        "Only hubs support full-duplex",
+                        "Data speed is cut in half"
+                    ],
+                    correct: 0,
+                    hint: "Like a telephone call where both parties speak at once.",
+                    rationale: "Full-duplex enables simultaneous bidirectional transmission without collisions (used with switches)."
+                },
+                {
+                    id: 10,
+                    question: "Why are physical topologies distinct from logical topologies in Data Link framing?",
+                    options: [
+                        "Physical shows cables/ports; logical shows how data moves between nodes via framing and addressing",
+                        "They are identical in every network",
+                        "Logical topologies require no cabling",
+                        "Physical topologies only apply to wireless"
+                    ],
+                    correct: 0,
+                    hint: "Hardware vs data flow.",
+                    rationale: "Physical topology reflects physical wiring, whereas logical topology reflects data transfer paths and framing rules."
+                }
+            ],
+            7: [
+                {
+                    id: 1,
+                    question: "What is the total length of an Ethernet MAC address expressed in binary and hexadecimal?",
+                    options: [
+                        "32 bits (8 hex digits)",
+                        "48 bits (12 hex digits)",
+                        "64 bits (16 hex digits)",
+                        "128 bits (32 hex digits)"
+                    ],
+                    correct: 1,
+                    hint: "Six pairs of hexadecimal characters (e.g., `12:34:56:78:9A:BC`).",
+                    rationale: "MAC addresses are 48 bits long, represented as 12 hexadecimal characters."
+                },
+                {
+                    id: 2,
+                    question: "What does an Ethernet switch do when it receives a frame with an unknown unicast destination MAC address?",
+                    options: [
+                        "Drops the frame immediately",
+                        "Floods the frame out all ports except the incoming port",
+                        "Sends an ICMP error back to sender",
+                        "Sends the frame to the default gateway router"
+                    ],
+                    correct: 1,
+                    hint: "Unknown destination results in flooding across active ports.",
+                    rationale: "If an unknown destination MAC is not in its table, the switch floods the frame out all ports in the same VLAN except the source."
+                },
+                {
+                    id: 3,
+                    question: "What is the destination MAC address of an Ethernet broadcast frame?",
+                    options: [
+                        "`00-00-00-00-00-00`",
+                        "`FF-FF-FF-FF-FF-FF`",
+                        "`01-00-5E-00-00-01`",
+                        "`AA-AA-AA-AA-AA-AA`"
+                    ],
+                    correct: 1,
+                    hint: "All binary ones across all 48 bits.",
+                    rationale: "Broadcast frames use `FF-FF-FF-FF-FF-FF`, processed by all devices on the local network segment."
+                },
+                {
+                    id: 4,
+                    question: "How does a switch learn MAC addresses to populate its MAC address table (CAM table)?",
+                    options: [
+                        "By examining the source MAC address and incoming port of every incoming frame",
+                        "By broadcasting ARP requests continuously",
+                        "By reading the router's routing table",
+                        "From static configuration files"
+                    ],
+                    correct: 0,
+                    hint: "Switches look at incoming source addresses.",
+                    rationale: "Switches dynamically inspect the source MAC address of incoming frames and map it to the receiving port."
+                },
+                {
+                    id: 5,
+                    question: "What is the default aging timer for dynamic entries in a Cisco switch MAC address table?",
+                    options: ["60 seconds", "300 seconds (5 minutes)", "3600 seconds (1 hour)", "Never expires"],
+                    correct: 1,
+                    hint: "Five minutes of inactivity removes the entry.",
+                    rationale: "Dynamic MAC table entries time out and are removed after 300 seconds (5 minutes) of inactivity."
+                },
+                {
+                    id: 6,
+                    question: "Which switch frame forwarding method receives the entire frame, performs a CRC check, and only forwards valid frames?",
+                    options: [
+                        "Store-and-forward switching",
+                        "Cut-through switching",
+                        "Fragment-free switching",
+                        "Fast-forward switching"
+                    ],
+                    correct: 0,
+                    hint: "Stores the whole frame and verifies integrity before forwarding.",
+                    rationale: "Store-and-forward checks for errors via CRC before forwarding, ensuring corrupted frames are dropped."
+                },
+                {
+                    id: 7,
+                    question: "Which switching method reads just the destination MAC address (first 6 bytes) before forwarding for low latency?",
+                    options: [
+                        "Store-and-forward switching",
+                        "Cut-through switching",
+                        "Cyclic redundancy switching",
+                        "Buffered memory switching"
+                    ],
+                    correct: 1,
+                    hint: "Forwards almost instantly after reading destination MAC.",
+                    rationale: "Cut-through switching forwards frames immediately after reading the destination MAC address."
+                },
+                {
+                    id: 8,
+                    question: "What happens when an Ethernet frame arrives at a switch port and is smaller than the minimum legal size (64 bytes)?",
+                    options: [
+                        "It is treated as a runt frame / collision fragment and dropped",
+                        "It is padded with zeros automatically by the receiver",
+                        "It is forwarded as a jumbo frame",
+                        "It triggers an ARP request"
+                    ],
+                    correct: 0,
+                    hint: "Frames smaller than 64 bytes are considered malformed.",
+                    rationale: "Frames under 64 bytes are categorized as runts or collision fragments and dropped by the switch."
+                },
+                {
+                    id: 9,
+                    question: "What are jumbo frames in Ethernet networks?",
+                    options: [
+                        "Frames with data payloads exceeding the standard 1500 bytes (up to 9000 bytes)",
+                        "Broadcast frames sent to all VLANs",
+                        "Encrypted frames used in VPN tunnels",
+                        "Frames with invalid MAC headers"
+                    ],
+                    correct: 0,
+                    hint: "Supports larger payloads for high-speed server clusters.",
+                    rationale: "Jumbo frames carry data payloads greater than 1500 bytes, improving throughput in enterprise data centers."
+                },
+                {
+                    id: 10,
+                    question: "What is the OUI (Organizationally Unique Identifier) portion of a MAC address?",
+                    options: [
+                        "The first 24 bits assigned by IEEE to the manufacturer",
+                        "The last 24 bits assigned uniquely by the vendor to the device",
+                        "The IP address subnet prefix",
+                        "The VLAN ID tag"
+                    ],
+                    correct: 0,
+                    hint: "Identifies the hardware vendor.",
+                    rationale: "The first 24 bits (OUI) identify the hardware manufacturer, while the remaining 24 bits are the serial ID."
+                }
+            ],
+            8: [
+                {
+                    id: 1,
+                    question: "What is the primary role of the Network Layer (Layer 3) in the OSI model?",
+                    options: [
+                        "Transporting data packets from source to destination across multiple interconnected networks",
+                        "Generating physical electrical signals",
+                        "Providing reliable TCP stream connections",
+                        "Translating domain names to IP addresses"
+                    ],
+                    correct: 0,
+                    hint: "Handles internetwork routing and logical addressing.",
+                    rationale: "The Network layer provides logical addressing and routing of packets across different networks."
+                },
+                {
+                    id: 2,
+                    question: "Which three characteristics describe the Internet Protocol (IP)?",
+                    options: [
+                        "Connectionless, Best-effort (unreliable), and Media independent",
+                        "Connection-oriented, Reliable, and Byte-stream",
+                        "Stateful, Encrypted, and Hardware-dependent",
+                        "Acknowledged, Flow-controlled, and Sequenced"
+                    ],
+                    correct: 0,
+                    hint: "IP does not guarantee delivery or establish prior handshakes.",
+                    rationale: "IP is connectionless, best-effort (no built-in error recovery), and media independent."
+                },
+                {
+                    id: 3,
+                    question: "What is the fixed header length of an IPv4 packet?",
+                    options: ["8 bytes", "20 bytes", "40 bytes", "64 bytes"],
+                    correct: 1,
+                    hint: "Compare to IPv6 which has a fixed 40-byte header.",
+                    rationale: "The standard IPv4 header is 20 bytes long (excluding optional fields)."
+                },
+                {
+                    id: 4,
+                    question: "What is the fixed header length of an IPv6 packet?",
+                    options: ["20 bytes", "32 bytes", "40 bytes", "64 bytes"],
+                    correct: 2,
+                    hint: "Twice as long as the base IPv4 header.",
+                    rationale: "IPv6 has a streamlined, fixed header length of 40 bytes."
+                },
+                {
+                    id: 5,
+                    question: "Which field in the IPv4 packet header prevents packets from circulating indefinitely in routing loops?",
+                    options: ["Time to Live (TTL)", "Protocol", "Total Length", "Header Checksum"],
+                    correct: 0,
+                    hint: "Decremented by 1 at each router hop.",
+                    rationale: "The TTL field decrements by 1 at each router; when it reaches 0, the packet is discarded."
+                },
+                {
+                    id: 6,
+                    question: "What are three major limitations of IPv4 that motivated the development of IPv6?",
+                    options: [
+                        "IPv4 address depletion, lack of end-to-end connectivity due to NAT, and increased complexity",
+                        "Slow transmission speeds and cable distance limits",
+                        "Incompatibility with Ethernet switches",
+                        "Excessive header encryption overhead"
+                    ],
+                    correct: 0,
+                    hint: "Running out of addresses was the primary trigger.",
+                    rationale: "IPv4 exhaustion, NAT breaking end-to-end visibility, and growing internet scale drove IPv6 adoption."
+                },
+                {
+                    id: 7,
+                    question: "What are the three types of route entries found in a router's routing table?",
+                    options: [
+                        "Directly connected routes, Remote routes, and Default routes",
+                        "Static routes, Dynamic routes, and Broadcast routes",
+                        "Primary routes, Secondary routes, and Backup routes",
+                        "Internal routes, External routes, and Multicast routes"
+                    ],
+                    correct: 0,
+                    hint: "How routers know where to send packets.",
+                    rationale: "Routers maintain directly connected networks, remote network routes, and default routes."
+                },
+                {
+                    id: 8,
+                    question: "What does a 'C' code represent in the output of a Cisco router's `show ip route` command?",
+                    options: ["Connected route", "Candidate default route", "Static route", "OSPF route"],
+                    correct: 0,
+                    hint: "Directly attached interface network.",
+                    rationale: "In Cisco routing tables, `C` designates a directly connected network interface."
+                },
+                {
+                    id: 9,
+                    question: "What is administrative distance (AD) in routing?",
+                    options: [
+                        "The trustworthiness or preference rating of a routing information source (lower AD is more preferred)",
+                        "The physical cable length between routers",
+                        "The number of router hops to a destination",
+                        "The transmission bandwidth speed"
+                    ],
+                    correct: 0,
+                    hint: "Lower number means higher preference (e.g., connected=0, static=1, OSPF=110).",
+                    rationale: "Administrative Distance defines route source reliability; lower AD values take precedence."
+                },
+                {
+                    id: 10,
+                    question: "What is the default administrative distance of a static route in Cisco IOS?",
+                    options: ["0", "1", "110", "120"],
+                    correct: 1,
+                    hint: "Directly connected is 0, static is just above it.",
+                    rationale: "Static routes have a default administrative distance of 1."
+                }
+            ],
+            9: [
+                {
+                    id: 1,
+                    question: "What is the primary purpose of the Address Resolution Protocol (ARP) in IPv4 networks?",
+                    options: [
+                        "To resolve a known IPv4 address to its corresponding MAC address on a local network",
+                        "To resolve domain names to IP addresses",
+                        "To assign dynamic IP addresses to hosts",
+                        "To test end-to-end packet reachability"
+                    ],
+                    correct: 0,
+                    hint: "Layer 3 to Layer 2 mapping.",
+                    rationale: "ARP maps a known IPv4 address to a physical MAC address on a local Ethernet segment."
+                },
+                {
+                    id: 2,
+                    question: "What protocol does IPv6 use for address resolution and router discovery instead of ARP?",
+                    options: [
+                        "ICMPv6 Neighbor Discovery (ND) Protocol",
+                        "DHCPv6 stateful protocol",
+                        "IGMP multicast management",
+                        "DNS name resolution"
+                    ],
+                    correct: 0,
+                    hint: "Replaces ARP broadcasts with ICMPv6 multicast messages.",
+                    rationale: "IPv6 uses ICMPv6 Neighbor Discovery (ND) for address resolution, replacing ARP."
+                },
+                {
+                    id: 3,
+                    question: "What is the function of an ARP request message?",
+                    options: [
+                        "To ask all nodes on the local network who owns a specific IPv4 address",
+                        "To request an IP lease from a DHCP server",
+                        "To test connection speed between routers",
+                        "To query DNS server records"
+                    ],
+                    correct: 0,
+                    hint: "Broadcast message asking 'Who has this IP address?'",
+                    rationale: "An ARP request is broadcasted to ask which device owns a specific target IPv4 address."
+                },
+                {
+                    id: 4,
+                    question: "What command displays the ARP table on a Windows 10 PC?",
+                    options: ["`arp -a`", "`show arp`", "`ipconfig /all`", "`netstat -r`"],
+                    correct: 0,
+                    hint: "Displays current IP-to-MAC cache entries.",
+                    rationale: "The `arp -a` command lists cached IP-to-MAC address entries on Windows and Linux hosts."
+                },
+                {
+                    id: 5,
+                    question: "What security vulnerability involves a threat actor sending unsolicited ARP replies to associate their MAC address with the gateway's IP?",
+                    options: ["ARP poisoning / spoofing", "MAC flooding", "IP subnet hijacking", "DNS cache poisoning"],
+                    correct: 0,
+                    hint: "Exploits the stateless nature of ARP.",
+                    rationale: "ARP poisoning associates an attacker's MAC address with a legitimate gateway IP, enabling Man-in-the-Middle attacks."
+                },
+                {
+                    id: 6,
+                    question: "How do host devices determine whether a destination IP address is on the local network or a remote network?",
+                    options: [
+                        "By performing a logical AND operation between its IP address and subnet mask, then comparing with destination",
+                        "By sending an ARP request to the destination IP",
+                        "By checking the DNS cache",
+                        "By querying the default gateway MAC address"
+                    ],
+                    correct: 0,
+                    hint: "Compares network portions using the subnet mask.",
+                    rationale: "Hosts perform a logical AND operation on their IP/mask to check if destination shares the same network."
+                },
+                {
+                    id: 7,
+                    question: "What is the function of a default gateway in a local area network (LAN)?",
+                    options: [
+                        "To route traffic destined for remote networks outside the local LAN",
+                        "To switch frames between local computers",
+                        "To assign automatic IP addresses",
+                        "To resolve domain names"
+                    ],
+                    correct: 0,
+                    hint: "The router interface connecting the LAN to outside networks.",
+                    rationale: "The default gateway is the router interface that forwards packets destined for outside networks."
+                },
+                {
+                    id: 8,
+                    question: "What happens when a packet is sent to a device on the same local subnet?",
+                    options: [
+                        "The sending host uses ARP to find the destination MAC address and encapsulates the packet directly into an Ethernet frame",
+                        "The packet is always sent to the default gateway router first",
+                        "The packet is dropped by the switch",
+                        "DNS resolves the local MAC address"
+                    ],
+                    correct: 0,
+                    hint: "Local communication does not require the router.",
+                    rationale: "For local subnet traffic, hosts resolve the destination MAC via ARP and deliver the frame directly."
+                },
+                {
+                    id: 9,
+                    question: "What is gratuitous ARP?",
+                    options: [
+                        "An unsolicited ARP reply sent by a device to announce its own IP-to-MAC mapping and check for duplicate IPs",
+                        "An ARP request sent to the default gateway",
+                        "An encrypted ARP message",
+                        "An ARP message used in IPv6"
+                    ],
+                    correct: 0,
+                    hint: "Used for duplicate IP detection.",
+                    rationale: "Gratuitous ARP checks for IP address conflicts by announcing a device's own IP/MAC mapping."
+                },
+                {
+                    id: 10,
+                    question: "Why are routers necessary when dealing with broadcast domains?",
+                    options: [
+                        "Routers do not forward broadcast traffic, allowing them to segment large broadcast domains",
+                        "Routers amplify broadcast signals across WANs",
+                        "Routers replace switches in large networks",
+                        "Routers convert MAC addresses to broadcast IPs"
+                    ],
+                    correct: 0,
+                    hint: "Broadcast boundary enforcement.",
+                    rationale: "Routers stop Layer 2 broadcasts at their interfaces, effectively dividing broadcast domains."
+                }
+            ],
+            10: [
+                {
+                    id: 1,
+                    question: "Which IPv4 address ranges are designated as private IP addresses according to RFC 1918?",
+                    options: [
+                        "`10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`",
+                        "`192.168.0.0/8`, `10.0.0.0/16`, and `172.16.0.0/24`",
+                        "`127.0.0.0/8`, `169.254.0.0/16`, and `224.0.0.0/4`",
+                        "`172.16.0.0/8`, `192.168.0.0/8`, and `10.0.0.0/16`"
+                    ],
+                    correct: 0,
+                    hint: "Includes the 10.0.0.0, 172.16.0.0 - 172.31.0.0, and 192.168.0.0 blocks.",
+                    rationale: "RFC 1918 private ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`."
+                },
+                {
+                    id: 2,
+                    question: "What is the purpose of the Automatic Private IP Addressing (APIPA) range (`169.254.0.0/16`)?",
+                    options: [
+                        "It allows a host to self-configure a local IP address when a DHCP server cannot be reached",
+                        "It provides public internet routing for small offices",
+                        "It is reserved for multicast video streaming",
+                        "It acts as a loopback testing address"
+                    ],
+                    correct: 0,
+                    hint: "Self-assigned fallback when DHCP fails.",
+                    rationale: "APIPA (`169.254.x.x`) enables link-local communication when DHCP servers are unreachable."
+                },
+                {
+                    id: 3,
+                    question: "Which IPv4 address class corresponds to a default subnet mask of `255.0.0.0`?",
+                    options: ["Class A", "Class B", "Class C", "Class D"],
+                    correct: 0,
+                    hint: "First octet is network; 8 network bits.",
+                    rationale: "Class A networks use a default mask of `255.0.0.0` (`/8`)."
+                },
+                {
+                    id: 4,
+                    question: "Which IPv4 address type is used to send a packet to all hosts on a specific local network?",
+                    options: ["Directed broadcast", "Limited broadcast", "Multicast", "Unicast"],
+                    correct: 0,
+                    hint: "Broadcast addressed specifically to a subnet.",
+                    rationale: "Directed broadcasts target all hosts on a specific remote or local subnet."
+                },
+                {
+                    id: 5,
+                    question: "What IPv4 address range is reserved for Multicast transmissions (Class D)?",
+                    options: ["`224.0.0.0` to `239.255.255.255`", "`192.0.0.0` to `223.255.255.255`", "`240.0.0.0` to `255.255.255.255`", "`10.0.0.0` to `10.255.255.255`"],
+                    correct: 0,
+                    hint: "Starts after Class C and before experimental Class E.",
+                    rationale: "Class D multicast addresses span from `224.0.0.0` to `239.255.255.255`."
+                },
+                {
+                    id: 6,
+                    question: "What is the loopback IPv4 address used to test a host's internal protocol stack?",
+                    options: ["`127.0.0.1`", "`192.168.1.1`", "`10.0.0.1`", "`255.255.255.255`"],
+                    correct: 0,
+                    hint: "Localhost address.",
+                    rationale: "`127.0.0.1` is the standard loopback address for testing local TCP/IP stack functionality."
+                },
+                {
+                    id: 7,
+                    question: "What is Network Address Translation (NAT) primarily used for?",
+                    options: [
+                        "Translating private internal IPv4 addresses to public routable IPv4 addresses for internet access",
+                        "Translating IPv4 addresses directly to IPv6 addresses without routers",
+                        "Encrypting packet payloads",
+                        "Assigning dynamic DNS hostnames"
+                    ],
+                    correct: 0,
+                    hint: "Conserves public IPv4 addresses using private IPs.",
+                    rationale: "NAT maps private internal IP addresses to public routable IP addresses."
+                },
+                {
+                    id: 8,
+                    question: "What is the subnet mask representation for a prefix length of `/24`?",
+                    options: ["`255.255.255.0`", "`255.255.0.0`", "`255.255.255.128`", "`255.255.255.255`"],
+                    correct: 0,
+                    hint: "Three full octets of network bits.",
+                    rationale: "A `/24` prefix corresponds to a subnet mask of `255.255.255.0`."
+                },
+                {
+                    id: 9,
+                    question: "Which IPv4 address class has a default subnet mask of `255.255.0.0` and a first octet range of 128 to 191?",
+                    options: ["Class B", "Class A", "Class C", "Class D"],
+                    correct: 0,
+                    hint: "Medium-sized enterprise networks.",
+                    rationale: "Class B networks span 128–191 in the first octet with a default mask of `255.255.0.0`."
+                },
+                {
+                    id: 10,
+                    question: "What is the limited broadcast IP address used to broadcast to the local physical subnet?",
+                    options: ["`255.255.255.255`", "`192.168.1.255`", "`127.0.0.1`", "`0.0.0.0`"],
+                    correct: 0,
+                    hint: "All bits set to 1.",
+                    rationale: "`255.255.255.255` is the limited broadcast address, never forwarded by routers."
+                }
+            ],
+            11: [
+                {
+                    id: 1,
+                    question: "What is the primary purpose of subnetting an IPv4 network?",
+                    options: [
+                        "To divide a large network into smaller broadcast domains and improve address efficiency",
+                        "To encrypt traffic between routers",
+                        "To remove the need for DHCP",
+                        "To convert IPv4 packets into IPv6 packets"
+                    ],
+                    correct: 0,
+                    hint: "Think in terms of smaller, more manageable network segments.",
+                    rationale: "Subnetting divides a large network into smaller, logical subnetworks to reduce broadcast traffic, improve performance, and allow better addressing control."
+                },
+                {
+                    id: 2,
+                    question: "How many usable host addresses are available in a /26 subnet?",
+                    options: ["30", "62", "64", "126"],
+                    correct: 1,
+                    hint: "A /26 subnet has 6 host bits: $2^6 - 2 = 62$.",
+                    rationale: "A /26 subnet contains 64 total addresses, minus the subnet and broadcast addresses, leaving 62 usable host addresses."
+                },
+                {
+                    id: 3,
+                    question: "Which subnet mask corresponds to a prefix length of /25?",
+                    options: ["`255.255.255.128`", "`255.255.255.0`", "`255.255.255.192`", "`255.255.0.0`"],
+                    correct: 0,
+                    hint: "A /25 uses 1 host bit in the last octet.",
+                    rationale: "A /25 network uses 25 bits for the network portion, leaving 7 host bits; the last octet becomes `10000000`, which is `128`."
+                },
+                {
+                    id: 4,
+                    question: "If a network is subnetted by borrowing 2 host bits, how many subnets are created?",
+                    options: ["2", "4", "8", "16"],
+                    correct: 1,
+                    hint: "Borrowed bits produce $2^n$ subnets.",
+                    rationale: "Borrowing 2 bits creates $2^2 = 4$ subnets."
+                },
+                {
+                    id: 5,
+                    question: "What formula is used to calculate the number of usable IPv4 hosts in a subnet?",
+                    options: ["$2^h$", "$2^h - 2$", "$2^n + 2$", "$2^n - 1$"],
+                    correct: 1,
+                    hint: "Subtract the subnet and broadcast addresses.",
+                    rationale: "Usable hosts equal $2^h - 2$, because the first and last addresses are reserved for the subnet and broadcast."
+                },
+                {
+                    id: 6,
+                    question: "Which IPv4 address range is the first valid host in the subnet `192.168.10.0/26`?",
+                    options: ["`192.168.10.1`", "`192.168.10.0`", "`192.168.10.64`", "`192.168.10.255`"],
+                    correct: 0,
+                    hint: "The subnet address itself is not usable as a host address.",
+                    rationale: "In a `/26` subnet, the network address is `192.168.10.0`, and the first usable host is `192.168.10.1`."
+                },
+                {
+                    id: 7,
+                    question: "What is the broadcast address for the subnet `10.0.0.0/30`?",
+                    options: ["`10.0.0.1`", "`10.0.0.2`", "`10.0.0.3`", "`10.0.0.255`"],
+                    correct: 2,
+                    hint: "The last address in a /30 subnet is reserved for broadcast.",
+                    rationale: "A /30 subnet has four addresses: network, host1, host2, and broadcast. The last address is `10.0.0.3`."
+                },
+                {
+                    id: 8,
+                    question: "What does a prefix length of /24 represent in dotted-decimal form?",
+                    options: ["`255.255.255.128`", "`255.255.255.0`", "`255.255.0.0`", "`255.0.0.0`"],
+                    correct: 1,
+                    hint: "Three octets are used for the network portion.",
+                    rationale: "A `/24` prefix masks the first three octets as network bits, giving `255.255.255.0`."
+                },
+                {
+                    id: 9,
+                    question: "What is the purpose of a default gateway on a subnetted LAN?",
+                    options: [
+                        "To provide a route out of the local subnet to remote networks",
+                        "To assign dynamic IP addresses",
+                        "To reduce the size of the subnet mask",
+                        "To create a broadcast storm"
+                    ],
+                    correct: 0,
+                    hint: "The gateway is the router interface for off-subnet traffic.",
+                    rationale: "Devices use the default gateway to forward traffic that is not on the local subnet."
+                },
+                {
+                    id: 10,
+                    question: "Which statement about variable-length subnet masking (VLSM) is true?",
+                    options: [
+                        "It requires every subnet to have the same prefix length",
+                        "It allows different subnets to use different mask lengths within the same network",
+                        "It works only with IPv6",
+                        "It disables routing tables"
+                    ],
+                    correct: 1,
+                    hint: "This approach allows efficient allocation of address space.",
+                    rationale: "VLSM lets administrators create subnets of different sizes to match the needs of each segment, improving address conservation."
+                }
+            ],
+            12: [
+                {
+                    id: 1,
+                    question: "What primary IPv4 limitation was the main catalyst for the development of IPv6?",
+                    options: [
+                        "Lack of packet-level encryption support",
+                        "Depletion of the global IPv4 address space",
+                        "Too complex routing header structure",
+                        "Incompatibility with packet switching technologies"
+                    ],
+                    correct: 1,
+                    hint: "Think about the exhaustion of addresses reported by regional internet registries (ARIN, RIPE, etc.).",
+                    rationale: "The primary driver for IPv6 adoption is the limited 32-bit address space of IPv4, leading to eventual global depletion."
+                },
+                {
+                    id: 2,
+                    question: "What is the total address length in the IPv6 protocol?",
+                    options: ["32 bits", "64 bits", "128 bits", "256 bits"],
+                    correct: 2,
+                    hint: "IPv6 addresses are four times longer than IPv4 addresses.",
+                    rationale: "An IPv6 address consists of 128 bits, providing a virtually inexhaustible supply of unique IP addresses."
+                },
+                {
+                    id: 3,
+                    question: "What is the standard recommended prefix length for LAN networks in IPv6?",
+                    options: ["/32", "/48", "/64", "/128"],
+                    correct: 2,
+                    hint: "This prefix length is specifically required by SLAAC autoconfiguration mechanisms.",
+                    rationale: "For typical local area networks (LANs), a /64 prefix length is strongly recommended, leaving the remaining 64 bits for the Interface Identifier."
+                },
+                {
+                    id: 4,
+                    question: "When applying leading zero compression rules, how can the quartet `01ab` be written?",
+                    options: ["`1ab`", "`01ab`", "`ab`", "`1ab0`"],
+                    correct: 0,
+                    hint: "The rule allows omitting only leading zeros at the very beginning of a hextet.",
+                    rationale: "Leading zeros in any hextet can be omitted, so `01ab` simplifies to `1ab`."
+                },
+                {
+                    id: 5,
+                    question: "Which rule regarding double colon (`::`) compression is correct for IPv6 addresses?",
+                    options: [
+                        "It can be used as many times as needed in a single address",
+                        "It can replace only a single group of zeros",
+                        "It can be used only once within an address to represent a contiguous string of zero hextets",
+                        "It replaces only trailing zeros at the end of hextets"
+                    ],
+                    correct: 2,
+                    hint: "Using `::` multiple times would make the address ambiguous and impossible to expand.",
+                    rationale: "The double colon (`::`) can only appear once in an IPv6 address to compress a single contiguous sequence of all-zero hextets."
+                },
+                {
+                    id: 6,
+                    question: "Which range is currently reserved for Global Unicast Addresses (GUA) in IPv6?",
+                    options: ["`2000::/3`", "`fc00::/7`", "`fe80::/10`", "`ff00::/8`"],
+                    correct: 0,
+                    hint: "These addresses start with binary `001` (hexadecimal `2` or `3`).",
+                    rationale: "Global Unicast Addresses (GUA) are allocated within the `2000::/3` range, spanning addresses starting with `2` or `3`."
+                },
+                {
+                    id: 7,
+                    question: "What is the purpose of Unique Local Addresses (ULA) within the `fc00::/7` – `fdff::/7` range?",
+                    options: [
+                        "For global internet routing via ISPs",
+                        "For local communication within a site or organization, without global internet routing",
+                        "To automatically distribute default gateways via DHCPv6",
+                        "For multicast routing to all routers"
+                    ],
+                    correct: 1,
+                    hint: "They are conceptually similar to RFC 1918 private IPv4 addresses.",
+                    rationale: "Unique Local Addresses (ULA) are meant for local intra-site communication and are not routed across the public internet."
+                },
+                {
+                    id: 8,
+                    question: "What is the starting prefix for Link-Local Addresses (LLA) in IPv6?",
+                    options: ["`2000::/3`", "`fc00::/7`", "`fe80::/10`", "`ff00::/8`"],
+                    correct: 2,
+                    hint: "These addresses are mandatory for every IPv6-enabled interface and are never routed off the link.",
+                    rationale: "Link-Local Addresses always use the `fe80::/10` prefix and are used for communication within a single link segment."
+                },
+                {
+                    id: 9,
+                    question: "Which global configuration command assigns a GUA IPv6 address on a Cisco IOS router interface?",
+                    options: [
+                        "`ip address 2001:db8::1/64`",
+                        "`ipv6 address 2001:db8::1/64`",
+                        "`ipv6 enable 2001:db8::1/64`",
+                        "`interface ipv6 2001:db8::1/64`"
+                    ],
+                    correct: 1,
+                    hint: "The syntax mirrors IPv4, substituting `ip` with `ipv6`.",
+                    rationale: "The `ipv6 address ipv6-address/prefix-length` command is used to configure an IPv6 address on an interface."
+                },
+                {
+                    id: 10,
+                    question: "What are the key characteristics of Stateless Address Autoconfiguration (SLAAC)?",
+                    options: [
+                        "Devices strictly obtain IP addresses and gateways from a stateful DHCPv6 server",
+                        "Devices use ICMPv6 Router Advertisement (RA) messages to learn the prefix and independently generate an interface ID",
+                        "Addresses are strictly configured manually by network administrators",
+                        "Routers translate IPv4 addresses to IPv6 on the fly"
+                    ],
+                    correct: 1,
+                    hint: "A DHCP server is not required to issue the actual IP address in this mode.",
+                    rationale: "SLAAC allows a host to autonomously form a GUA using the prefix from an RA message and a generated interface ID."
+                },
+                {
+                    id: 11,
+                    question: "How is an interface identifier formed during the EUI-64 process?",
+                    options: [
+                        "Bytes `ff:fe` are inserted in the middle of the MAC address, and the 7th bit is inverted",
+                        "The MAC address is duplicated and padded with zeros to 128 bits",
+                        "A random 64-bit number is generated without referencing the MAC address",
+                        "An MD5 hash of the device serial number is used"
+                    ],
+                    correct: 0,
+                    hint: "The 16-bit value `fffe` is inserted right into the middle of the 48-bit MAC address.",
+                    rationale: "EUI-64 takes a 48-bit MAC address, splits it in half, inserts `ff:fe` in the center, and flips the Universal/Local (7th) bit."
+                },
+                {
+                    id: 12,
+                    question: "What function does Duplicate Address Detection (DAD) perform in IPv6?",
+                    options: [
+                        "Checks connection speed with update servers",
+                        "Verifies that a newly formed IPv6 address is unique on the local link before it is used",
+                        "Removes duplicate packets from router interface queues",
+                        "Synchronizes time between host and gateway"
+                    ],
+                    correct: 1,
+                    hint: "This is the IPv6 equivalent of sending a gratuitous ARP for one's own IP.",
+                    rationale: "DAD ensures that a chosen IPv6 address is not already in use by another device on the same segment."
+                },
+                {
+                    id: 13,
+                    question: "What prefix identifies Multicast addresses in IPv6?",
+                    options: ["`2000::/3`", "`fc00::/7`", "`fe80::/10`", "`ff00::/8`"],
+                    correct: 3,
+                    hint: "IPv6 does not use broadcasts; multicasts from this range replace them.",
+                    rationale: "All IPv6 multicast addresses begin with the `ff00::/8` prefix."
+                },
+                {
+                    id: 14,
+                    question: "Which multicast group address is used to reach all nodes on a link?",
+                    options: ["`ff02::1`", "`ff02::2`", "`ff02::5`", "`ff02::a`"],
+                    correct: 0,
+                    hint: "The number `1` corresponds to all host/node devices.",
+                    rationale: "The multicast address `ff02::1` addresses all IPv6-capable nodes on the local link."
+                },
+                {
+                    id: 15,
+                    question: "Which multicast group address is used to reach all routers on a link?",
+                    options: ["`ff02::1`", "`ff02::2`", "`ff02::5`", "`ff02::a`"],
+                    correct: 1,
+                    hint: "Activated when routing is enabled via `ipv6 unicast-routing`.",
+                    rationale: "The `ff02::2` address targets all IPv6 routers on the local link."
+                },
+                {
+                    id: 16,
+                    question: "What is the primary benefit of using a Solicited-Node Multicast address?",
+                    options: [
+                        "It allows Ethernet NICs to filter frames in hardware without waking the IPv6 stack if the device is not the target",
+                        "It allows packets to travel across the internet without hop limits",
+                        "It encrypts traffic at the data link layer",
+                        "It automatically assigns default gateways"
+                    ],
+                    correct: 0,
+                    hint: "This reduces CPU overhead on hosts that are not the intended recipients.",
+                    rationale: "Solicited-node multicast addresses map to specific Ethernet MAC addresses, allowing NICs to drop irrelevant frames early."
+                },
+                {
+                    id: 17,
+                    question: "If an organization's global prefix is `/48` and standard subnets are `/64`, how many bits are used for the Subnet ID?",
+                    options: ["8 bits", "16 bits", "32 bits", "64 bits"],
+                    correct: 1,
+                    hint: "Calculate the difference: $64 - 48 = ?$",
+                    rationale: "The difference between the subnet prefix (`/64`) and the global prefix (`/48`) is $64 - 48 = 16$ bits (yielding 65,536 subnets)."
+                },
+                {
+                    id: 18,
+                    question: "Which command displays a brief summary of IPv6 interfaces on a Cisco IOS router?",
+                    options: [
+                        "`show ip interface brief`",
+                        "`show ipv6 interface brief`",
+                        "`show running-config interface`",
+                        "`show ipv6 route`"
+                    ],
+                    correct: 1,
+                    hint: "Similar to the IPv4 command, substituting the protocol name.",
+                    rationale: "The `show ipv6 interface brief` command lists interface status and assigned IPv6 addresses (GUA and LLA)."
+                },
+                {
+                    id: 19,
+                    question: "What ICMPv6 message does a host send upon bootup to discover available routers?",
+                    options: [
+                        "Router Advertisement (RA)",
+                        "Router Solicitation (RS)",
+                        "Neighbor Solicitation (NS)",
+                        "Neighbor Advertisement (NA)"
+                    ],
+                    correct: 1,
+                    hint: "The host solicits (`Solicitation`) information from routers.",
+                    rationale: "A host sends an ICMPv6 Router Solicitation (RS) message to prompt routers to immediately reply with an RA message."
+                },
+                {
+                    id: 20,
+                    question: "Which statement describes Anycast addressing in IPv6?",
+                    options: [
+                        "A packet is delivered to every device in the network simultaneously",
+                        "A single Anycast address is assigned to multiple interfaces; packets are delivered to the closest one based on routing metrics",
+                        "Anycast is used exclusively for broadcast requests",
+                        "Anycast completely replaces link-local addresses"
+                    ],
+                    correct: 1,
+                    hint: "Routers forward the packet to the nearest node assigned this address.",
+                    rationale: "An Anycast address identifies multiple interfaces, and routing delivers packets to the closest interface hosting that address."
+                }
+            ],
+            13: [
+                {
+                    id: 1,
+                    question: "What is the primary purpose of the Internet Control Message Protocol (ICMP)?",
+                    options: [
+                        "Encrypting transport-layer data payloads",
+                        "Providing feedback about IP packet processing issues and network diagnostics",
+                        "Dynamically assigning IP addresses to hosts",
+                        "Resolving domain names to IP addresses"
+                    ],
+                    correct: 1,
+                    hint: "This protocol is leveraged by utilities like `ping` and `traceroute`.",
+                    rationale: "ICMP informs senders of delivery errors (such as host/port unreachability) and tests connectivity."
+                },
+                {
+                    id: 2,
+                    question: "Which ICMP messages are utilized by the `ping` utility to check reachability?",
+                    options: [
+                        "Router Solicitation and Router Advertisement",
+                        "Echo Request and Echo Reply",
+                        "Time Exceeded and Redirect",
+                        "Neighbor Solicitation and Neighbor Advertisement"
+                    ],
+                    correct: 1,
+                    hint: "One probe is sent (`Request`), and a response is expected (`Reply`).",
+                    rationale: "Ping operates by sending ICMP Echo Requests and waiting for ICMP Echo Replies."
+                },
+                {
+                    id: 3,
+                    question: "In IPv4, what happens when the Time to Live (TTL) field in a packet header decrements to 0?",
+                    options: [
+                        "The packet is duplicated and sent via an alternate route",
+                        "The router drops the packet and sends an ICMP 'Time Exceeded' message to the source",
+                        "The packet is automatically handed over to TCP",
+                        "The receiving device doubles its window size"
+                    ],
+                    correct: 1,
+                    hint: "This is a key loop-prevention mechanism in routing.",
+                    rationale: "When TTL expires, the router discards the packet and generates an ICMPv4 Time Exceeded message."
+                },
+                {
+                    id: 4,
+                    question: "Which header field replaces IPv4's TTL for hop counting in IPv6?",
+                    options: ["Flow Label", "Hop Limit", "Next Header", "Traffic Class"],
+                    correct: 1,
+                    hint: "Limits the number of hops (`Hop Limit`).",
+                    rationale: "IPv6 uses the Hop Limit field, which is decremented by each forwarding router."
+                },
+                {
+                    id: 5,
+                    question: "What four core protocols comprise the Neighbor Discovery Protocol (NDP) in ICMPv6?",
+                    options: [
+                        "TCP, UDP, FTP, TFTP",
+                        "Router Solicitation, Router Advertisement, Neighbor Solicitation, Neighbor Advertisement",
+                        "DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK",
+                        "GET, POST, PUT, DELETE"
+                    ],
+                    correct: 1,
+                    hint: "NDP replaces ARP and broadcast gateway discovery from IPv4.",
+                    rationale: "ICMPv6 NDP integrates RS, RA, NS, and NA for neighbor and router discovery."
+                },
+                {
+                    id: 6,
+                    question: "Why does an IPv6 host send a Neighbor Solicitation (NS) message?",
+                    options: [
+                        "To request an IP address from a DHCP server",
+                        "To resolve a MAC address from a known IPv6 address or perform DAD",
+                        "To terminate a TCP session",
+                        "To measure channel bandwidth"
+                    ],
+                    correct: 1,
+                    hint: "This is the functional equivalent of an ARP request in IPv4.",
+                    rationale: "An NS message is sent to a solicited-node multicast address to discover a neighbor's link-layer address."
+                },
+                {
+                    id: 7,
+                    question: "What message does a node send in response to a Neighbor Solicitation (NS)?",
+                    options: [
+                        "Neighbor Advertisement (NA)",
+                        "Echo Reply",
+                        "Router Advertisement",
+                        "Time Exceeded"
+                    ],
+                    correct: 0,
+                    hint: "An announcement (`Advertisement`) of its presence and MAC address.",
+                    rationale: "The node replies with a Neighbor Advertisement (NA) containing its MAC address."
+                },
+                {
+                    id: 8,
+                    question: "How often do IPv6 routers default to periodically broadcasting Router Advertisement (RA) messages?",
+                    options: ["Every 10 seconds", "Every 60 seconds", "Every 200 seconds", "Every 3600 seconds"],
+                    correct: 2,
+                    hint: "Roughly once every 3 minutes.",
+                    rationale: "IPv6 routers periodically send RA messages every 200 seconds."
+                },
+                {
+                    id: 9,
+                    question: "What is the result of successfully executing `ping 127.0.0.1` on a Windows PC?",
+                    options: [
+                        "Verifies connection to the public internet",
+                        "Tests the TCP/IP stack implementation and loopback interface functionality",
+                        "Verifies the default gateway's availability",
+                        "Clears the local DNS cache"
+                    ],
+                    correct: 1,
+                    hint: "The IP `127.0.0.1` is reserved for local self-testing.",
+                    rationale: "Pinging the loopback address confirms that the TCP/IP networking stack is installed and working correctly on the host."
+                },
+                {
+                    id: 10,
+                    question: "What is the IPv6 equivalent of the IPv4 loopback address `127.0.0.1`?",
+                    options: ["`::1`", "`fe80::1`", "`ff02::1`", "`2001:db8::1`"],
+                    correct: 0,
+                    hint: "The shortest possible address format in IPv6.",
+                    rationale: "The `::1` address is the loopback address in IPv6."
+                },
+                {
+                    id: 11,
+                    question: "What does an exclamation mark (`!`) signify in Cisco IOS ping output?",
+                    options: [
+                        "Packet timeout / dropped",
+                        "Successful receipt of an ICMP Echo Reply within the timeout window",
+                        "Routing loop detected",
+                        "Packet blocked by firewall"
+                    ],
+                    correct: 1,
+                    hint: "Each exclamation mark represents a successful echo reply.",
+                    rationale: "In Cisco IOS, `!` indicates a successful echo reply, while periods indicate timeouts."
+                },
+                {
+                    id: 12,
+                    question: "What does a period (`.`) indicate in Cisco IOS ping output?",
+                    options: [
+                        "Successful packet delivery",
+                        "Request timed out (reply not received within the timeout window)",
+                        "Interface is down",
+                        "Checksum error"
+                    ],
+                    correct: 1,
+                    hint: "The exact opposite of an exclamation mark (`!`).",
+                    rationale: "A period (`.`) appears when an ICMP Echo Reply fails to arrive within the timer window (typically 2 seconds)."
+                },
+                {
+                    id: 13,
+                    question: "Which command do Windows operating systems use for route tracing?",
+                    options: ["`traceroute`", "`tracert`", "`trace`", "`pathping`"],
+                    correct: 1,
+                    hint: "The abbreviated command utility in Windows CLI.",
+                    rationale: "Windows uses `tracert`, whereas Cisco IOS and Linux use `traceroute`."
+                },
+                {
+                    id: 14,
+                    question: "How does `traceroute` determine the IP addresses of intermediate routers?",
+                    options: [
+                        "Incrementing TTL values (starting at 1) and capturing ICMP Time Exceeded messages",
+                        "Broadcasting ARP requests to every node",
+                        "Reading the local routing table",
+                        "Mirroring traffic"
+                    ],
+                    correct: 0,
+                    hint: "Each successive packet has a TTL incremented by 1.",
+                    rationale: "Traceroute sends probes with TTL=1, 2, 3, forcing routers along the path to return ICMP Time Exceeded messages."
+                },
+                {
+                    id: 15,
+                    question: "What does an asterisk (`*`) represent in `traceroute` output?",
+                    options: [
+                        "The router responded with minimal latency",
+                        "Request timed out / router is configured not to reply to ICMP probes",
+                        "Target host reached",
+                        "Encrypted tunnel established"
+                    ],
+                    correct: 1,
+                    hint: "Administrators often block ICMP for security reasons.",
+                    rationale: "An asterisk (`*`) indicates that no ICMP response was received within the timeout window."
+                },
+                {
+                    id: 16,
+                    question: "Why do network administrators frequently restrict ICMP traffic on firewalls?",
+                    options: [
+                        "To reduce link bandwidth consumption",
+                        "To prevent reconnaissance scanning and DoS attacks",
+                        "Because IP completely replaces ICMP functionality",
+                        "Due to gigabit switch incompatibilities"
+                    ],
+                    correct: 1,
+                    hint: "Attackers use pings to discover live hosts during network mapping.",
+                    rationale: "Restricting ICMP minimizes network visibility for attackers and mitigates certain DoS vectors."
+                },
+                {
+                    id: 17,
+                    question: "Which ICMPv4 'Destination Unreachable' code indicates that the target port is closed?",
+                    options: ["Code 0", "Code 1", "Code 3 (Port unreachable)", "Code 2"],
+                    correct: 2,
+                    hint: "Ports are used at the transport layer for applications.",
+                    rationale: "Code 3 indicates that the port destination is unreachable (no listener on that port)."
+                },
+                {
+                    id: 18,
+                    question: "What ICMP message does a router send when it discovers a better gateway path for a packet?",
+                    options: ["Redirect", "Echo Request", "Time Exceeded", "Router Solicitation"],
+                    correct: 0,
+                    hint: "Directs a host to send subsequent packets through a different gateway.",
+                    rationale: "ICMP Redirect informs hosts of a superior gateway for a specific destination."
+                },
+                {
+                    id: 19,
+                    question: "Which utility helps isolate network bottlenecks and faulty routers along a path?",
+                    options: ["`ping`", "`traceroute`", "`arp`", "`ipconfig`"],
+                    correct: 1,
+                    hint: "This utility displays every hop along the packet path.",
+                    rationale: "Traceroute shows hop-by-hop latency and router responses, helping pinpoint faults."
+                },
+                {
+                    id: 20,
+                    question: "What is a major difference in ICMP handling between IPv4 and IPv6?",
+                    options: [
+                        "ICMP is replaced by TCP in IPv6",
+                        "ICMPv6 incorporates NDP, replacing ARP and local multicast group management",
+                        "ICMPv4 is faster because it lacks headers",
+                        "ICMPv6 does not support echo tests"
+                    ],
+                    correct: 1,
+                    hint: "Recall the role of Neighbor Discovery Protocol.",
+                    rationale: "ICMPv6 handles error reporting as well as core addressing, SLAAC autoconfiguration, and neighbor resolution."
+                }
+            ],
+            14: [
+                {
+                    id: 1,
+                    question: "What is the primary responsibility of the transport layer?",
+                    options: [
+                        "Physical transmission of bits across media",
+                        "Logical communication between application processes running on different hosts",
+                        "Routing packets across subnets",
+                        "Encrypting data for user display"
+                    ],
+                    correct: 1,
+                    hint: "It organizes end-to-end communication specifically for applications.",
+                    rationale: "The transport layer manages logical connections between application processes across endpoints."
+                },
+                {
+                    id: 2,
+                    question: "Which two core protocols operate at the transport layer of the TCP/IP stack?",
+                    options: ["IPv4 and IPv6", "TCP and UDP", "HTTP and FTP", "Ethernet and Wi-Fi"],
+                    correct: 1,
+                    hint: "One focuses on reliability, the other on raw speed.",
+                    rationale: "TCP and UDP are the primary transport layer protocols."
+                },
+                {
+                    id: 3,
+                    question: "Which statement is true regarding TCP?",
+                    options: [
+                        "It is connection-oriented and guarantees reliable, ordered data delivery",
+                        "It transmits datagrams without acknowledgment or connection setup",
+                        "It does not support network congestion control",
+                        "It is used for real-time video streaming where frame loss is acceptable"
+                    ],
+                    correct: 0,
+                    hint: "TCP establishes a session prior to transmitting information.",
+                    rationale: "TCP ensures reliability through connection establishment, segment sequencing, acknowledgments, and retransmissions."
+                },
+                {
+                    id: 4,
+                    question: "Which statement is true regarding UDP?",
+                    options: [
+                        "Guarantees delivery of every byte in sequence",
+                        "Establishes a preliminary three-way handshake",
+                        "It is connectionless, offering best-effort delivery with minimal overhead",
+                        "Automatically replaces TCP for web browsing"
+                    ],
+                    correct: 2,
+                    hint: "UDP has a very simple 8-byte header.",
+                    rationale: "UDP is connectionless, unacknowledged, and provides low overhead for speed-critical traffic."
+                },
+                {
+                    id: 5,
+                    question: "What is the size of a standard TCP header without optional fields?",
+                    options: ["8 bytes", "20 bytes", "32 bytes", "64 bytes"],
+                    correct: 1,
+                    hint: "The UDP header is more than twice as short (8 bytes).",
+                    rationale: "A base TCP header is 20 bytes long."
+                },
+                {
+                    id: 6,
+                    question: "What is the fixed size of a UDP header?",
+                    options: ["4 bytes", "8 bytes", "20 bytes", "64 bytes"],
+                    correct: 1,
+                    hint: "It consists of just four 16-bit fields.",
+                    rationale: "The UDP header is fixed at exactly 8 bytes."
+                },
+                {
+                    id: 7,
+                    question: "What term describes the establishment of a TCP session between hosts?",
+                    options: [
+                        "Three-way handshake",
+                        "Sequence duplication",
+                        "Session key exchange",
+                        "Auto-sliding window"
+                    ],
+                    correct: 0,
+                    hint: "Utilizes SYN and ACK control flags.",
+                    rationale: "The TCP three-way handshake synchronizes sequence numbers and establishes session readiness."
+                },
+                {
+                    id: 8,
+                    question: "Which control flags are active during steps 1 and 2 of the TCP three-way handshake?",
+                    options: [
+                        "FIN and ACK",
+                        "SYN on step 1, SYN-ACK on step 2",
+                        "RST and URG",
+                        "PSH and FIN"
+                    ],
+                    correct: 1,
+                    hint: "SYN stands for Synchronize.",
+                    rationale: "The initiator sends SYN, and the receiver replies with SYN-ACK."
+                },
+                {
+                    id: 9,
+                    question: "What steps characterize the graceful termination of a TCP connection?",
+                    options: [
+                        "Echo Request / Reply exchanges",
+                        "Exchanging segments with FIN and ACK flags in both directions",
+                        "Instantaneous connection reset via RST",
+                        "Sending empty UDP datagrams"
+                    ],
+                    correct: 1,
+                    hint: "Each of the two communication directions is closed independently.",
+                    rationale: "Both directions of a TCP session are terminated independently using FIN and ACK flags."
+                },
+                {
+                    id: 10,
+                    question: "What is a port in the context of the transport layer?",
+                    options: [
+                        "A physical switch port for cable connection",
+                        "A logical identifier (0–65535) used to multiplex simultaneous sessions and applications",
+                        "A default gateway IP address",
+                        "A NIC MAC address"
+                    ],
+                    correct: 1,
+                    hint: "Helps the operating system route packets to the correct application.",
+                    rationale: "Ports allow TCP and UDP to direct data to specific applications on a host."
+                },
+                {
+                    id: 11,
+                    question: "Which port range is designated by IANA as 'Well-known Ports'?",
+                    options: ["0 to 1023", "1024 to 49151", "49152 to 65535", "0 to 65535"],
+                    correct: 0,
+                    hint: "Hosts standard services like HTTP (80), DNS (53), SSH (22).",
+                    rationale: "Well-known ports span from 0 to 1023."
+                },
+                {
+                    id: 12,
+                    question: "Which range represents 'Registered Ports' assigned by IANA to specific applications?",
+                    options: ["0 to 1023", "1024 to 49151", "49152 to 65535", "Above 65535"],
+                    correct: 1,
+                    hint: "Intermediate range for vendor applications.",
+                    rationale: "Registered ports range from 1024 to 49151."
+                },
+                {
+                    id: 13,
+                    question: "What are ports 49152 to 65535, dynamically assigned to client apps, called?",
+                    options: ["Static ports", "Ephemeral ports", "Reserved ports", "Multicast ports"],
+                    correct: 1,
+                    hint: "Allocated temporarily for the duration of a session.",
+                    rationale: "Ephemeral (dynamic) ports are automatically assigned as source ports on client devices."
+                },
+                {
+                    id: 14,
+                    question: "What is a network socket?",
+                    options: [
+                        "A combination of an IP address and port number (e.g., `192.168.1.5:80`)",
+                        "A hardware slot for an SFP transceiver",
+                        "A NIC driver",
+                        "A VPN tunnel"
+                    ],
+                    correct: 0,
+                    hint: "Uniquely identifies a specific process in network communications.",
+                    rationale: "A socket consists of an IP address paired with a port number."
+                },
+                {
+                    id: 15,
+                    question: "What is the purpose of Flow Control in TCP?",
+                    options: [
+                        "Compression for wireless channels",
+                        "Preventing receiver buffer overflow by regulating transmission volume",
+                        "Traffic encryption",
+                        "Automatic ISP selection"
+                    ],
+                    correct: 1,
+                    hint: "Utilizes the Window size field in the TCP header.",
+                    rationale: "Flow control matches transmission speed between fast senders and slower receivers."
+                },
+                {
+                    id: 16,
+                    question: "What is Maximum Segment Size (MSS)?",
+                    options: [
+                        "Maximum Ethernet frame size",
+                        "Maximum amount of user payload data a host can receive in a single TCP segment",
+                        "Total IP packet size including all headers",
+                        "Maximum packet lifetime"
+                    ],
+                    correct: 1,
+                    hint: "Typically calculated as MTU minus IP and TCP headers.",
+                    rationale: "MSS defines the largest payload fitting into a single TCP segment."
+                },
+                {
+                    id: 17,
+                    question: "What function does the `netstat` utility perform?",
+                    options: [
+                        "Tests internet speed",
+                        "Displays active network connections, listening ports, and routing tables",
+                        "Resets firewall rules",
+                        "Changes MAC addresses"
+                    ],
+                    correct: 1,
+                    hint: "Useful for spotting unknown or active established connections.",
+                    rationale: "`netstat` lists active TCP/UDP connections and listening ports on a host."
+                },
+                {
+                    id: 18,
+                    question: "Which transport protocol is typically chosen for VoIP and live video streaming?",
+                    options: ["TCP", "UDP", "FTP", "SMTP"],
+                    correct: 1,
+                    hint: "Minor frame loss is preferable to retransmission delays in real-time media.",
+                    rationale: "UDP is favored for VoIP because low delay outweighs guaranteed delivery."
+                },
+                {
+                    id: 19,
+                    question: "What occurs if a TCP segment is lost during transmission?",
+                    options: [
+                        "The session terminates permanently",
+                        "The receiver does not acknowledge the segment, and the sender retransmits the missing data",
+                        "The receiver auto-generates missing bytes",
+                        "Traffic is routed via UDP"
+                    ],
+                    correct: 1,
+                    hint: "Timeouts and acknowledgments guarantee reliability.",
+                    rationale: "If an ACK is not received in time, TCP retransmits unacknowledged segments."
+                },
+                {
+                    id: 20,
+                    question: "What role do Sequence Numbers play in TCP headers?",
+                    options: [
+                        "Indicate physical switch ports",
+                        "Ensure correct reassembly of segments in order and detect data loss",
+                        "Set QoS priorities",
+                        "Encrypt payload data"
+                    ],
+                    correct: 1,
+                    hint: "Since packets can arrive out of order, they must be sequenced.",
+                    rationale: "TCP sequence numbers allow the receiver to order out-of-sequence segments."
+                }
+            ],
+            15: [
+                {
+                    id: 1,
+                    question: "Which upper OSI layers are combined into the Application layer in the TCP/IP model?",
+                    options: [
+                        "Physical, Data Link, Network",
+                        "Application, Presentation, Session",
+                        "Transport and Network",
+                        "Application only"
+                    ],
+                    correct: 1,
+                    hint: "The TCP/IP model covers three upper OSI layers under one umbrella.",
+                    rationale: "TCP/IP combines session, presentation, and application OSI layers into a single application layer."
+                },
+                {
+                    id: 2,
+                    question: "What are the primary functions of the Presentation layer in the OSI model?",
+                    options: [
+                        "Data formatting, compression/decompression, encryption/decryption",
+                        "Establishing physical cable connections",
+                        "Routing packets across networks",
+                        "Managing dialog sessions"
+                    ],
+                    correct: 0,
+                    hint: "Ensures data sent by one system is readable by another.",
+                    rationale: "The presentation layer handles data formatting, encoding, and encryption."
+                },
+                {
+                    id: 3,
+                    question: "What are the primary functions of the Session layer in the OSI model?",
+                    options: [
+                        "Creating, maintaining, and terminating application dialogs and synchronization",
+                        "Checking Ethernet frame checksums",
+                        "Assigning IP addresses",
+                        "Filtering firewall traffic"
+                    ],
+                    correct: 0,
+                    hint: "Manages dialog control and who transmits when.",
+                    rationale: "The session layer manages dialogs between applications and handles session recovery."
+                },
+                {
+                    id: 4,
+                    question: "What characterizes the Client-Server model at the application layer?",
+                    options: [
+                        "All network devices are equal peers",
+                        "A client device requests resources, while a server processes requests and returns responses",
+                        "Data is transmitted exclusively via wireless APs",
+                        "Routers act as mail servers"
+                    ],
+                    correct: 1,
+                    hint: "Web browsers act as clients; websites reside on servers.",
+                    rationale: "In client-server architecture, clients request services from centralized servers."
+                },
+                {
+                    id: 5,
+                    question: "What is a characteristic of Peer-to-Peer (P2P) networking?",
+                    options: [
+                        "A centralized authentication server is mandatory",
+                        "Each device (peer) can act as both a client and a server simultaneously",
+                        "Transmission is wired only",
+                        "Application protocols are absent"
+                    ],
+                    correct: 1,
+                    hint: "BitTorrent applications operate on this principle.",
+                    rationale: "In P2P networks, devices are equal peers, sharing resources directly."
+                },
+                {
+                    id: 6,
+                    question: "Which protocol is used for viewing web pages in unencrypted plaintext?",
+                    options: ["FTP", "HTTP", "SMTP", "DNS"],
+                    correct: 1,
+                    hint: "Hypertext Transfer Protocol.",
+                    rationale: "HTTP transfers web pages between clients and servers on port 80."
+                },
+                {
+                    id: 7,
+                    question: "On which standard port does the secure HTTPS protocol operate?",
+                    options: ["Port 21", "Port 80", "Port 443", "Port 53"],
+                    correct: 2,
+                    hint: "Utilizes TLS/SSL cryptographic protocols.",
+                    rationale: "HTTPS operates over TLS/SSL on port 443."
+                },
+                {
+                    id: 8,
+                    question: "Which three common methods (verbs) does HTTP define for client-server interaction?",
+                    options: ["PING, TRACE, ECHO", "GET, POST, PUT", "SYN, ACK, FIN", "SOLICIT, ADVERTISE, REPLY"],
+                    correct: 1,
+                    hint: "One retrieves data, two others upload forms or resources.",
+                    rationale: "HTTP utilizes GET (retrieve), POST (submit form data), and PUT (upload resources)."
+                },
+                {
+                    id: 9,
+                    question: "Which protocol is used to send email from a client to a server or between servers?",
+                    options: ["POP3", "IMAP", "SMTP", "HTTP"],
+                    correct: 2,
+                    hint: "Simple Mail Transfer Protocol.",
+                    rationale: "SMTP operates on port 25 for email transmission."
+                },
+                {
+                    id: 10,
+                    question: "Which protocol retrieves mail and typically deletes messages from the server upon download?",
+                    options: ["SMTP", "POP3", "IMAP", "FTP"],
+                    correct: 1,
+                    hint: "Post Office Protocol v3, operating on port 110.",
+                    rationale: "POP3 downloads mail to client devices and removes server copies by default."
+                },
+                {
+                    id: 11,
+                    question: "What are the key advantages of IMAP over POP3 for email retrieval?",
+                    options: [
+                        "IMAP operates without TCP",
+                        "IMAP stores mail on the server and synchronizes read status across multiple devices",
+                        "IMAP is strictly for sending mail",
+                        "IMAP requires no authentication"
+                    ],
+                    correct: 1,
+                    hint: "Allows reading mail on both a phone and laptop with synchronized folders.",
+                    rationale: "IMAP retains messages on the server, synchronizing actions across multiple clients."
+                },
+                {
+                    id: 12,
+                    question: "What is the primary function of the Domain Name System (DNS)?",
+                    options: [
+                        "Automatically allocating IP addresses",
+                        "Translating human-readable domain names into numeric IP addresses and vice versa",
+                        "Encrypting web traffic",
+                        "Tracing packet routes"
+                    ],
+                    correct: 1,
+                    hint: "The internet's phone book for IP addresses.",
+                    rationale: "DNS maps domain names to network IP addresses."
+                },
+                {
+                    id: 13,
+                    question: "Which DNS record type stores an IPv4 address for a host?",
+                    options: ["A record", "AAAA record", "MX record", "NS record"],
+                    correct: 0,
+                    hint: "Letter 'A' stands for Address.",
+                    rationale: "An A record maps a domain name to a 32-bit IPv4 address."
+                },
+                {
+                    id: 14,
+                    question: "Which DNS record type corresponds to an IPv6 address (quad-A)?",
+                    options: ["A record", "AAAA record", "MX record", "PTR record"],
+                    correct: 1,
+                    hint: "Quadruple letter A.",
+                    rationale: "An AAAA record maps a domain to a 128-bit IPv6 address."
+                },
+                {
+                    id: 15,
+                    question: "What role does an MX (Mail Exchange) record play in DNS?",
+                    options: [
+                        "Identifies authoritative name servers",
+                        "Designates mail servers responsible for handling email for a domain",
+                        "Stores gateway MAC addresses",
+                        "Manages VPN tunnels"
+                    ],
+                    correct: 1,
+                    hint: "MX stands for Mail Exchanger.",
+                    rationale: "An MX record specifies mail servers accepting email for a domain."
+                },
+                {
+                    id: 16,
+                    question: "Which OS utility can be used for manual DNS queries and name resolution troubleshooting?",
+                    options: ["`ping`", "`nslookup`", "`netstat`", "`tracert`"],
+                    correct: 1,
+                    hint: "Allows querying specific DNS servers for target domains.",
+                    rationale: "The `nslookup` utility queries DNS servers manually for diagnostics."
+                },
+                {
+                    id: 17,
+                    question: "How does the Dynamic Host Configuration Protocol (DHCP) function for IPv4?",
+                    options: [
+                        "Dynamically assigns IP addresses, masks, gateways, and DNS settings from a pool for a lease duration",
+                        "Statically hardcodes permanent IPs in ROM",
+                        "Redirects unencrypted HTTP traffic",
+                        "Synchronizes accurate network time"
+                    ],
+                    correct: 0,
+                    hint: "Saves administrators from manual IP configuration on every client.",
+                    rationale: "DHCP automates IP parameter assignment from a pool based on lease times."
+                },
+                {
+                    id: 18,
+                    question: "What is the correct message sequence in the DHCP Discover workflow?",
+                    options: [
+                        "SYN, SYN-ACK, ACK, FIN",
+                        "DHCPDISCOVER, DHCPOFFER, DHCPREQUEST, DHCPACK",
+                        "GET, POST, PUT, 200 OK",
+                        "SOLICIT, REQUEST, ADVERTISE, REPLY"
+                    ],
+                    correct: 1,
+                    hint: "Begins with a broadcast server discovery (`Discover`).",
+                    rationale: "The DHCP four-way handshake follows: Discover, Offer, Request, ACK."
+                },
+                {
+                    id: 19,
+                    question: "What two connections does the File Transfer Protocol (FTP) use?",
+                    options: [
+                        "Control connection (port 21) and a separate data connection (port 20)",
+                        "A single UDP connection on port 69",
+                        "An encrypted SSH tunnel on port 22",
+                        "A multicast stream"
+                    ],
+                    correct: 0,
+                    hint: "FTP separates control commands and actual file streams onto different ports.",
+                    rationale: "FTP uses TCP port 21 for control and a separate connection for file data."
+                },
+                {
+                    id: 20,
+                    question: "What are the primary functions of the Server Message Block (SMB) protocol?",
+                    options: [
+                        "Client-server file sharing, printer sharing, and resource access over sessions",
+                        "Dynamic inter-domain routing",
+                        "Antivirus signature updates",
+                        "Local hostname resolution"
+                    ],
+                    correct: 0,
+                    hint: "Widely used in Windows networks for file sharing and network drives.",
+                    rationale: "SMB allows clients to access files and printers on a server as if they were local."
+                }
+            ],
+            16: [
+                {
+                    id: 1,
+                    question: "What are the four primary threat categories after an attacker breaches a network?",
+                    options: [
+                        "Information theft, Data manipulation, Identity theft, Disruption of service",
+                        "Cable overheating, Power outages, Fan failures",
+                        "Increased ping, TTL drops, Checksum errors",
+                        "Switch burnout, Hard drive crashes, BIOS freezes"
+                    ],
+                    correct: 0,
+                    hint: "Logical and informational consequences of intrusion.",
+                    rationale: "Breaches expose organizations to information theft, data manipulation, identity theft, and service disruption."
+                },
+                {
+                    id: 2,
+                    question: "What are the three core vulnerability categories in network infrastructure?",
+                    options: [
+                        "Technological, Configuration, Security Policy",
+                        "Hardware, Software, Biological",
+                        "Internal, External, Transit",
+                        "Wired, Wireless, Satellite"
+                    ],
+                    correct: 0,
+                    hint: "Related to protocol/software weaknesses, misconfigurations, and policy gaps.",
+                    rationale: "Vulnerabilities are classified as technological, configuration-based, or policy-related."
+                },
+                {
+                    id: 3,
+                    question: "A server room air conditioning failure leading to equipment overheating is what type of physical threat?",
+                    options: [
+                        "Hardware threats",
+                        "Environmental threats (temperature and humidity)",
+                        "Electrical threats",
+                        "Maintenance threats"
+                    ],
+                    correct: 1,
+                    hint: "Related to climatic conditions in the environment.",
+                    rationale: "Temperature and humidity extremes fall under environmental physical threats."
+                },
+                {
+                    id: 4,
+                    question: "What is the key difference between a computer worm and a virus?",
+                    options: [
+                        "A worm is standalone malware that does not require a host file or human action to spread",
+                        "Viruses spread exclusively via FTP",
+                        "Worms cannot harm operating systems",
+                        "Viruses cannot replicate"
+                    ],
+                    correct: 0,
+                    hint: "A virus needs an infected host file; a worm travels across the network independently.",
+                    rationale: "Worms are self-replicating autonomous programs that exploit network vulnerabilities."
+                },
+                {
+                    id: 5,
+                    question: "What is a Trojan Horse malware?",
+                    options: [
+                        "Software that appears legitimate or useful but contains hidden malicious functions",
+                        "Software that encrypts disks without demanding ransom",
+                        "A firewall blocking spam",
+                        "A hardware wiretap"
+                    ],
+                    correct: 0,
+                    hint: "Named after the mythical wooden horse.",
+                    rationale: "A Trojan disguises itself as helpful software while executing hidden destructive routines."
+                },
+                {
+                    id: 6,
+                    question: "Which category does a reconnaissance (scanning/mapping) attack belong to?",
+                    options: [
+                        "Information gathering and mapping of systems or services prior to a primary attack",
+                        "Instantaneous data destruction",
+                        "Privilege escalation",
+                        "Creating switching loops"
+                    ],
+                    correct: 0,
+                    hint: "Attackers study network maps, active IPs, and ports using tools like ping and port scanners.",
+                    rationale: "Reconnaissance attacks aim to gather target intelligence and identify active hosts and open ports."
+                },
+                {
+                    id: 7,
+                    question: "Which attacks fall under Access attacks?",
+                    options: [
+                        "Brute-force password guessing, trust exploitation, port redirection, and Man-in-the-Middle (MitM)",
+                        "Ping flood traffic generation",
+                        "Physical power cable sabotage",
+                        "Firmware upgrades"
+                    ],
+                    correct: 0,
+                    hint: "Goal is unauthorized access to confidential data or elevated privileges.",
+                    rationale: "Access attacks target unauthorized entry to user accounts, sensitive data, and system privileges."
+                },
+                {
+                    id: 8,
+                    question: "What is the essence of a Denial of Service (DoS) or Distributed Denial of Service (DDoS) attack?",
+                    options: [
+                        "Password theft via phishing",
+                        "Exhausting system resources or bandwidth to render services unavailable to legitimate users",
+                        "Reading encrypted VPN traffic",
+                        "SQL injection"
+                    ],
+                    correct: 1,
+                    hint: "Aimed at denying service to legitimate users.",
+                    rationale: "DoS/DDoS attacks exhaust CPU, memory, or bandwidth, blocking legitimate users."
+                },
+                {
+                    id: 9,
+                    question: "What is a botnet?",
+                    options: [
+                        "A network of compromised computers (zombies) controlled centrally for DDoS attacks",
+                        "A corporate developer network",
+                        "Cisco monitoring utilities",
+                        "Cloud backup system"
+                    ],
+                    correct: 0,
+                    hint: "Multiple infected machines executing hacker commands simultaneously.",
+                    rationale: "A botnet is a network of malware-infected hosts used for coordinated attacks or spam."
+                },
+                {
+                    id: 10,
+                    question: "What is the 'Defense-in-Depth' approach in security?",
+                    options: [
+                        "Using a single powerful firewall at the perimeter",
+                        "Deploying a combination of diverse security controls, policies, and services across multiple network layers",
+                        "Completely disconnecting from the internet",
+                        "Using wireless encryption exclusively"
+                    ],
+                    correct: 1,
+                    hint: "Security built like an onion with multiple protective layers.",
+                    rationale: "Defense-in-depth uses layered defenses (firewalls, IPS, VPN, AAA, host security) to prevent total breach."
+                },
+                {
+                    id: 11,
+                    question: "What does the acronym AAA stand for in network security?",
+                    options: [
+                        "Automation, Availability, Acceleration",
+                        "Authentication, Authorization, Accounting",
+                        "Absolute Attack Armor",
+                        "Application Access Agent"
+                    ],
+                    correct: 1,
+                    hint: "Who are you? What are you allowed to do? What did you do?",
+                    rationale: "AAA stands for Authentication, Authorization, and Accounting."
+                },
+                {
+                    id: 12,
+                    question: "Why is a Demilitarized Zone (DMZ) used in firewall configuration?",
+                    options: [
+                        "To house public-facing servers (e.g., web servers) while isolating them from the trusted internal network",
+                        "To completely disable traffic filtering",
+                        "To connect backup generators",
+                        "To store master password backups"
+                    ],
+                    correct: 0,
+                    hint: "A buffer zone between the public internet and the corporate network.",
+                    rationale: "A DMZ isolates public-facing servers, protecting the internal network if those servers are compromised."
+                },
+                {
+                    id: 13,
+                    question: "Which firewall inspection method tracks active TCP sessions and blocks uninitiated inbound packets?",
+                    options: [
+                        "Simple static port filtering",
+                        "Stateful Packet Inspection (SPI)",
+                        "Cable color filtering",
+                        "BIOS antivirus scanning"
+                    ],
+                    correct: 1,
+                    hint: "The firewall 'remembers' which connections were initiated from the inside.",
+                    rationale: "SPI inspects connection context, allowing only inbound packets that match legitimate outbound requests."
+                },
+                {
+                    id: 14,
+                    question: "Which Cisco IOS command encrypts all plaintext passwords in the running configuration?",
+                    options: [
+                        "`service password-encryption`",
+                        "`crypto key generate rsa`",
+                        "`enable secret cisco`",
+                        "`transport input ssh`"
+                    ],
+                    correct: 0,
+                    hint: "Global config command that applies Type 7 encryption.",
+                    rationale: "The `service password-encryption` command encrypts passwords in configuration files."
+                },
+                {
+                    id: 15,
+                    question: "What are standard best practices for creating strong passwords and passphrases?",
+                    options: [
+                        "Using pet names or birthdates for ease of recall",
+                        "Length of 8–10+ characters with mixed case, numbers, and symbols, or multi-word passphrases",
+                        "Leaving password fields blank",
+                        "Using numeric sequences like `12345678`"
+                    ],
+                    correct: 1,
+                    hint: "Passwords must withstand dictionary and brute-force attacks.",
+                    rationale: "Strong passwords require complexity, length, mixed character sets, or memorable multi-word phrases."
+                },
+                {
+                    id: 16,
+                    question: "Which command protects Cisco devices against brute-force attacks by locking out login attempts?",
+                    options: [
+                        "`login block-for # attempts # within #`",
+                        "`security passwords min-length 8`",
+                        "`exec-timeout 5 0`",
+                        "`no ip domain-lookup`"
+                    ],
+                    correct: 0,
+                    hint: "Temporarily blocks logins after a set threshold of failed attempts.",
+                    rationale: "The `login block-for` command locks out IPs or users after repeated failed login attempts."
+                },
+                {
+                    id: 17,
+                    question: "Why is SSH strongly recommended over Telnet for remote administration?",
+                    options: [
+                        "Telnet operates only on wireless networks",
+                        "SSH encrypts all transmitted traffic, whereas Telnet sends everything in plaintext",
+                        "SSH requires no passwords",
+                        "Telnet is supported only on legacy routers"
+                    ],
+                    correct: 1,
+                    hint: "Telnet is vulnerable to packet sniffers.",
+                    rationale: "SSH provides cryptographic session encryption, protecting credentials and commands from interception."
+                },
+                {
+                    id: 18,
+                    question: "What steps are required to configure SSH on a Cisco router?",
+                    options: [
+                        "Set hostname, configure domain-name, generate RSA keys (`crypto key generate rsa`), create local users, and enable SSH on vty lines",
+                        "Enter `ssh enable` in privileged mode",
+                        "Connect a USB console cable",
+                        "Shut down interfaces and reboot"
+                    ],
+                    correct: 0,
+                    hint: "Generating RSA keys is mandatory for SSH encryption.",
+                    rationale: "SSH setup requires a hostname, domain name, RSA keys, local user accounts, and `transport input ssh` on vty lines."
+                },
+                {
+                    id: 19,
+                    question: "What is the minimum recommended RSA key modulus length for SSH on network gear?",
+                    options: ["360 bits", "512 bits", "1024 bits", "64 bits"],
+                    correct: 2,
+                    hint: "Higher bit lengths increase cryptographic strength (1024 bits or higher is recommended).",
+                    rationale: "The minimum recommended RSA key size for SSH is 1024 bits."
+                },
+                {
+                    id: 20,
+                    question: "What security rule should be applied to unused services and ports on network devices?",
+                    options: [
+                        "Leave them enabled for future updates",
+                        "Disable all unused services and interfaces to reduce attack surface and resource usage",
+                        "Configure guest access without passwords",
+                        "Use them for speed testing"
+                    ],
+                    correct: 1,
+                    hint: "Fewer open ports mean fewer potential vulnerabilities for attackers.",
+                    rationale: "Disabling unneeded services minimizes the attack surface and lowers compromise risk."
+                }
+            ]
+        };
+
+        let currentModule = 1;
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let flaggedQuestions = {};
+        let startTime = Date.now();
+        let timerInterval;
+
+        for (let mod in quizData) {
+            userAnswers[mod] = {};
+            flaggedQuestions[mod] = {};
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+                const seconds = String(elapsed % 60).padStart(2, '0');
+                document.getElementById('overall-timer').innerText = `Time: ${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function switchModule(modNum) {
+            currentModule = modNum;
+            currentQuestionIndex = 0;
+
+            document.querySelectorAll('.module-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeTab = document.getElementById(`tab-${modNum}`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('quiz-container');
+            const questions = quizData[currentModule];
+            const q = questions[currentQuestionIndex];
+            const savedAnswer = userAnswers[currentModule][currentQuestionIndex];
+            const isFlagged = flaggedQuestions[currentModule][currentQuestionIndex] || false;
+            const alphabetLabels = ['a.', 'b.', 'c.', 'd.', 'e.'];
+
+            let html = `
+                <div class="question-shell">
+                    <aside class="question-status">
+                        <div class="question-number">Question ${currentQuestionIndex + 1}</div>
+                        <div class="status-block">
+                            <div class="status-inline"><span class="status-dot"></span> ${savedAnswer !== undefined ? 'Complete' : 'Not yet answered'}</div>
+                            <div>Marked 0.00 out of 3.00</div>
+                        </div>
+                        <label class="flag-toggle" for="flag-checkbox">
+                            <input type="checkbox" id="flag-checkbox" ${isFlagged ? 'checked' : ''} onchange="toggleFlag()">
+                            <span>${isFlagged ? 'Remove flag' : 'Flag question'}</span>
+                        </label>
+                    </aside>
+
+                    <div class="question-main">
+                        <h2 class="question-text">${q.question}</h2>
+                        <div class="option-list">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                let optionClass = 'option-item';
+
+                if (savedAnswer !== undefined) {
+                    if (idx === q.correct) {
+                        optionClass += ' correct';
+                    } else if (idx === savedAnswer) {
+                        optionClass += ' wrong';
+                    } else {
+                        optionClass += ' disabled';
+                    }
+                }
+
+                html += `
+                    <button type="button" onclick="selectOption(${idx})" ${savedAnswer !== undefined ? 'disabled' : ''} class="${optionClass}">
+                        <span class="option-letter">${savedAnswer !== undefined && idx === q.correct ? '✓' : (savedAnswer !== undefined && idx === savedAnswer && idx !== q.correct ? '✕' : alphabetLabels[idx].replace('.', ''))}</span>
+                        <span class="option-text"><span class="option-label">${alphabetLabels[idx]}</span> ${opt}</span>
+                    </button>
+                `;
+            });
+
+            html += `</div>`;
+
+            if (savedAnswer !== undefined) {
+                html += `
+                    <div class="answer-explanation">
+                        <strong>Hint</strong>
+                        <p>${q.hint}</p>
+                        <div style="height: 0.8rem;"></div>
+                        <strong>Rationale & Explanation</strong>
+                        <p>${q.rationale}</p>
+                    </div>
+                `;
+            }
+
+            html += `</div></div>`;
+
+            container.innerHTML = html;
+            document.getElementById('progress-indicator').innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            const moduleKeys = Object.keys(quizData).map(Number);
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0 && currentModule === moduleKeys[0];
+        }
+
+        function selectOption(optIndex) {
+            userAnswers[currentModule][currentQuestionIndex] = optIndex;
+            renderQuestion();
+        }
+
+        function toggleFlag() {
+            const isChecked = document.getElementById('flag-checkbox').checked;
+            flaggedQuestions[currentModule][currentQuestionIndex] = isChecked;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            const questions = quizData[currentModule];
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                const moduleKeys = Object.keys(quizData).map(Number);
+                const currentIdx = moduleKeys.indexOf(currentModule);
+                if (currentIdx < moduleKeys.length - 1) {
+                    switchModule(moduleKeys[currentIdx + 1]);
+                } else {
+                    showFinalScore();
+                }
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            } else {
+                const moduleKeys = Object.keys(quizData).map(Number);
+                const currentIdx = moduleKeys.indexOf(currentModule);
+                if (currentIdx > 0) {
+                    const prevMod = moduleKeys[currentIdx - 1];
+                    switchModule(prevMod);
+                    currentQuestionIndex = quizData[prevMod].length - 1;
+                    renderQuestion();
+                }
+            }
+        }
+
+        function showFinalScore() {
+            clearInterval(timerInterval);
+            let totalCorrect = 0;
+            let totalQuestions = 0;
+
+            for (let mod in quizData) {
+                quizData[mod].forEach((q, idx) => {
+                    totalQuestions++;
+                    if (userAnswers[mod][idx] === q.correct) {
+                        totalCorrect++;
+                    }
+                });
+            }
+
+            const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = `
+                <div class="col-span-4 bg-white p-10 rounded-xl border border-borderCol shadow-sm text-center space-y-6">
+                    <h2 class="text-3xl font-extrabold text-slate-900">Modules 1–16 Exam Completed! 🎉</h2>
+                    <p class="text-lg text-slate-600">You answered <span class="font-bold text-sky-700">${totalCorrect}</span> out of <span class="font-bold">${totalQuestions}</span> questions correctly.</p>
+                    <div class="inline-block bg-sky-50 border border-sky-200 p-5 rounded-2xl text-sky-800 font-bold text-xl">
+                        Success Rate: ${percentage}%
+                    </div>
+                    <div>
+                        <button onclick="resetQuiz()" class="bg-sky-700 hover:bg-sky-600 text-white px-8 py-3 rounded-xl font-semibold shadow-sm transition-all">Retake Quiz</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('prev-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('progress-indicator').style.display = 'none';
+        }
+
+        function resetQuiz() {
+            for (let mod in quizData) {
+                userAnswers[mod] = {};
+                flaggedQuestions[mod] = {};
+            }
+            startTime = Date.now();
+            startTimer();
+            document.getElementById('prev-btn').style.display = 'inline-block';
+            document.getElementById('next-btn').style.display = 'inline-block';
+            document.getElementById('progress-indicator').style.display = 'block';
+            const moduleKeys = Object.keys(quizData).map(Number);
+            switchModule(moduleKeys[0]);
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.dataset.theme === 'dark';
+            body.dataset.theme = isDark ? 'light' : 'dark';
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.textContent = isDark ? '🌙 Dark' : '☀️ Light';
+            }
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        startTimer();
+        const initialModuleKeys = Object.keys(quizData).map(Number);
+        switchModule(initialModuleKeys[0]);
+    </script>
+</body>
+</html>
